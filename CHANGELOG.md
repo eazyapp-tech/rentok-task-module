@@ -244,6 +244,43 @@ A photo question opens the camera and never the gallery — no exception, no set
 ### D53 — Review is set per checklist and is off by default
 A daily cleaning task is done when the person submits it. A move-out inspection or an audit switches review on. **Rejected:** reviewing everything — 200 approvals a day recreates the exact workload we are removing, and she would bulk-approve without looking, which is worse than no review. **Also rejected:** reviewing only failures — a faked pass is the submission you would most want a human to see.
 
+## Trust, permissions, content and semantics (D54–D63)
+
+### D54 — Harden the runner without adding a login
+Today `submitTask` takes the **doer's identity and the location from the request body** and stores them unverified, on a route with no authentication and a token that never expires. Only the timestamp is trustworthy — so the proof is a self-report, and D52 and D19 are honour systems. Three fixes, none of which adds a login step (a login is a drop-off the 3-second gate cannot afford):
+1. **Identity comes from the task record, not the caller.** Fan-out instances already store the person; stop accepting an identity parameter. Pooled tasks use the on-device name tap (D19).
+2. **Links expire** when the task's window closes, instead of working forever.
+3. **Location is checked server-side against the property and recorded — never blocking.** GPS fails indoors and on cheap phones; blocking would stop real work and staff would blame the app. A mismatch is flagged for the reviewer instead.
+
+Honest limits, accepted: a person can still forward their own link, and coordinates can be faked by a determined caller. Closing those needs a login and device attestation, which cost more adoption than they are worth. This moves us from "anyone can submit as anyone" to "the record is honest unless deliberately gamed."
+
+### D55 — Staff see only their own tasks and their own record
+Not other people's tasks, not other people's completion. **Why:** the moment staff can see each other's numbers we have built the leaderboard the bet forbids — by the back door, without anyone deciding to. It also keeps the runner small, which the cold-load gate needs.
+
+### D56 — Creating a rule rides on the permission to create tasks
+**This corrects an earlier recommendation.** A separate manager-only permission for rules was proposed on blast-radius grounds; that argument fails, because anyone who can create a recurring all-rooms task already generates hundreds of tasks a day. **The blast radius comes from scope, not from the condition** — and D35 already established that a rule *is* a recurring task, so a separate permission would re-split what we merged. If a guard is ever wanted, it belongs on scope ("who may target all rooms").
+
+### D57 — Five permission flags
+See tasks at the property · see only my own · **create and assign** (includes editing, and covers rules) · review (approve/reject) · **archive**. Editing work you assigned is ordinary; making a record disappear — even recoverably — is the one action nobody notices until they go looking, so it gets its own gate. Everyone keeps the access they have today when this ships (D13).
+
+### D58 — Recommendations come from property type and enabled modules
+On day one we recommend from what we actually know: PG / co-living / hostel, rough bed count, and which modules are on (food, meters, move-in/out). A food-enabled 60-bed PG gets a different starter set than a 200-bed co-living. **Learning from what similar properties keep running is the stronger version and comes later** — it needs adoption first, and today only a handful of properties use the module. Do not market the learned version yet.
+
+### D59 — RentOk's templates are the starting point; the operator can change them
+She can copy any template and edit its questions, or build one from scratch. **Why:** the blank box is the problem F9 exists to solve, but every property has quirks, and a template she cannot adjust is abandoned on first contact with reality. The engine already supports operator-authored question lists.
+
+### D60 — Room cleaning becomes an ordinary recurring task, pooled per room
+Today it is a hardcoded path: one task per room, **assigned to nobody**, with every staff member getting one shared link — so no room has an owner. It becomes a normal recurring task with all-rooms scope, **pooled** across the cleaning team: any of them can do a room, and whoever does taps their name (D19), so each room finally has a recorded doer. Existing schedules carry over untouched and the shortcut button stays, creating a normal task underneath. **Rejected:** fan-out per person — 200 rooms × 3 cleaners is 600 tasks a day, and somebody would have to decide who cleans which room every morning.
+
+### D61 — Move-in/move-out stays as it is; we connect at the edges
+It is a separate, tenant-facing, one-shot system that handles deposits, damage costing and invoices, and money depends on it (D14). We do not converge it. We connect: a room going through move-out can trigger the prep routine, and a failed inspection item raises a complaint the same way any task does. **Rejected:** rebuilding it as task templates — it touches deposit deductions, exactly where a mistake costs real money.
+
+### D62 — A failed item does not fail the task
+Nine items fine and one problem reported means the task is **complete, with a problem recorded**. The failed item is what raises the complaint (D38) and what appears in "problems by room". **Why:** marking the task failed punishes the person for reporting a fault, which is precisely how you teach staff to tick everything fine — and then we lose both the fault and the trust.
+
+### D63 — Required items must be answered before submitting
+The submission will not go through with a required item blank; everything else stays skippable. **Why:** "required" has to mean something or the checklist is decoration, and a required photo that was skipped is exactly the evidence a dispute needs. This sits alongside the task-level "couldn't do it, here's why" outcome (F15) — a person can report that the whole job was impossible, but cannot silently skip a required question.
+
 ---
 
 ## What this supersedes
