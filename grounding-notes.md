@@ -23,7 +23,7 @@ Every automation in the codebase is the **same shape — a timed cron that polls
 | Task scheduler (`taskSchedule`) | `next_run_at <= now` && `is_active` | Yes |
 | Dues / invoice crons | date-based (month rollover, due date) | Partly |
 
-**Design consequence.** A **standing rule** is a natural extension of the existing task scheduler (frequency + scope + `next_run_at`) with a condition and a stop-condition added — poll-and-evaluate, the grain the whole codebase already runs on. Instant event hooks are the expensive, later thing. This is why entity-linked completion is a **read-time status check** (D3), not a push.
+**Design consequence.** *(Updated 2026-08-04.)* This was originally read as "a standing rule is a cheap extension of the task scheduler." **Standing rules are deferred entirely (D64)**, so the live consequence is narrower: because nothing fires the instant a state changes, a task **shows the linked thing's state when it is read** (D65) rather than being told about it. Event hooks are not universally expensive — the move-out lock path is an existing seam and F3 uses it — but a general event bus is still the later, larger thing.
 
 ## 2. Room cleaning proves the thesis — "daily only" is a UI default, not a limit
 
@@ -55,7 +55,7 @@ Available segments include: all active tenants · has pending dues (and by due t
 | Rent / dues overdue | No — computed from an invoice scan | Medium |
 | **Room vacant / occupied** | **No — no `room.is_occupied`**; derived by joining room → beds → tenants | **Medium; the priciest** |
 
-**Design consequence.** The flagship example ("clean every vacant room until it is filled") reads the *least* clean state in the system. If room-state standing rules are core, a persisted occupancy signal is a scoped prerequisite worth deciding before the build, not discovering mid-build.
+**Design consequence.** *(Resolved 2026-08-04.)* The flagship example ("clean every vacant room until it is filled") reads the *least* clean state in the system, which would have needed a persisted occupancy flag maintained by every tenancy write path forever. **That is why the room condition was dropped (D64) and the flag with it.** Vacant-room readiness is now handled by a finished move-out creating the prep task directly (F3) — an event at a seam that already exists, needing no stored signal.
 
 ## 5. Destination surfaces for linked entities
 

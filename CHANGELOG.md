@@ -18,11 +18,13 @@ Two things live here: the **canonical sentences** (the exact words to use everyw
 
 These are the words. Use them exactly, everywhere. They are the model, settled.
 
-> **1. Nothing acts on its own — the system suggests, the person confirms.** No task closes itself, no complaint is raised without someone raising it, no standing rule switches on without an operator turning it on.
+*Sentences 1, 2, 3 and 9 were rewritten on 2026-08-04. They still described standing rules and suggest-close, both of which were dropped by D64 and D65 — so the sentences the other docs were told to copy exactly no longer matched the product.*
 
-> **2. A task tied to a real thing reads that thing's state and suggests; it does not write into it.** A task on a rent due suggests closing when the due is paid — it never marks the due paid.
+> **1. Nothing acts on its own — a person decides.** No task closes itself, no complaint is raised without someone raising it, and no alert becomes work without someone turning it into work.
 
-> **3. Entity linking is for context, filtering, navigation, and history — not for driving completion.** The one status-driven suggestion is a task tied to a due, whose whole purpose is a paid/unpaid state.
+> **2. A task tied to a real thing shows that thing's live state; it does not write into it, and it does not judge whether the work is done.** A task on a rent due shows *"₹8,000 · PAID, 2 Aug"* — it never marks the due paid, and it never decides the task is finished.
+
+> **3. Entity linking is for context, filtering, navigation, and history — not for driving completion.** Nothing about the linked thing closes a task. The person reads the state and decides.
 
 > **4. A task and a complaint linked to it run on separate statuses.** Closing one does not close the other; you can move between them from either side.
 
@@ -34,7 +36,7 @@ These are the words. Use them exactly, everywhere. They are the model, settled.
 
 > **8. A property runs on a system, not on one person's memory** — so it survives the manager's absence and the staff churning.
 
-> **9. A standing rule is the campaign model operators already know: a curated trigger, a cadence, and a stop condition — recommended and shipped ready to switch on, not a free-form rule builder.**
+> **9. An alert becomes work — one task per item, with an owner and a record.** RentOk already notices what is wrong; what it could not do is hand that to a person. Now it can, and a person decides who.
 
 > **10. A task assigned to several people works one of two ways: done by any one (it closes for all — "pooled"), or done by each one separately (each has their own copy — "fan-out"). The creator picks. Either way, the system records who did what.**
 
@@ -119,6 +121,7 @@ The codebase has built the two halves of a standing rule three times and never j
 `POST /tasks/trigger` is unauthenticated and there is no cron registration anywhere in the codebase — every recurring task depends on an unidentified external caller. Confirm what calls it today; if nothing reliable does, a proper scheduled job plus authentication becomes prerequisite work for the whole cycle. **Why it outranks everything:** every recurring feature specced here sits on top of it.
 
 ### D35 — A standing rule is a recurring task with a condition
+*(Superseded by D64 — standing rules are deferred. The half that survives is the framing itself: a rule **is** a repeating task, which is why F48/F49/F50 are kept for repeating tasks even though F6 is gone.)*
 Creating a rule *is* creating a recurring task: pick a checklist, a cadence, people, and for "where" pick a condition instead of a fixed list. **Rejected:** a separate Rules section — one extra choice in a known flow beats a second way to create work. The schedule table's existing scope field carries the condition.
 
 ### D37 — Rules start when the schedule says, and show their reach first
@@ -193,7 +196,7 @@ Ready-made checklists are translated; her own free text is not. She knows her st
 ## Behaviour decisions (D41–D45, decided rather than debated)
 
 ### D41 — Rule lifecycle
-Editing or deleting a rule affects **future** tasks only; tasks already created finish normally and keep their proof. Narrowing scope cancels only not-yet-started instances. When an entity stops matching, the open task **suggests closing** — it never closes itself (D1). Rules can be listed, edited, paused, resumed and archived, and show what they have produced.
+Editing or deleting a rule affects **future** tasks only; tasks already created finish normally and keep their proof. Narrowing scope cancels only not-yet-started instances. ~~When an entity stops matching, the open task **suggests closing**~~ *(dead — there are no conditions to stop matching, D64; and nothing suggests any more, D65).* Rules can be listed, edited, paused, resumed and archived, and show what they have produced — **this half survives as F48, applied to repeating tasks.**
 
 ### D42 — Ownership and dangling references
 When a manager is deactivated, her rules and pending reviews transfer to the owner or a named successor, and rules do not fire under a dead account. If a linked thing is deleted or merged, the suggestion goes quiet and the task survives and stays completable.
@@ -279,7 +282,7 @@ It is a separate, tenant-facing, one-shot system that handles deposits, damage c
 Nine items fine and one problem reported means the task is **complete, with a problem recorded**. The failed item is what raises the complaint (D38) and what appears in "problems by room". **Why:** marking the task failed punishes the person for reporting a fault, which is precisely how you teach staff to tick everything fine — and then we lose both the fault and the trust.
 
 ### D63 — Required items must be answered before submitting
-The submission will not go through with a required item blank; everything else stays skippable. **Why:** "required" has to mean something or the checklist is decoration, and a required photo that was skipped is exactly the evidence a dispute needs. This sits alongside the task-level "couldn't do it, here's why" outcome (F15) — a person can report that the whole job was impossible, but cannot silently skip a required question.
+The submission will not go through with a required item blank; everything else stays skippable. **Why:** "required" has to mean something or the checklist is decoration, and a required photo that was skipped is exactly the evidence a dispute needs. This sits alongside the task-level "couldn't do it, here's why" outcome (F15a) — a person can report that the whole job was impossible, but cannot silently skip a required question.
 
 ## Reversals after stress-testing (D64–D65)
 
@@ -302,9 +305,15 @@ We tested the five routines a condition was supposed to serve, and three of them
 
 **Also corrected:** the registry analysis was used to argue *for* conditions, on the grounds that 21 alerts are "dead ends". Re-reading it, the missing capability was never conditions — it was that **an alert cannot become work**. A condition would only automate creating that work. See D66.
 
-**What drops out:** F6, F48, F49, F50, and prerequisite P2 (the stored room-occupancy flag, a schema change plus a derived value to keep correct forever).
+**What drops out:** F6 and prerequisite P2 (the stored room-occupancy flag, a schema change plus a derived value to keep correct forever).
 
-**Accepted loss, stated plainly:** vacant-room readiness has **no home in V1** — not a condition, not an alert, and F3 is V1.1. The 7–10 day occupancy window is deliberately unaddressed until then. It should not be described as covered.
+> **Amended 2026-08-03 (adversarial review, D67–D79).** Two parts of this decision were revisited and changed.
+>
+> **F48, F49 and F50 are kept, reframed.** They were originally dropped with F6. But under D35 a rule *is* a recurring task, so listing, editing, pausing, archiving and seeing what a routine has produced is needed for **F5** whether or not conditions exist — otherwise a manager can switch a routine on and never inspect or stop it. F49's reach preview is if anything more useful for plain scope ("this will create 200 tasks every day") than for a condition. F48 is also where D78's "Not running — nobody assigned" guard lives.
+>
+> **Vacant-room readiness does get a home: F3 is pulled from V1.1 into this cycle.** The original loss was accepted on the grounds that no mechanism fitted. One does — a finished move-out creates the prep task directly, which needs no poller and no occupancy flag. Verified against the code: the move-out lock path exists and already raises complaints, including reusing an open one rather than duplicating it. The paragraph below is superseded.
+
+**Superseded loss (kept for the record):** *"vacant-room readiness has no home in V1 — not a condition, not an alert, and F3 is V1.1."* No longer true; see the amendment above.
 
 ### D65 — A task shows the linked thing's status; it never suggests the work is done
 **This supersedes D3 and most of D43.**
@@ -325,6 +334,150 @@ So an alert gets one action: **create work from this** — and it creates **one 
 **Rejected: one task linked to all twelve.** That needs multi-entity linking, which is deferred to V2 — and it makes closing ambiguous (if eight have paid, is it done?). One task per item avoids both, keeps each closure meaningful, mirrors how the alert count already falls as work is done, and produces a per-tenant attempt record that exists nowhere today.
 
 It reuses bulk assign (F33b), linking (F8) and a template (F9) applied to a set the alert has already worked out. Without it she taps the alert, sees the twelve, then re-selects those same twelve by hand in the task module.
+
+**Four rules that make it work, added by the adversarial review (D67–D79):**
+
+1. **Assign from the list behind a card, never the card itself.** The card is a count that changes daily; a task must be a fixed thing you can prove you did. Tap the alert, tick the rows, assign those.
+2. **Each registry entry is marked assignable or not**, one by one, not by category. "Tenants to install the app" is a visit; "WhatsApp balance low" is not.
+3. **A row shows when it already has a task out** — "assigned to Ravi" on the row, "3 of 5 assigned" on the card — or she assigns the same thing twice within a week and stops trusting the alert.
+4. **Handing over a task does not hand over the tenant's details.** The assignee sees the place and the action ("Room 204 — collect rent"), not the amount or the document history, unless they already hold that entity's permission. Dismissing a card never touches tasks created from it.
+
+**Scope:** the assign path ships this cycle against the cards live today; growing the registry stays on issue #6249, phased. New cards inherit the ability as they ship. **Side effect:** F20 *is* the existing home feed with an assign action, not a new screen.
+
+---
+
+# Decisions from the 2026-08-03 adversarial review (D67–D79)
+
+A hostile round-2 review produced 24 findings, worked one at a time with Sanchay. The grilling log — full argument, rejected alternative, and the three places the review was wrong — is at [review-round-2-decisions.md](review-round-2-decisions.md). Two of these correct earlier locked decisions (D13, D22); two were themselves corrected by a code check before landing.
+
+### D67 — The band rule: a thing Band B would lie without is Band B
+> **If a Band B feature would produce a false record without it, or would damage another part of RentOk, it belongs in Band B.**
+
+Band C's definition ("the promise holds, but there are visible holes") had no room for items that make a Band B feature *untrue*, so five were misfiled there. The test is tight on purpose: not "would this be better with it", but "does the record become false, or does another module break." F14, F24a and F33b all fail it and stay in Band C — no comments is worse, not false.
+
+**Five items move C → B:** **F53** (Ramu is permanently late, so F22 shows a failure that never happened) · **F15a** (blocked work and ignored work are identical in the record and in F21's numbers) · **F24c** (festival week records the whole team as failing, every year, permanently) · **F33a** (the guard going off at 10pm keeps open work that then goes overdue against him) · **F54** (*the second kind* — one leaking tap becomes seven live complaints and the queue Priya relies on becomes unusable).
+
+**Accepted cost:** Band B grows by five. If B is over capacity, that trade is engineering's to surface, not a reason to misfile the items.
+
+### D68 — The Brief stops calling the entity link ship-blocking; F8 moves to Band B
+The Brief's *"What has to ship for the bet to hold"* named four things as ship-blocking; two sat in Band C and one (F6) is now cut — so the Brief and the requirements disagreed about what the cycle is for.
+
+**The Brief was overclaiming, not the ranking.** What Priya misses on a Monday is the hour spent handing out work and not knowing afterwards whether it happened — *tell* and *prove*, which is what Band B already says. The entity link is what makes this ours rather than MaintainX's; that is a different sentence from "this has to ship."
+
+**F8 moves C → B.** D45 already decided it (*"the 'every task ever on this room or tenant' history view gets built — it is what linking is for"*), so the ranking contradicted a locked decision. It is also the screen a dispute needs: the tenant says the room was filthy at move-in, Priya opens room 204 and shows nine months of dated proof. Without the screen the proof exists and nobody can find it — which protects nobody, which is the bet.
+
+**The Brief's ship-blocking paragraph is rewritten** to match Band B, with differentiation moved to its own claim. **F1 is moot** — D65 replaced suggest-close with show-status.
+
+### D69 — Staff default to "see only my own"; D13 is corrected
+**This corrects D13.** D13 said every existing user keeps the access they have today. But the task controller checks nothing today (Audit, Domain 3 — zero `checkAuthInDb` calls), so "today's access" means *everything*. F26 would have shipped as a permission model with every flag open for everybody — a data model, not a control — and nothing scheduled the tightening. That also made **D55 false in production on release day**: the back-door leaderboard D55 exists to prevent would be open from the first morning.
+
+> Anyone who cannot create or assign work defaults to **"see only my own."** Everyone else keeps today's access.
+
+**Why it locks nobody out:** "see only my own" still shows a person every task assigned to them — their entire job. The only thing removed is other people's work, which D55 already forbade.
+
+**The migration's proxy — corrected after a code check.** The decision first claimed the rule "defines itself from the flags already on `team_member_property`." **Wrong** — there is not one task-related flag among that table's ~80 columns. So the migration uses **`view_team` / `add_team` / `edit_team`**: anyone without them defaults to "see only my own." Managing the team is the closest existing signal for "hands out work." **Rejected:** `daily_ops` (broader than assigning work) and splitting by account role (a senior manager who is not an admin would lose visibility on day one).
+
+**Ships in V1, inside M2, paired with M1.** It is a different value in a migration F26 already ships, not extra code; deferring means running the migration twice, and the second run *removes* access from people already using the module. D49's per-account enablement is the safety valve. **Accepted cost:** some week-one support calls, each answered by granting the assign permission.
+
+### D70 — Per-person numbers come from fan-out, never from pooled
+The review opened this as "pooled proof names people who were not there." **Sanchay narrowed it correctly: a missed pooled task carries no name at all** — nobody tapped, because nobody did it. So misses were never attributable and the review's example was wrong.
+
+**The real exposure is the completed side.** F21 promises "each person their own number." For a pooled task that can only be a count of self-taps, which fails twice: it is a ranking of people built from self-declarations (the side door into what D15 and D22 forbid), and it is permanently half the picture — someone who works hard and does not tap looks idle with no way to prove otherwise, while tapping becomes the rewarded behaviour.
+
+| Mode (D8) | Person on the record | Counted per person? |
+|---|---|---|
+| **Fan-out / single assignee** | Yes, before the work happens | **Yes — completions and misses.** Ravi's round is Ravi's whether he does it or not. |
+| **Pooled** | Only after completion, by self-tap | **No — neither direction.** |
+
+The self-stated name **stays visible on the individual task** — Priya needs "who do I ask about 204?" That is context; it stops being context the moment it is totalled. Room and property numbers are unaffected. A per-person miss count on fan-out is her working view, never a ranking, and the owner's screen keeps naming properties.
+
+**D60's wording is corrected.** A missed pooled task has no owner at all, so "today no room has a recorded owner" is only half-fixed: a completed room records who did it; a **missed pooled room is the cleaning team's**, not a person's.
+
+### D71 — The manager sees the same exceptions the owner sees; no head start
+**This reduces D22.** D22 promised *"escalation reaches the owner only after she has had a fair chance to see it first"* and **no requirement implemented it.** F22 gave the founder his exception list, F25a his digest, F18 escalated — and Priya, the named top-3 adoption risk, got neither a head start nor sight of what the owner sees about her property.
+
+**What ships:** she sees **the same exception list about her property that the owner sees about it** — same query, filtered to her property. She is never blindsided in a call and always knows what he is looking at. One screen, reusing F22.
+
+**What does not ship:** the head start. There is no rule that his thresholds are later than hers. **D22 is therefore reworded** to what is built — *no surprises*, not *first look* — because leaving the original sentence in the source of truth repeats exactly the problem D68 fixes.
+
+**Rejected:** an urgency override for critical failures — it needs a notion of critical checks that does not exist, and once there is an override she can never be sure which things bypass her.
+
+**Noted, not fixed:** F22's shape still works against D22's spirit. "Sunshine PG: 6 rooms not cleaned in 3 days", newest first, across eight properties, read on a Sunday — the owner is counting how often each name appears. That is a ranking arrived at by inference. It is the honest cost of giving the owner anything at all.
+
+### D72 — A property-wide audit is one task and one form; problems are free text
+**The review was wrong here and was corrected.** It proposed repeatable checklist blocks and by-floor scope so a monthly building audit would not fan out into 200 tasks. Over-built. A monthly audit is **one walk, one form, one monthly report** — which is what S2L does in Google Forms today, so it is observed behaviour, not a guess. It needs no new question type, no new scope branch, and no engineering.
+
+**The shape:** one property-wide task, monthly. "All rooms clean? / Lift working? / Generator checked?" plus a free-text question listing any problems found, with photos.
+
+**Accepted with the risk recorded:** problems are typed as free text, so a human still reads them and creates the tickets by hand. **This leaves S2L's stated top ask partly unmet** — their example was *"auditor marks 'Room 101 light broken', a human then has to create the ticket and assign it to Pankaj."* On a property-wide audit that human stays in the loop. **Rejected:** an "add a problem" picker (where / what / photo, pressed once per problem) that would have made each problem its own ticket via F2 and made "problems by room" countable in F21.
+
+**Partial mitigation that already exists:** per-room checklists are unaffected. Daily room cleaning is one task per room, so a failed item there already knows its room and raises the ticket through F31 → F2. Only the property-wide audit loses the room.
+
+**Open gap:** F2 assumes a complaint's location comes from the task's own location; nothing lets a problem name a place the task does not cover. Revisit if S2L complains about re-typing.
+
+### D73 — Reminder model: four moments, all batched
+The review's "real work has a window, not a deadline" half was **dropped**: setting the due time at the *end* of the acceptable window solves it with no build, and the only thing a real window adds is "not before X", whose two real cases are deferred anyway. **Guidance, not a field:** a due time means the end of the acceptable window, not the ideal moment; starter templates ship set up that way.
+
+**What the round actually surfaced** — raised by Sanchay — is that nothing said *when* a reminder arrives. A message at the due time is a notification of failure. D24 had a daily summary, immediate messages and escalation, with nothing in between.
+
+| Situation | What happens |
+|---|---|
+| Scheduled work due today | One morning message at the **property's send time**, carrying all links |
+| Ad-hoc work | A message the moment it is created, whatever the due date |
+| Has a due time, not done | **One nudge an hour before** — a count and one link, batched |
+| Has a date but no time, not done | **One nudge at 6pm**, fixed — same shape |
+| Self-task (F7) | Fires at the time the person set. No batch, no nudge, no escalation. |
+| Late | Escalation, rate-capped, daytime (D24 unchanged) |
+
+1. **The send time is per property, not per person.** Shift differences are handled by the manager setting a due time — there is no roster data (D34) and the system should not infer one.
+2. **Everything batches.** 200 rooms due at 11am is one nudge per person, not 200, or the WhatsApp number is throttled at the first large property.
+3. **The nudge carries a count and one link, never the task links.** The morning message is the delivery; the nudge is a poke. Repeating the links makes it a second morning message and people stop reading both.
+4. **6pm is a constant, not a setting.** It works for day staff and for night staff starting at 10pm.
+5. **Four message types is the ceiling.** D17 made WhatsApp the only channel with no fallback. Anything added later replaces one of these rather than joining them.
+
+**Rejected:** 11pm for the no-time nudge (nobody does property work then, it reaches people asleep, and it is a failure notice with an hour left) · anchoring reminders to a task's start as well as its due (recurring work already appears in the morning message on both days) · per-checklist or per-property nudge lead times.
+
+### D74 — Staff do not share phones; the persona claim is wrong
+The review raised that F40/D24 promise "one message per person per day" while WhatsApp delivers to a *number*. **Sanchay's correction: the shared-phone use case does not exist in RentOk's customer base.** Staff have their own numbers. **No build** — no name-labelling, no grouping by number, no kiosk mode.
+
+**This invalidates a claim carried in three docs**, all corrected: the **Brief's** persona section (*"share a cheap Android phone, often one between several"*), the **Audit's** cross-cutting list (*"shared devices — kiosk/quick-switch is the default deployment pattern"*), and **review-findings.md**, whose opening thread and strategic call #1 both rest on it.
+
+**The weak connection is real** and everything built for it stands — offline partial save, photo compression, the 3-second cold-load gate. Kiosk and quick-switch stay in the v2 backlog as a **watch item**, not a known gap.
+
+### D75 — Photos are deleted from the phone once uploaded
+F46/D52 make photo questions camera-only with no exception (unchanged — one gallery upload makes every photo worthless). F30/D63 make a required item un-skippable. Together, a camera that will not open means a required-photo checklist cannot be submitted by any route — and the commonest cause of that on a cheap Android is a full phone, which camera captures landing in the gallery cause.
+
+**One line in F39: once a photo has uploaded, the local copy is deleted.** The photo lives in RentOk, which is where the proof belongs.
+
+D67 already ships the two escape hatches (F15a, F53). **Rejected:** a gallery fallback when the camera fails (the hole becomes permanent the moment it exists) and keeping local copies for a few days to allow retry (F12's partial save already holds unsent work).
+
+### D76 — Translation is deferred; managers write in their own script
+**This replaces F13 as written.** The review argued F13 belonged in Band A — an English checklist answered by a Hindi reader produces answers to questions the person did not understand, which is a false record, which is Band A's own test.
+
+**The call: do not translate.** The manager writes tasks and her own checklists in her own script — Devanagari or any other vernacular. This extends D32 from ad-hoc tasks to all operator-authored content, needs no engineering, and covers most of what a cleaner reads.
+
+**Accepted:** the app's own words stay English (Submit, Overdue, Approve) — friction rather than a wall, and this module should not be the first one translated if the rest of the manager app is not. Other regional languages defer with it.
+
+**The one thing kept: RentOk's starter templates ship in Hindi as well as English.** F9 exists to remove the blank box and F47 has new properties start ready. English-only templates would force a Hindi-first manager to rewrite every one — the blank box with extra steps, in the feature built to prevent it. Writing the checklists twice is content work on templates being authored anyway.
+
+### D77 — Duplicate tasks on the same thing are allowed
+A uniqueness rule on task creation (one schedule + one period + one target = one task) was proposed to stop a scheduler retry producing a phantom "not done" record. **Rejected.** Duplicates created by a person are legitimate and must stay possible — a manager may deliberately create two tasks on the same room on the same day, and people close what they do not need. Recorded so nobody adds the constraint later.
+
+### D78 — F47 and F25a move to Band C; routines are created unassigned
+**F47 (new properties start with routines running) and F25a (the weekly WhatsApp digest to the owner) both move Band B → Band C.** Neither is the promise: F22 gives the owner his exception list and D71 gives Priya the same view of her property, so the digest is convenience on a screen that already exists.
+
+**How a new property starts.** The objection to F47 was that a brand-new property has no staff, so routines fire into nobody and the customer's first week is a list of failures. Routing them to the admin was considered and rejected — a 60-bed property switching on daily cleaning gives the owner 60 tasks a day while he is still hiring, and the property accumulates a failure history before anyone existed to succeed, which then poisons F21 and F22 the moment he does hire.
+
+**The landed answer:** routines are **created, enabled, and unassigned**. Nothing fires until the admin assigns someone, which he has to do anyway. He opens the app and sees his property already set up — F47's actual value.
+
+**Corrected after a code check — this needs a scheduler change, not zero work.** The claim that unassigned schedules already produce nothing was **wrong**. `taskScheduler.ts` creates one task per member *only* when members exist and `system_purpose !== 'room_cleaning'`; otherwise it creates **one task with `team_member_id = undefined`**. So an unassigned routine does run. **The fix: the scheduler skips any schedule with no assignees.** Because `room_cleaning` is deliberately excluded from fan-out today (D60's shared link, visible in code), **M1 must land first** — which D69 already requires for its own reasons.
+
+**One guard, inside F48, because "unassigned" is otherwise silent.** Ravi quits, Priya removes him from the cleaning routine, he was the last person on it, and cleaning stops silently for a week. F51 covers the person leaving; it does not cover a routine falling to zero people. So: a routine with nobody assigned displays **"Not running — nobody assigned"**, and removing the last person warns *"This will stop the routine. Continue?"*
+
+### D79 — "Couldn't do it" is free text; no holiday list
+**F15a's reason is free text.** **Rejected:** a short pick-list (*not home · refused · will do later · wrong person · no access*), which would have been countable — Priya seeing "not home ×8 this month" and switching to evening visits. Consequence accepted: she reads individual excuses and never learns the pattern. Consistent with D72, which chose free text on the same trade.
+
+**No property-level holiday list.** F24c (skip a single occurrence) is Band B under D67, so a festival is a few taps. A holiday list is a new screen and a new setting for something that happens a handful of times a year. **The review raised it and then withdrew it.** Revisit only if a property running many routines complains.
 
 ---
 

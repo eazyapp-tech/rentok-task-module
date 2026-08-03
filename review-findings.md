@@ -8,17 +8,23 @@ tags: [rentok, tasks, review, risk]
 
 # Product-Lens Review — Findings
 
+> **Status: historical.** This is the round-1 review, from before D19–D63 were written. Its behaviour findings were absorbed into those decisions; **strategic call #1 is withdrawn** (D74 — staff do not share phones) and several items reference standing rules and suggest-close, both of which were later dropped (D64, D65). Read it for the reasoning, not for what is true now. The current review is [review-round-2-decisions.md](review-round-2-decisions.md).
+
 Three independent reviewers critiqued [feature-requirements.md](feature-requirements.md) against the [CHANGELOG](CHANGELOG.md) and the [Brief](Task%20Module%20Brief.md): one on **flow completeness**, one **user-first**, one on **operational edge cases**. ~30 findings, deduped below.
 
 **Nothing here is applied yet.** The 7 strategic calls need a decision; the behavior decisions need to be written into the CHANGELOG as D19+ before the spec layer is built.
 
 ---
 
-## The one thread behind half of it
+## The one thread behind half of it — WITHDRAWN
 
-The persona says staff share **a cheap phone, one between several, on a weak connection**. The requirements solved the *weak-connection* half with rigor — offline partial save, photo compression, the 3-second 2G cold-load gate — and **ignored the shared-device half** (kiosk / quick-switch sits in the v2 backlog).
+> **Withdrawn 2026-08-03 (D74).** This section, and strategic call #1 below, rest on the persona claim that staff share one phone between several people. **That claim is wrong** — it is not true of RentOk's customer base; staff have their own numbers. Nothing here needs building: no actor-select, no kiosk, no quick-switch. The text is kept below so the reasoning is visible, not because it holds.
+>
+> **What survives:** the *weak-connection* half was always real, and everything built for it stands — offline partial save, photo compression, the 3-second cold-load gate. The identity question also survives in a much narrower form: a **pooled** task records a name by self-tap, which is why D70 forbids counting pooled taps per person. That is a rule, not a build.
 
-That single omission silently voids **F11** (proof "owned by the staff member"), **F16** (records who did it), **F17** ("their own record") and the bet itself: a record cannot protect a person if the phone does not know who is holding it. Shared-device identity is a **precondition** of three headline features, not a v2 nicety.
+~~The persona says staff share **a cheap phone, one between several, on a weak connection**. The requirements solved the *weak-connection* half with rigor — offline partial save, photo compression, the 3-second 2G cold-load gate — and **ignored the shared-device half** (kiosk / quick-switch sits in the v2 backlog).~~
+
+~~That single omission silently voids **F11** (proof "owned by the staff member"), **F16** (records who did it), **F17** ("their own record") and the bet itself: a record cannot protect a person if the phone does not know who is holding it. Shared-device identity is a **precondition** of three headline features, not a v2 nicety.~~
 
 ---
 
@@ -28,7 +34,7 @@ Recommendation on each is **yes**.
 
 | # | Call | Why |
 |---|---|---|
-| 1 | **Pull shared-device actor-select into this cycle** as a ship gate for F11/F16/F17 — a lightweight "who are you right now" before proof is collected or a task is closed | Without it the bet is false at launch and every proof record on a shared phone is mis-attributed |
+| 1 | ~~**Pull shared-device actor-select into this cycle**~~ **WITHDRAWN (D74)** — the shared-phone premise is wrong | Superseded by D70: pooled tasks record a self-tap, so pooled taps are never counted per person. No build. |
 | 2 | **Add a working "tell" path to the ship gates** (recurring + one recommended standing rule + templates reaching real staff), co-equal with the moat | Today the ship gate is the differentiator (F1) while the actual pain-killer — the manager's mornings spent assigning work — is soft-gated. That is backwards for the user |
 | 3 | **Extend "no scorecard" to managers and properties**; reframe F22/F25 as exceptions-to-help, not rankings; give the manager her own record as her defense | The anti-surveillance machinery all points down at staff while F18/F22/F25 build exactly the manager's stated fear. She is a named top-3 deal-blocker |
 | 4 | **Add a staff-facing bet surface** — a first-run and persistent framing that says "this is your record, no fines" | The bet currently exists only as internal decisions. Staff meet another form the boss makes them fill. We would be testing completion rate against a mechanism never shown to the person it must convince |

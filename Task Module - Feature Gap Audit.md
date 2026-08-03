@@ -392,7 +392,7 @@ These don't fit a domain but shape every decision:
 - **WhatsApp is the #1 channel in India.** Treat it as first-class, not bolt-on.
 - **Multilingual depth is survival** — Hindi + at least 4 regional languages, in UI AND content.
 - **High staff churn** — onboarding a new housekeeper must be <5 min; offboarding must auto-reassign.
-- **Shared devices** — kiosk/quick-switch is the default deployment pattern, not a corner case.
+- ~~**Shared devices** — kiosk/quick-switch is the default deployment pattern, not a corner case.~~ **Corrected 2026-08-03 (D74): this is not true of RentOk's customer base — staff have their own numbers.** Kiosk and quick-switch stay in the v2 backlog as a watch item, not a known gap. Domain 14's two shared-device rows should be read as [D]-tier future work rather than deployment reality. The low-bandwidth findings below are unaffected and stand.
 - **Compliance surface is wider than Western peers** — FSSAI, NBC fire, police verification, municipal licenses, GST.
 - **Low bandwidth + low-end Android** — 2G/3G, Android Go. Photo compression and offline are survival.
 

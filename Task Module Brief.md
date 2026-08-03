@@ -20,7 +20,7 @@ We are turning Task from a checklist app that does one job into the tool that te
 
 Start with the everyday problem. Most days the manager knows what needs doing and the staff wait to be told — even for work that is plainly their job. The manager spends the morning handing out the same instructions; the guard's rounds, the cleaner's routine, the meter reading happen only when someone says so. The module ends that. Each person's routine — the recurring work, the rules that fit the property's state, RentOk's own recommendation of what a property like this should run, and their own reminders — shows up on their phone each day, so they get on with their job instead of waiting for it to be handed to them. And anyone can set a routine for themselves or for the people they lead: a manager a weekly collection review for herself, a founder a monthly health report for each of his managers. Because the work is now happening in the app, it proves itself — and each level can see where the standard is being met and step in where it is not.
 
-Underneath, three things change. A task tied to a real thing in RentOk — a rent due, a tenant, a room — knows the real thing it is about and **suggests** what to do next; the person decides. A manager can set a standing rule once — "clean every vacant room daily until it is filled" — and the work appears on its own, for whoever matches, until they stop matching. And a task that finds a problem carries it straight into a complaint, details already filled in, ready to raise. Nothing acts on its own — the system suggests, the person confirms.
+Underneath, three things change. A task tied to a real thing in RentOk — a rent due, a tenant, a room — **shows that thing's live state**, so the person closing it can see what is actually true instead of checking another screen. An alert RentOk already raises — rent overdue, KYC missing — can be **turned into work**, one task per tenant, with an owner and a record. And a task that finds a problem carries it straight into a complaint, details already filled in, ready to raise. Nothing acts on its own — a person decides.
 
 Today the module can run a scheduled checklist and little else. This redesign lifts it to the standard every serious operations tool holds — and then adds the things none of them have, because only RentOk owns the rent, the tenants, and the standards the work is about.
 
@@ -52,15 +52,15 @@ The module serves a chain, and each link uses it to make the next one accountabl
 
 **Priya — the on-site manager (team leader).**[^1] Runs the property day to day; assigns the cleaning, chases the KYC, handles the angry tenant at 4pm. Reads Hindi more comfortably than English. Her stated fear (Persona Bible L178, L234): that this becomes the owner's way of catching her out — and a manager who feels watched quietly kills adoption for everyone under her. She holds her staff accountable through clear ownership and a review loop, not by hovering.
 
-**The housekeeping and maintenance staff.** Do the physical work. Change jobs often. Share a cheap Android phone, often one between several, on a weak connection. They are the people the proof is collected *from* — which is exactly why the proof has to protect them. Given clear tasks and their own record, they become accountable to the standard and efficient at meeting it, on their own.
+**The housekeeping and maintenance staff.** Do the physical work. Change jobs often. Work on a cheap Android phone on a weak connection.[^devices] They are the people the proof is collected *from* — which is exactly why the proof has to protect them. Given clear tasks and their own record, they become accountable to the standard and efficient at meeting it, on their own.
 
 **Ramu — the security guard.**[^2] Mans the gate, logs entries and exits, does the night rounds. His paper register is his job and his dignity. Position the app as replacing him and he resists; position it as the modern tool that makes his job respected and he adopts it.
 
 ## The root cause
 
-The module was built as a checklist runner, and everything wrong with it follows from that one starting point. A checklist runner records answers. It does not use the link between a task and the real thing it is about. It has no way to hold a standing rule — "while this is true, keep doing that." It does not know that a failed answer should open a complaint, that a person needs permission to see a task, or that anyone above the manager can see any of it. All of it is missing not because it was cut, but because a checklist runner has no place to put it.
+The module was built as a checklist runner, and everything wrong with it follows from that one starting point. A checklist runner records answers. It does not use the link between a task and the real thing it is about. It cannot take a problem RentOk has already spotted and hand it to a person as work. It does not know that a failed answer should open a complaint, that a person needs permission to see a task, or that anyone above the manager can see any of it. All of it is missing not because it was cut, but because a checklist runner has no place to put it.
 
-The fix is not more checklist features. It is teaching the module to use the link it already has, to run standing rules against the property's real state, and to give everyone in the chain — staff, manager, founder — the clear view and the honest proof they each need.
+The fix is not more checklist features. It is teaching the module to use the link it already has, to turn what RentOk already notices into work someone owns, and to give everyone in the chain — staff, manager, founder — the clear view and the honest proof they each need.
 
 ## The mission: tell people what to do, prove it, help them improve
 
@@ -88,11 +88,15 @@ That is the bet, and it holds even where it costs us. **We will not ship a built
 
 ## What has to ship for the bet to hold
 
-Two capabilities carry the bet, and nothing else matters if they slip. Together they are one outcome; as a plan they are two builds.
+**The three jobs are the ship gate.** Tell people what to do — routines with real scope reaching the right person on their phone. Prove it happened — proof collected as part of the work, owned by the person who collected it. Let each level see — one list for the manager, the exceptions for the owner, and the manager seeing the same list about her own property. If any of those three does not work, the module has not done what we said it does.
 
-**One — a task knows the real thing it is about, and rules run themselves.** A task can be tied to a rent due, a tenant, a room, or an asset. When a due is paid, the module reads its state and **suggests** the task is done; the person closes it. A manager sets a standing rule once — "clean every vacant room daily until it is filled," "follow up on every under-notice tenant weekly until they move out" — and the work appears for whoever matches, each cycle, and stops when they stop matching. When a check finds a problem, the module hands it into a **complaint with the details already written**, and the person raises it. Every one of these is a suggestion a human confirms. This is what no competitor can match, and it is ship-blocking this cycle.
+**Two things sit alongside that and make it ours rather than anyone's.** They are the reason to build this here instead of buying MaintainX, and they are not the same claim as "this has to ship."
 
-**Two — the business creates the task on its own.** Beyond rules the operator sets by hand, the property's own events make work appear — a move-out notice creates the deposit-inspection task, ready and assigned. This reaches into more parts of RentOk and is scheduled for the sprint right after this cycle — named, not quietly deferred.
+**One — a task knows the real thing it is about.** A task can be tied to a rent due, a tenant, a room, or an asset, and it **shows that thing's live state** so the person can decide: *"Room 204 · ₹8,000 due · PAID, 2 Aug."* It never judges whether the work is done. And every task ever done to room 204 can be looked up in one place, which is what a dispute or a handover actually asks for. A competitor cannot do this, because they do not own the rent, the tenant, or the room.
+
+**Two — a detected problem can become work, and a found problem becomes a ticket.** RentOk already notices what is wrong — rent overdue, KYC missing, a complaint running late. What it cannot do is turn that into work with an owner and a record. Now it can, one task per item. And when a check finds a fault, the module hands over a **complaint with the details already written** for a person to raise. Nothing acts on its own.
+
+**Named, not quietly deferred:** the property's *other* events making work appear on their own — beyond the move-out that now creates the room-prep task — is the sprint right after this one.
 
 Around those two, the redesign gives the module what every operations tool already has and ours does not, and the bet needs several of these to *be* the bet: **proof collected as part of the work** — location, time, signature, photo, all owned by the staff member first — this is the headline, not a footnote; the staff member's own record; a manager's **review loop** (approve, reject with a reason, send back); **due dates and reminders** that chase late work; a **comment thread** where staff and manager talk on a task, with the same person-tagging used elsewhere in RentOk; the module's **access control**, finally built, so each level sees what it should; a first cut of **insight** — what is failing and where; and the **checklist template library** that lets a manager set up the right tasks without a blank box, with RentOk recommending the ones a property like hers should run. The library is one deliverable inside this redesign, not a project beside it.
 
@@ -103,17 +107,20 @@ The PRD lists every one of these as a numbered requirement with its own test. Th
 The module carries three kinds of task, and puts them where people already look.
 
 - **The system raises it** — "rent overdue," "KYC pending" — the alerts RentOk already surfaces from the data. These stay as they are.
-- **A person assigns it** — the manager's scheduled and one-off work, and the standing rules. This is the redesign.
+- **A person assigns it** — the manager's scheduled and one-off work, including work she creates straight from an alert. This is the redesign.
 - **A person keeps it for themselves** — a self-to-do or a log, with a reminder. "Collect keys from 204 tomorrow." Private, light, no approval.
 
 For the manager, all three appear in the **same list she already checks, under the same categories** (Money, People, Compliance, Property, and the rest) — one place, whether the system raised the task or she did. The staff who do the physical work reach their own tasks through the runner, their working surface. Filling that manager list out to the full set of system alerts is a later phase, tracked separately so it does not weigh down this cycle.[^registry]
 
-Setting up standing rules should feel like something managers already do. They run message and feedback campaigns today — pick who it is about, pick a cadence, set it once, and it runs itself against whoever matches. A standing rule is the same idea applied to work. So we start with a **short, curated set of useful rules RentOk recommends and ships ready to switch on** — not a rule-builder to configure. The power to express anything comes later, through a different door (below), so the everyday operator never meets a developer tool.
+Making work appear on its own should feel like something managers already do — and it should start from what RentOk already knows. Today the home screen tells her five tenants owe rent and three need KYC. She can see the problem; she cannot hand it to anyone. So the redesign gives those alerts one action: **turn this into work.** She taps the alert, picks the rows she wants, assigns them, and gets one task per tenant — each with an owner, a due date, and a record of what was tried.
+
+**We deliberately did not build rules that watch conditions on their own.**[^rules] Three of the routines a rule was meant to serve turned out to be events rather than conditions, one is already handled by complaint escalation, and we have no evidence yet for which conditions an operator actually wants. We will learn that by watching which routines managers keep re-scoping by hand.
 
 ## What we will not build this cycle
 
 - **Fines, salary deductions, or a staff scorecard** — the bet forbids it. Staff who feel the tool can cost them money stop filling it honestly.
-- **Anything acting on its own** — the module suggests and pre-fills; a person always confirms. No task closes itself, no complaint is raised without someone raising it, no standing rule is switched on without an operator turning it on.
+- **Anything acting on its own** — the module shows and pre-fills; a person always decides. No task closes itself, no complaint is raised without someone raising it, no alert becomes work without someone turning it into work.
+- **Rules that watch a condition and create work on their own** — deferred until we have watched an operator want one.
 - **A free-form rule builder** — an "if this, then that" editor is a developer tool, not an operator tool. Curated, recommended rules this cycle; open-ended power comes through the assistant, later.
 - **Attendance and shift-clocking** — a different product; folding it in blurs what this module is for.
 - **Rebuilding move-out** — the move-out inspection is already a task that records deposit deductions correctly. We reuse it as the pattern; we do not touch it.
@@ -124,8 +131,8 @@ Each is a thing someone will argue for. Each is out because the user does not ne
 ## What success looks like
 
 **At launch, on the first real property:**
-- A manager sets up tasks from the template library without a blank box, switches on a recommended standing rule, and the right work reaches the right staff on its own.
-- A task tied to a rent due suggests closing when the due is paid, and a failed check hands the manager a ready-filled complaint — both wait for a person to confirm.
+- A manager sets up tasks from the template library without a blank box, turns a rent-overdue alert into work for three named tenants, and the right work reaches the right staff on its own each morning.
+- A task tied to a rent due shows whether it has been paid, so she closes it knowing, and a failed check hands the manager a ready-filled complaint — a person decides on both.
 - A staff member on a shared phone, on a weak connection, completes a task with proof, loses the network mid-way, and does not lose the work — and can see their own record of what they did.
 - The founder opens one view and sees which of his properties are keeping to the standard.
 
@@ -137,7 +144,7 @@ Each is a thing someone will argue for. Each is out because the user does not ne
 
 Once tasks know the real thing they are about, and rules run themselves, the module becomes the place a property's whole operating rhythm lives — and two horizons open.
 
-The property starts to run its own standards without being told to, twice: the event work that begins next cycle makes tasks appear from what is happening, and the standing rules keep quality up before it slips.
+The property starts to run its own standards without being told to. The move-out that now creates the room-prep task is the first of it; the rest of the property's events — a notice given, a warranty running out, a tenant joining — follow next cycle, so the work appears from what is actually happening. Rules that watch a condition are the step after that, once we know from real use which conditions matter.
 
 And the biggest one — **you build any of it by talking.** RentOk's assistant, grounded in the real property, lets an operator say "clean all vacant rooms on the second floor every day, and if it's not done by 6pm, tell me" — and the rule is built, drafted for the operator to confirm. This is where the open-ended power lives without a developer tool ever appearing on screen, and it is the accessibility unlock for the exact people the bet is about: Priya and Ramu, who read Hindi better than English, can *speak* the work into existence. A generic task app's assistant can build "a task"; it cannot build "a task for all vacant rooms on the second floor," because it does not own the rooms. We do. To keep that door open, this cycle builds task and rule creation as something the assistant can later call — not a screen it can never reach.
 
@@ -151,12 +158,17 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 [^2]: Ramu (guard) is a composite persona from the same Persona Bible. Sourced verbatim: line 192 — "If the app replaces his paper register, he may feel threatened. Position as 'modern security tools that make your job respected.'"
 
+[^rules]: **Reversed 2026-08-03 (D64).** Earlier versions of this brief sold standing rules — "clean every vacant room daily until it is filled" — as a headline capability and as ship-blocking. They are deferred entirely, along with the stored room-occupancy flag they needed. Vacant-room readiness is instead covered by a finished move-out creating the prep task directly (F3, pulled into this cycle), which needs no poller and no flag.
+
+[^devices]: **Corrected 2026-08-03 (D74).** Earlier versions of this brief said staff "share a cheap Android phone, often one between several." That is not true of RentOk's customer base — staff have their own numbers. The **weak connection is real** and everything built for it stands: offline partial save, photo compression, the 3-second cold-load gate. Shared-device kiosk and quick-switch stay in the v2 backlog as a watch item, not a known gap. The same wrong claim is corrected in the Feature Gap Audit and in `review-findings.md`.
+
 [^3]: Success measure is a launch A/B on staff completion rate plus qualitative interviews at week 4, comparing properties positioned "proof protects you" against a control. The claim that trust drives completion is the bet under test — measured, not assumed.
 
 [^registry]: Building the manager's list out to the full set of system-detected tasks (the 65-entry pending-tasks registry) is a separate later phase — GitHub issue eazyapp-tech/rentok-backend#6249, which links the registry specification.
 
 ## Changelog
 
+- **2026-08-04** — Reconciled with D64–D79. **Standing rules are out of the brief entirely** — they appeared in six places, including "what success looks like", describing a capability that was deferred. What replaces them: an alert RentOk already raises can be turned into work, one task per item. **Suggest-close is out too** — a task now *shows* the linked thing's live state and the person decides (D65). The "what has to ship" section was rewritten: the three jobs are the ship gate, and the entity link is what makes this ours, which is a different claim. The staff persona's shared-phone line was corrected (D74). Vacant-room readiness is back, via a finished move-out creating the prep task (F3).
 - **2026-07-21 (d)** — Raised the mission's why one level: a property that ran on the manager's memory now runs on a system, so it does not break when a person is busy, away, or gone. Named the continuity payoff — new hires inherit the routine, the property survives the manager's leave, new properties start from recommended routines — as the answer to staff churn.
 - **2026-07-21 (c)** — Rebalanced enablement-first. Named the everyday problem (people wait to be told, even for their own job; managers burn mornings assigning it) and made the module's first job "tell people what to do" — the routine runs itself, in every direction (self and reports), via recurring tasks, standing rules, recommendations, and reminders. Restructured the mission as three jobs — tell → prove → see — one loop, help not punishment. Accountability now sits as the trust layer of "prove," not the dominant theme.
 - **2026-07-21 (b)** — Expanded to the full mission: the module makes every level of the business accountable and efficient to the level below (founder → manager → staff → self), and encodes standards that run themselves and maintain quality before it slips. Reconciled accountability with the anti-surveillance bet (honest data beats coerced data). Added standing rules framed as the "campaign" model operators already know, the three task sources in one place, and the assistant ("build by talking") as the horizon where open-ended power lives without a developer tool. Curated recommended rules this cycle; free-form builder explicitly out.
