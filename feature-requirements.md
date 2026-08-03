@@ -32,9 +32,7 @@ Every requirement, with **what it is** and **what the operator loses without it*
 There is no scheduled job anywhere in the codebase; the trigger endpoint is open and depends on an unidentified external caller ([D40](CHANGELOG.md), backend issue #6363).
 *Without it:* recurring work silently never appears, and nobody finds out until a manager asks why the cleaning list is empty. Every recurring requirement below sits on this.
 
-**P2 — Store whether a room is empty, and keep it current.**
-Occupancy is computed today by joining rooms → beds → tenants on every check (D36).
-*Without it:* the vacant-room routine — the one with a 7–10 day readiness window and real money in lost occupancy — either cannot exist or is too slow to run daily at 200+ rooms.
+*(A second prerequisite — storing whether a room is empty — was dropped along with standing rules. See D64.)*
 
 ---
 
@@ -57,8 +55,8 @@ Always, with no per-checklist setting (D52).
 **F36 — Every submission is validated on the server against the checklist it belongs to.**
 *Without it:* answers are stored unchecked, so a "completed" record may not correspond to the questions that were asked. The evidence a dispute rests on is unverified.
 
-**F44 — Each task keeps the checklist version it was created from.**
-*Without it:* editing a live checklist invalidates work already in progress — a person's answers are rejected or silently re-interpreted against different questions, and their effort is lost.
+**F44 — A checklist with open tasks cannot be edited; you save it as a new one instead.**
+*Without it:* editing a live checklist invalidates work already in progress — a person's answers are rejected or judged against questions they never saw, and their effort is lost. (Version-pinning every task would also solve this; blocking the edit is the cheaper fix. Engineering to confirm which.)
 
 **F37 — An edit log on every task, and a lock after submission.**
 Who changed what and when; a submitted record cannot be quietly altered (D44).
@@ -89,17 +87,15 @@ Daily, weekly, monthly, chosen weekdays (Mon/Wed/Fri), and a chosen date each mo
 Picked the way a complaint's location is picked, but multi-select with an "all rooms" option (D20).
 *Without it:* every task a manager creates covers the whole property. "Clean each room" is impossible outside the one hardcoded cleaning button, and per-room accountability cannot exist.
 
-**F42 — Operators add their property's areas once, and pick them like rooms.**
-Lobby, lift, stairs, terrace (D21).
-*Without it:* the most common cleaning work in a building — the shared spaces — has nowhere to attach, so it can't be scoped, tracked, or reported per area.
+*(Operator-managed areas — lobby, lift, stairs — moved to V1.1. In V1 a shared space is named in the task and grouped with a tag (F43); what we give up is per-area history, which nobody is asking for yet.)*
 
 **F16 — Assign to several people two ways: pooled or one-each.**
 Pooled means any one person completes it and it closes for all; one-each gives everyone their own copy. Either way the system records who did what (D8, D19).
 *Without it:* "someone clean the lobby" and "each guard does their own round" become the same thing — so either three people do the same job, or nobody is responsible for it.
 
-**F6 — A recurring task can watch a condition instead of a fixed list.**
-Four groups (D50): room is empty / about to empty · dues overdue · missing KYC, unsigned agreement, pending police verification · complaint open past its time. It carries a start time, a cadence, and a stop condition, and shows how many match before it is switched on (D35, D37).
-*Without it:* every routine whose targets change by themselves has to be re-assigned by hand, weekly, forever — the rooms that fell vacant, the tenants who went overdue, the documents still missing. This is the difference between a list the manager maintains and one that maintains itself.
+**F58 — Turn an alert into work: one task per item.**
+The pending-task alerts are already live — they stay on screen, update in real time, and respect who can see them. This adds one action: *create work from this*. Twelve overdue dues become **twelve tasks**, each linked to its own due, all assigned in one action, and she can pick a subset from the filtered list (D66).
+*Without it:* she taps the alert, sees the twelve, then goes to the task module and re-selects those same twelve by hand. The alert can show a problem but can never become work with an owner and a record — which is the gap between the two halves of the product.
 
 **F9 — A checklist library to start from, which the operator can change.**
 RentOk recommends a starter set based on property type and which modules are on; she can copy any template and edit its questions, or write her own (D58, D59).
@@ -143,8 +139,9 @@ Only their own — not other people's tasks or completion (D55).
 *Without it:* the proof belongs to the owner rather than the person who collected it, and the bet the module rests on is not actually built.
 
 **F29 — The question types a real inspection needs.**
-Beyond today's five (yes/no, text, number, single-select, photo): rating, pass/fail/not-applicable, multi-select, several photos, voice note, date and time, a measurement with a unit, and a non-input instruction block.
+Rating, pass/fail/not-applicable, multi-select, several photos, voice note, date and time, a measurement with a unit, and a non-input instruction block.
 *Without it:* an inspection cannot record "not applicable", a quality score, or a meter reading — so the checklists that matter most cannot be written.
+*Note for the build:* the builder already supports a **select with options**, so pass/fail/not-applicable is a three-option select and a 1–5 rating is a five-option select — configuration, not new code. Genuinely new: several photos on one item, and the instruction block.
 
 **F30 — Per-item settings.**
 Mark an item required (and a required item must be answered before submitting — D63), require a photo on it, attach a reference picture, group items into sections, add a note.
@@ -227,29 +224,17 @@ Rules do not fire under a dead account (D42).
 Recorded as done by her, for them; those people are left out of automatic escalation (D30).
 *Without it:* the guard's work is either missing from the system or permanently late, and his late tasks make the property's numbers wrong from day one.
 
-**F48 — Manage rules: list, edit, pause, resume, archive, and see what each has produced.**
-Editing affects future work only; work already created finishes and keeps its proof (D41).
-*Without it:* she can switch a rule on but never check it, correct it, or stop it.
-
-**F49 — Show how many rooms or people a rule will affect before it is switched on.**
-(D37)
-*Without it:* she turns on a routine blind and either floods her staff or stops trusting the feature.
-
-**F50 — A rule that only produces ignored work pauses itself.**
-Five firings with no completions, or nothing completed in 14 days; nothing is deleted and she is told why (D33).
-*Without it:* one forgotten rule quietly buries the list and the notification channel.
-
-**F54 — A repeat failure joins the open complaint instead of raising another.**
-Each day's failure is added to the existing thread with that day's photo; a resolved complaint means the next failure starts a fresh one (D29).
+**F54 — When raising a complaint from a failure, show the open ones for that room first.**
+The person adds this failure to an existing complaint — with today's photo — or starts a new one. They decide; the system does not match them automatically (D29, simplified per D65).
 *Without it:* one leaking tap becomes seven complaints in a week, and the queue she relies on for real tenant issues becomes unusable.
 
 **F8 — Link a task to a real thing, and see everything ever done to it.**
 A due, tenant, room or asset — for context, filtering, navigation and history (D2).
 *Without it:* "what has been done to room 204 this year" cannot be answered, which is the question a dispute or a handover actually asks.
 
-**F1 — A task linked to a due suggests closing when the due is fully paid.**
-Only fully settled — never partial, refunded or waived (D3, D43); a person confirms (D1).
-*Without it:* someone closes collection tasks by hand after checking payments in another screen.
+**F1 — A task shows the live state of the thing it is linked to.**
+"Room 204 · ₹8,000 due · PAID, 2 Aug", or "Partially paid, ₹3,000 of ₹8,000". It never judges whether the work is done — the person reads the real state and closes it (D65).
+*Without it:* she checks another screen to find out whether the tenant paid before she can close the task — and the task list slowly disagrees with the alert it came from.
 
 **F43 — A freeform tag on a task, for filtering.**
 For anything with no entity behind it — "monsoon prep", "owner visit" (D21).
@@ -267,7 +252,9 @@ Includes personal tasks (D26).
 
 ## Later — deferred with a named home
 
-- **F3 — The business creates tasks from its own events** (move-out notice → prep task). **[V1.1]** — needs cross-module hooks; the second half of the moat.
+- **F3 — The business creates tasks from its own events** (a move-out completes → prepare the room). **[V1.1]** — needs cross-module hooks. **This is where vacant-room readiness lives**, and where automation genuinely belongs.
+- **F6 — A recurring task that watches a condition** (standing rules), with rule management, a preview before switching on, and self-pausing guards. **[Later]** — deferred entirely (D64). Three of the five routines it was meant to serve turned out to be events, not conditions; one is already handled by complaint escalation; and we have no evidence yet for which conditions operators actually want. We will learn that by watching which tasks they keep re-scoping by hand.
+- **F42 — Operator-managed areas** (lobby, lift, stairs) as pickable places with their own history. **[V1.1]** — tags carry it in V1.
 - **F28 — Build tasks and rules by talking to the assistant.** **[Later]** — rides on the RentOk AI work; F27 keeps the door open.
 - **F34 — Score a checklist from its ratings.** **[V2]**
 - **F35 — Conditional items, and scanning an asset's code.** **[V2]**
@@ -298,6 +285,12 @@ Ships to all users — there is no pilot (D47) — but enablement is controlled 
 ## Not building
 
 Fines, salary deductions, or a staff scorecard — for anyone, including managers (D15, D22) · anything that acts without a person confirming (D1) · a free-form if-this-then-that rule builder (D7) · attendance and shift clocking · a native Task tab (D11) · rebuilding move-in/move-out (D14, D61) · the guard's visitor register.
+
+## What changed in version 2.1
+
+Stress-tested after v2.0 and cut. **Standing rules are deferred entirely** (D64) — F6, rule management, preview and guards all go, along with the stored room-occupancy prerequisite. **A task no longer suggests that work is done; it shows the live state of the thing it is linked to** (D65) — that removes a hand-written rule for every kind of linked thing, each of which could be wrong. **An alert can now be turned into work, one task per item** (D66, F58) — the small bridge that lets a detected problem become work with an owner. Operator-managed areas moved to V1.1; complaint matching became "show the open ones and let the person choose"; checklist editing is blocked while tasks are open rather than version-pinned.
+
+**Stated plainly:** vacant-room readiness has **no home in V1**. Not a condition, not an alert, and F3 is V1.1. The 7–10 day occupancy window is deliberately unaddressed until then.
 
 ## What changed in version 2.0
 

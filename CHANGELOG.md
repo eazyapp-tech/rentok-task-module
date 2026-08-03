@@ -281,6 +281,51 @@ Nine items fine and one problem reported means the task is **complete, with a pr
 ### D63 — Required items must be answered before submitting
 The submission will not go through with a required item blank; everything else stays skippable. **Why:** "required" has to mean something or the checklist is decoration, and a required photo that was skipped is exactly the evidence a dispute needs. This sits alongside the task-level "couldn't do it, here's why" outcome (F15) — a person can report that the whole job was impossible, but cannot silently skip a required question.
 
+## Reversals after stress-testing (D64–D65)
+
+Both of these reverse earlier decisions. They are recorded with their reasoning so nobody re-derives the original position from scratch — which is exactly how we arrived at it the first time.
+
+### D64 — Standing rules are deferred; nothing conditional ships in V1
+**This supersedes D7, D33, D35, D36, D37, D41 and D50.**
+
+We tested the five routines a condition was supposed to serve, and three of them were never conditional problems:
+
+| Routine | What it actually is |
+|---|---|
+| Prepare a room before move-out | An **event** — notice gets given. Belongs to F3 (V1.1). |
+| Clean empty rooms until filled | Also an **event** — a move-out completes, then the room is prepared. S2L's own data shows room prep is a 7–10 day job after a vacancy, not a daily sweep. |
+| Re-visit slow complaints | **Already built.** The complaint module escalates on its own clock — 48h to L2, 72h to L3, configurable per property. A condition would rebuild production machinery. |
+| Chase overdue rent | Genuinely conditional, but **mostly served**: the alert already lists who is overdue, and she turns it into work (D66) linked to each due. |
+| Collect missing documents | Same shape as rent. |
+
+**The argument that decided it:** we have no evidence for which conditions matter. We reasoned our way to five; we never watched an operator want one. Ship recurring work with real scope and a good template library, then watch which tasks operators keep re-editing the scope of — those are the ones that want a condition, and they will tell us with behaviour instead of our guesswork.
+
+**Also corrected:** the registry analysis was used to argue *for* conditions, on the grounds that 21 alerts are "dead ends". Re-reading it, the missing capability was never conditions — it was that **an alert cannot become work**. A condition would only automate creating that work. See D66.
+
+**What drops out:** F6, F48, F49, F50, and prerequisite P2 (the stored room-occupancy flag, a schema change plus a derived value to keep correct forever).
+
+**Accepted loss, stated plainly:** vacant-room readiness has **no home in V1** — not a condition, not an alert, and F3 is V1.1. The 7–10 day occupancy window is deliberately unaddressed until then. It should not be described as covered.
+
+### D65 — A task shows the linked thing's status; it never suggests the work is done
+**This supersedes D3 and most of D43.**
+
+Suggest-close needed a hand-written rule for every kind of linked thing — paid for a due (but not partially paid, refunded or written off), a flag for KYC, a non-empty link for an agreement, a different flag for police verification, a date comparison for a warranty, one of 22 values for a complaint. Six kinds, six bespoke rules, each able to be wrong. Dues alone already needed three carve-outs. That is a growing pile of special cases, not a mechanism — and **a wrong "this looks done" is worse than no suggestion**, because it closes work that was never finished.
+
+Instead the task **displays the current state of the thing it is linked to** and the person decides: *"Room 204 · ₹8,000 due · PAID, 2 Aug"*, or *"Partially paid, ₹3,000 of ₹8,000"*.
+
+Why this is better on every axis: no per-entity rules, so a new kind of linked thing costs nothing · nothing can be wrongly suggested, because nothing is interpreted · it tells her more, not less · it explains the gap when the alert has dropped to eight while twelve tasks are still open · and it is honest — "your task shows the live state of the thing it is about" is defensible, where "it knows when you are done" was always going to be wrong sometimes.
+
+If managers later ask for a nudge, we add it **only for dues**, where the rule is unambiguous — the same learn-first approach as D64.
+
+### D66 — An alert can be turned into work, one task per item
+The pending-task alerts are a live surface: they stay visible, update in real time, respect who can see them, and tap through to a filtered list. What they cannot do is become work with an owner and a record.
+
+So an alert gets one action: **create work from this** — and it creates **one task per item**, not one task covering many. Twelve overdue dues become twelve tasks, each linked to its own due, all assigned in one action, and she can pick a subset from the filtered list.
+
+**Rejected: one task linked to all twelve.** That needs multi-entity linking, which is deferred to V2 — and it makes closing ambiguous (if eight have paid, is it done?). One task per item avoids both, keeps each closure meaningful, mirrors how the alert count already falls as work is done, and produces a per-tenant attempt record that exists nowhere today.
+
+It reuses bulk assign (F33b), linking (F8) and a template (F9) applied to a set the alert has already worked out. Without it she taps the alert, sees the twelve, then re-selects those same twelve by hand in the task module.
+
 ---
 
 ## What this supersedes
