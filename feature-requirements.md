@@ -8,7 +8,7 @@ tags: [rentok, tasks, requirements]
 
 # Task Module Redesign — Feature Requirements
 
-Every requirement, one line. This is the scannable master list and the canonical F-numbering — the [PRD](Task%20Module%20PRD.md) elaborates each F#, the [workflow specs](workflows/) show each flow, the [CHANGELOG](CHANGELOG.md) holds the decisions (D#) behind them. Tags: **[cycle]** this cycle · **[next]** next sprint · **[later]** a named later phase · **[v2]** backlog.
+Every requirement, one line. This is the scannable master list and the canonical F-numbering — the [CHANGELOG](CHANGELOG.md) holds the decisions (D#) behind them, and the PRD and per-flow workflow specs (to be written) elaborate each F#. Tags: **[cycle]** this cycle · **[next]** next sprint · **[later]** a named later phase · **[v2]** backlog.
 
 ## The moat
 
@@ -103,7 +103,9 @@ Everything scoped out of this cycle, kept so it is not lost:
 
 Where the accumulated work lives, so nothing from earlier sessions is orphaned:
 
-- **Detailed brief** (all the long-form richness): `archive/task-module-brief-detailed.md`, and the original working draft in the `rentok-checklist-library` repo (PR #6).
+- **v0 original brief** (where the scope, moat framing, and 18 must-ships were first worked out): `archive/task-module-brief-v0-original-2026-07-18.md`. Superseded — see its header.
+- **Superseded PRD and pre-mortem** (wrong model, kept for structure and surviving risks): `archive/task-module-prd-SUPERSEDED.md`, `archive/task-module-pre-mortem-SUPERSEDED.md`.
+- **This session's code grounding and the product-lens review:** `grounding-notes.md`, `review-findings.md`.
 - **Engineer evidence:** `Task Module - Feature Gap Audit.md` — 15 domains, ~250 capabilities scored against the code.
 - **Vault research:** `RentOk/Product/pending-tasks-registry.md` (65 tasks), `T6 Proactive Tasks — v2 Candidates.md` (48), the COMP-0xx task/complaint rules, and the Persona Bible (`icp_and_personas.md`).
 - **This session's grounding** (destination surfaces for write-backs; the announcement/survey filter + trigger mechanics; the room-cleaning frequency finding; the comment/@mention reuse) → being folded into the Audit and the workflow specs' Engineering Notes so it is captured in the doc set, not only in conversation.

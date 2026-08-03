@@ -1,13 +1,23 @@
 ---
-title: "PRD: Task Module Redesign"
+title: "PRD: Task Module Redesign (SUPERSEDED)"
 date: 2026-07-20
 version: "1.0"
-status: "draft"
+status: "superseded"
 owner: "Sanchay"
-tags: [rentok, prd, tasks]
-companion_brief: "Task Module Brief.md"
-companion_audit: "Task Module - Feature Gap Audit.md"
+tags: [rentok, prd, tasks, superseded]
 ---
+
+> # ⛔ SUPERSEDED — DO NOT BUILD FROM THIS
+>
+> **Kept for its structure and history only.** This PRD is wrong at the model layer, not merely out of date.
+>
+> **What is wrong in it:** it describes tasks *writing back* into other modules — "marks the invoice paid", "marked verified", "five write-backs" as the moat. That direction is incorrect. A task **reads** the state of the thing it is linked to and **suggests**; it never writes into it. It also links tasks to a KYC *state* (a task links to a **tenant**), treats move-out deductions as something to build (that already exists — reuse it), and states "rent overdue → no collection task appears" (that is an existing system-raised task, a different kind).
+>
+> **Its F-numbers collide.** This doc uses its own F1–F13 scheme in which F8 is the template library. The canonical scheme is **F1–F40** in `../feature-requirements.md`, where F8 is entity linking and F9 is the library. Never cite an F-number from this file.
+>
+> **Read instead:** `../CHANGELOG.md` (the source of truth — canonical sentences + decisions D1–D18), `../feature-requirements.md` (F1–F40), `../Task Module Brief.md`.
+>
+> A replacement PRD is to be written from the CHANGELOG and the canonical F-list.
 
 # PRD: Task Module Redesign
 

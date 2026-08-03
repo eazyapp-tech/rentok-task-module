@@ -106,7 +106,7 @@ Recurring cadence (daily/weekly/monthly) is operator-editable. The task engine a
 
 ## What this supersedes
 
-- The **"five outward write-backs"** framing in the prior working-draft brief (preserved at `archive/task-module-brief-detailed.md` and in the `rentok-checklist-library` repo). Tasks do not write back into dues/KYC/assets — see D2. Any doc that says a task "marks the invoice paid" or "marks the tenant verified" is stale.
+- The **"five outward write-backs"** framing in the v0 brief (preserved at `archive/task-module-brief-v0-original-2026-07-18.md`), and in the superseded PRD and pre-mortem (`archive/task-module-prd-SUPERSEDED.md`, `archive/task-module-pre-mortem-SUPERSEDED.md`). Tasks do not write back into dues/KYC/assets — see D2. Any doc that says a task "marks the invoice paid" or "marks the tenant verified" is superseded by this file.
 - Any framing of the checklist template library as a **parallel workstream** — it is one feature requirement inside this redesign.
 
 ## Changelog of this changelog

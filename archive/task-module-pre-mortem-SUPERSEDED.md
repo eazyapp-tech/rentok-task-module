@@ -1,11 +1,22 @@
 ---
-title: "Pre-Mortem: Task Module Redesign"
+title: "Pre-Mortem: Task Module Redesign (SUPERSEDED)"
 date: 2026-07-20
 owner: "Sanchay"
-status: "draft"
-tags: [rentok, risk, pre-mortem, tasks]
-sources: "Task Module Brief.md, Task Module PRD.md, Task Module - Feature Gap Audit.md"
+status: "superseded"
+tags: [rentok, risk, pre-mortem, tasks, superseded]
 ---
+
+> # ⛔ SUPERSEDED — DO NOT PLAN FROM THIS
+>
+> **Kept because several of its risks survive.** It was written against the old "write-backs" model, which is wrong: a task **reads** its linked thing's state and **suggests**; it never writes into another module.
+>
+> **What no longer applies:** T4 (a write-back corrupting rent/deposit/complaint) is largely moot — that mechanism is not being built. Every "write-back" framing in here is dead.
+>
+> **What still stands, and should carry into the replacement:** staff reading the tool as surveillance (T1), the runner failing on 2G/shared phones (T3), the access-control migration locking users out (T5), partial work lost on a shared device (T6), and an English-only launch (T9).
+>
+> **Also missing:** everything found in the 2026-07-21 product-lens review — see `../review-findings.md` (shared-device identity, notification storms, standing-rule integrity, lifecycle holes). The replacement pre-mortem must start from those.
+>
+> **Read instead:** `../CHANGELOG.md`, `../feature-requirements.md`, `../review-findings.md`.
 
 # Pre-Mortem: Task Module Redesign
 
