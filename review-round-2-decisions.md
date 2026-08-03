@@ -2,15 +2,27 @@
 title: "Task Module — Round-2 Review: Grilling Log"
 date: 2026-08-03
 owner: "Sanchay"
-status: "complete — 24 findings worked, D64–D77 to fold into CHANGELOG"
+status: "complete — folded into CHANGELOG as D67–D79"
 tags: [rentok, tasks, review, decisions]
 ---
 
 # Round-2 Review — Grilling Log
 
 Adversarial review findings, worked through one at a time. Each row gets a decision.
-When all are decided, the accepted ones become D64+ in [CHANGELOG.md](CHANGELOG.md) and the
-band moves are applied to [feature-requirements.md](feature-requirements.md).
+
+> **Numbering warning.** This log numbers its own decisions **D64–D77**. A parallel session had
+> already taken D64–D66 in the CHANGELOG, so when these were folded in they became **D67–D79**,
+> and this log's D64 was dropped (the CHANGELOG's own D64 + D66 say the same thing better).
+> **The CHANGELOG is the source of truth for D-numbers** — use the mapping below, not the
+> numbers in this file.
+>
+> | Here | In CHANGELOG.md |
+> |---|---|
+> | D64 (standing rules dropped) | folded into the existing **D64** + **D66** |
+> | D65 → D77 | **D67 → D79**, in order |
+>
+> This file is kept for the *argument* behind each call — what was rejected and why, including
+> the three places the review was wrong. For what was decided, read the CHANGELOG.
 
 ## Order (dependency-sorted)
 
@@ -181,7 +193,7 @@ decided they should not have.
 **How the migration decides who is staff — corrected 2026-08-03 after a code check.** The
 decision originally said the rule "defines itself from the flags already on
 `team_member_property`." **That was wrong.** There is not one task-related flag anywhere in that
-table's ~80 columns — no `view_task`, no `create_task`, nothing (which is the Audit's Domain 3
+table's 94 columns — no `view_task`, no `create_task`, nothing (which is the Audit's Domain 3
 zero, confirmed). So the migration must use an existing proxy.
 
 **The proxy: anyone without `view_team` / `add_team` / `edit_team` defaults to "see only my

@@ -1,7 +1,7 @@
 ---
 title: "Task Module — Feature Requirements"
-date: 2026-07-21
-version: "2.0"
+date: 2026-08-04
+version: "2.2"
 owner: "Sanchay"
 status: "current"
 tags: [rentok, tasks, requirements]
@@ -24,11 +24,17 @@ Every requirement, with **what it is** and **what the operator loses without it*
 
 **The rule that decides between B and C (D67):** *if a Band B feature would produce a false record without it, or would damage another part of RentOk, it belongs in Band B.* The test is tight — not "would this be better with it", but "does the record become false, or does another module break." F14, F24a and F33b all fail it and stay in C.
 
+**Finding an F-number:** **A** — F26, F36, F37, F38, F41, F44, F45, F46 · **B** — F2, F3, F4, F5, F7, F8, F9, F10, F11, F12, F13, F15a, F16, F17, F18, F19, F20, F21, F22, F24c, F29, F30, F31, F32, F33a, F39, F40, F48, F49, F50, F53, F54, F57, F58 · **C** — F1, F14, F15b, F24a, F24b, F25a, F25b, F27, F33b, F43, F47, F51, F52 · **Later** — F3b, F6, F28, F34, F35, F42
+
 **Prerequisites** and **migrations** are listed separately. They are sequencing facts, not priorities.
 
 ---
 
 ## Prerequisites — nothing below works without these
+
+**P0 — The scheduler must skip any routine with nobody assigned.**
+Today it does the opposite: with no assignees it creates **one task with no owner** (`taskScheduler.ts` — per-member fan-out is gated on members existing *and* `system_purpose !== 'room_cleaning'`). So a new property with starter routines fires tasks at nobody from day one (D78). **Runs with M1**, because room cleaning today deliberately creates unassigned tasks — skipping before M1 would stop cleaning dead.
+*Without it:* F47 ships and a brand-new customer's first week is a list of failures against a property with no staff, and every unassigned routine writes false "not done" records.
 
 **P1 — A reliable, authenticated scheduler that fires recurring work.**
 There is no scheduled job anywhere in the codebase; the trigger endpoint is open and depends on an unidentified external caller ([D40](CHANGELOG.md), backend issue #6363).
@@ -116,7 +122,7 @@ Five firings with no completions, or nothing completed in 14 days; nothing is de
 *Without it:* one forgotten routine quietly buries the list and the notification channel.
 
 **F3 — A finished move-out creates the room-prep task.**
-Pulled from V1.1 (D64 as amended). The move-out lock path already exists and already raises complaints, so this is a call at a seam that is there, not new machinery — and it needs no stored occupancy flag.
+Pulled from V1.1 (D64 as amended). The move-out lock path already exists and already raises complaints, so this is a call added to code that is already there, not new machinery — and it needs no stored occupancy flag.
 *Without it:* vacant-room readiness has no home at all. A room falls empty, nobody is reminded to make it show-ready, and the 7–10 day window with real money in it depends on the manager remembering.
 
 **F7 — Keep tasks for yourself, with reminders.**
@@ -128,7 +134,16 @@ Every period is its own task: an unfinished one closes as *not done* when the ne
 *Without it:* nothing is ever late, nothing chases itself, and a missed day silently disappears — so the record cannot show whether the work actually happened.
 
 **F40 — Notifications: four moments, all batched.**
-(D24, D17, D73.) Scheduled work due today arrives as **one morning message at the property's send time**, carrying all the links. Ad-hoc and rejected work notifies **the moment it happens**. Anything not done gets **one nudge** — an hour before its due time, or at 6pm if it has a date but no time — carrying a count and one link, never the task links. Escalation sends separately, rate-capped, inside daytime hours. Self-tasks (F7) sit outside all of it and fire at the time the person set.
+(D24, D17, D73.)
+
+| When | What arrives |
+|---|---|
+| Scheduled work due today | One morning message at the property's send time, carrying all links |
+| Ad-hoc or rejected work | A message the moment it happens |
+| Has a due time, not done | One nudge an hour before — a count and one link |
+| Has a date but no time, not done | One nudge at 6pm |
+| Self-task (F7) | At the time the person set. No batch, no nudge, no escalation |
+| Late | Escalation, rate-capped, daytime |
 Two rules hold it together: **the send time is per property, not per person** (there is no roster data — shift differences are handled by the due time the manager sets, D34), and **everything batches** — 200 rooms due at 11am is one nudge, not 200.
 *Without it:* at 200 rooms a daily routine sends thousands of messages, WhatsApp throttles or blocks the number, and staff mute the only channel that reaches them. And a message that arrives at the due time is a notice of failure, not a reminder.
 
@@ -170,6 +185,7 @@ Nine items fine and one fault reported means the task is complete with a problem
 **F2 — A reported problem hands over a complaint, pre-filled, raised with one tap.**
 It carries the issue and asset details, links to the task, runs on its own status, and uses the complaint module's existing category routing so it reaches the right person automatically (D38, D18, D4).
 *Without it:* a fault found during an inspection dies in a form. This is the single thing S2L is waiting for, and the reason an audit today needs a person to re-type findings into a ticket.
+*Partly, not wholly:* on a property-wide audit the problems are free text (D72), so a person still creates those tickets by hand. F2 removes the re-typing only where the task already knows its room.
 
 ### Letting each level see
 
@@ -197,27 +213,24 @@ Shows the state of the *work*, and each person their own number — never a rank
 *Without it:* the off-site owner is still asking managers how things are going, which is the position he pays us to get out of — and the manager is blindsided in a call by a list she has never seen, which is the fear that makes her kill adoption for everyone under her.
 
 **F53 — A manager can complete a task on behalf of someone without a smartphone.**
-Recorded as done by her, for them; those people are left out of automatic escalation (D30). Moved up from Band C (D67).
-*Without it:* the guard's work is either missing from the system or permanently late — so F21's on-time rate and F22's exception list both show a failure that never happened, about the one person with no way to argue back.
+Recorded as done by her, for them; those people are left out of automatic escalation (D30).*Without it:* the guard's work is either missing from the system or permanently late — so F21's on-time rate and F22's exception list both show a failure that never happened, about the one person with no way to argue back.
 
 **F15a — A "couldn't do it" outcome with a reason.**
-Free text (D79). Moved up from Band C (D67).
-*Without it:* blocked work looks identical to ignored work — "tenant was asleep" is recorded as a failure — and a person whose camera will not open has no way to submit at all.
+Free text (D79).*Without it:* blocked work looks identical to ignored work — "tenant was asleep" is recorded as a failure — and a person whose camera will not open has no way to submit at all.
 
 **F24c — Skip or reschedule a single occurrence.**
 Moved up from Band C (D67).
 *Without it:* a festival or a one-off clash means turning the whole routine off, and often forgetting to turn it back on — and every festival day is recorded as the whole team failing, permanently.
 
 **F33a — Reassign a task, including by the person holding it.**
-This is what replaces shift handover (D34, D25). Moved up from Band C (D67).
-*Without it:* the guard going off duty at 10pm has to wake the manager to pass on his open work — or it stays his and goes overdue against him.
+This is what replaces shift handover (D34, D25).*Without it:* the guard going off duty at 10pm has to wake the manager to pass on his open work — or it stays his and goes overdue against him.
 
 **F54 — When raising a complaint from a failure, show the open ones for that room first.**
-The person adds this failure to an existing complaint — with today's photo — or starts a new one. They decide; the system does not match them automatically (D29, simplified per D65). Moved up from Band C (D67).
+The person adds this failure to an existing complaint — with today's photo — or starts a new one. They decide; the system does not match them automatically (D29, simplified per D65). *Build note: the move-out path looks up complaints with no open/closed filter, so the "show me the open ones" check is new work, not a pattern to copy.*
 *Without it:* one leaking tap becomes seven complaints in a week, and the queue she relies on for real tenant issues becomes unusable.
 
 **F8 — Link a task to a real thing, and see everything ever done to it.**
-A due, tenant, room or asset — for context, filtering, navigation and history (D2). Moved up from Band C (D68), which is what D45 already decided.
+A due, tenant, room or asset — for context, filtering, navigation and history (D2).
 *Without it:* "what has been done to room 204 this year" cannot be answered, which is the question a dispute or a handover actually asks — so the proof exists and nobody can find it.
 
 ---
@@ -248,7 +261,7 @@ Rules do not fire under a dead account (D42).
 *Without it:* a departed manager's routines keep generating work nobody owns, and her pending approvals block forever.
 
 **F47 — New properties start with their routines already set up; existing ones are offered them.**
-(D48.) The routines are **created, enabled and unassigned**, so nothing fires until the admin assigns someone — he opens the app and sees the property already set up, with no failure history piling up against nobody (D78). Moved down from Band B.
+(D48.) The routines are **created, enabled and unassigned**. For nothing to fire until the admin assigns someone, the scheduler must skip routines with no assignees — see **P0** — he opens the app and sees the property already set up, with no failure history piling up against nobody (D78).
 *Without it:* she has to do the setup work before she gets anything back. That is how a busy manager stops using something in the second week.
 
 **F25a — A weekly digest to the owner over WhatsApp.**
@@ -325,7 +338,13 @@ An adversarial round-2 review, worked finding by finding (D67–D79; log at [rev
 
 **Two locked decisions were corrected.** D13 would have shipped every permission open to everybody, making D55 false in production on day one — staff now default to "see only my own" (D69). D22 promised the manager a first look that nothing implemented — she now sees the same exception list about her property that the owner sees (D71).
 
-**Also:** per-person numbers come from fan-out only, never from pooled self-taps (D70) · notifications gained a reminder before the deadline and a per-property send time (D73) · photos are deleted from the phone after upload (D75) · translation is deferred and the manager writes in her own script, but starter templates ship bilingual (D76) · duplicate tasks are explicitly allowed (D77) · new properties get their routines created unassigned, and the scheduler skips routines with nobody on them (D78).
+**Also:**
+- Per-person numbers come from fan-out only, never from pooled self-taps (D70)
+- Notifications gained a reminder before the deadline, and a send time set per property (D73)
+- Photos are deleted from the phone after they upload (D75)
+- Translation is deferred and the manager writes in her own script, but starter templates ship bilingual (D76)
+- Duplicate tasks are explicitly allowed (D77)
+- New properties get their routines created unassigned, and the scheduler must skip routines with nobody on them (D78, P0)
 
 **Three review findings were wrong and were corrected by Sanchay or by a code check:** the monthly building audit is one form, not 200 tasks (D72) · staff do not share phones, which invalidates a persona claim carried in three docs (D74) · and "unassigned means nothing runs" was not true of the scheduler, so D78 needs a real code change rather than none.
 

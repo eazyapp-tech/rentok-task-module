@@ -1,8 +1,8 @@
 ---
 title: "Task Module — Product Vision Brief"
-date: 2026-07-21
+date: 2026-08-04
 owner: "Sanchay"
-status: "draft"
+status: "current"
 companion: "Task Module - Feature Gap Audit.md"
 tags:
   - rentok
@@ -18,7 +18,7 @@ tags:
 
 We are turning Task from a checklist app that does one job into the tool that tells a property's people what to do each day, proves it was done, and lets each level see and help the next — so no one waits to be told, and no one feels watched.
 
-Start with the everyday problem. Most days the manager knows what needs doing and the staff wait to be told — even for work that is plainly their job. The manager spends the morning handing out the same instructions; the guard's rounds, the cleaner's routine, the meter reading happen only when someone says so. The module ends that. Each person's routine — the recurring work, the rules that fit the property's state, RentOk's own recommendation of what a property like this should run, and their own reminders — shows up on their phone each day, so they get on with their job instead of waiting for it to be handed to them. And anyone can set a routine for themselves or for the people they lead: a manager a weekly collection review for herself, a founder a monthly health report for each of his managers. Because the work is now happening in the app, it proves itself — and each level can see where the standard is being met and step in where it is not.
+Start with the everyday problem. Most days the manager knows what needs doing and the staff wait to be told — even for work that is plainly their job. The manager spends the morning handing out the same instructions; the guard's rounds, the cleaner's routine, the meter reading happen only when someone says so. The module ends that. Each person's routine — the recurring work, RentOk's own recommendation of what a property like this should run, and their own reminders — shows up on their phone each day, so they get on with their job instead of waiting for it to be handed to them. And anyone can set a routine for themselves or for the people they lead: a manager a weekly collection review for herself, a founder a monthly health report for each of his managers. Because the work is now happening in the app, it proves itself — and each level can see where the standard is being met and step in where it is not.
 
 Underneath, three things change. A task tied to a real thing in RentOk — a rent due, a tenant, a room — **shows that thing's live state**, so the person closing it can see what is actually true instead of checking another screen. An alert RentOk already raises — rent overdue, KYC missing — can be **turned into work**, one task per tenant, with an owner and a record. And a task that finds a problem carries it straight into a complaint, details already filled in, ready to raise. Nothing acts on its own — a person decides.
 
@@ -31,8 +31,8 @@ A property runs on work that has to happen every day and has to be provable: roo
 The Task module was built for one shape of this: a manager schedules a checklist, a staff member fills it in. That is where it stops. Today:
 
 1. When a cleaning check fails, nothing happens — no complaint, no follow-up, no record that anyone noticed.
-2. A task can be pinned to a real thing — a rent due, a tenant — but the module does nothing with that link. The due gets paid and the task still sits open, waiting for someone to notice and close it by hand, even though the system already knows.
-3. There is no way to say "keep doing this while the condition holds." A room falls vacant and no one is reminded to keep it clean and show-ready until it fills. The manager remembers, or it slips.
+2. A task can be pinned to a real thing — a rent due, a tenant — but the module does nothing with that link. The task never shows whether the tenant has paid, so she checks another screen before she can close it.
+3. Nothing the system already notices can be handed to a person as work. A room falls vacant and no one is told to make it show-ready; the home screen says five tenants owe rent and there is no way to send anyone to collect. The manager remembers, or it slips.
 4. Tasks carry no due date, so nothing is ever late and nothing chases itself. There is no review — a manager cannot approve a task, reject it with a reason, or send it back.
 5. The module has no access control of its own — the link staff submit through is open, and the controller checks no permissions.
 
@@ -42,13 +42,13 @@ So people keep the real system where it has always been: in their head, on Whats
 
 Every competitor in this category — MaintainX is the clearest — sells the same thing: a way for an owner to watch whether staff did their jobs. They are watch-tools with friendly paint. The proof they collect is proof *against* the person who collected it. That sells, but it fights the person filling the form, and in a high-churn, low-trust staffing market that is a slow leak.
 
-None of them can do the things we can. They do not own the rent due, the tenant record, or the complaint queue, so their tasks cannot know the real thing they are about. They do not know how a property like yours operates, so they cannot suggest the rules you should run. And they cannot hold a real chain of people accountable, because a watch-tool only ever points down at the worker. We can do all of it, because we already run the property the work is about.
+None of them can do the things we can. They do not own the rent due, the tenant record, or the complaint queue, so their tasks cannot know the real thing they are about. They do not know how a property like yours operates, so they cannot recommend the checklists you should run. And they cannot hold a real chain of people accountable, because a watch-tool only ever points down at the worker. We can do all of it, because we already run the property the work is about.
 
 ## Who we are building for — the chain of accountability
 
 The module serves a chain, and each link uses it to make the next one accountable and efficient — never by watching harder, always by making the work and its proof clear.
 
-**The founder / multi-property owner.**[^owner] Runs several properties, rarely on any one. Today he trusts and hopes, and finds out about a problem when it is already loud. He sets the standard — the checklists, the rules a property like his should run — and sees which properties and managers are keeping to it. He holds his managers accountable for their property's health, across all of them at once, without being on-site.
+**The founder / multi-property owner.**[^owner] Runs several properties, rarely on any one. Today he trusts and hopes, and finds out about a problem when it is already loud. He sets the standard — the checklists a property like his should run — and sees which properties and managers are keeping to it. He holds his managers accountable for their property's health, across all of them at once, without being on-site.
 
 **Priya — the on-site manager (team leader).**[^1] Runs the property day to day; assigns the cleaning, chases the KYC, handles the angry tenant at 4pm. Reads Hindi more comfortably than English. Her stated fear (Persona Bible L178, L234): that this becomes the owner's way of catching her out — and a manager who feels watched quietly kills adoption for everyone under her. She holds her staff accountable through clear ownership and a review loop, not by hovering.
 
@@ -66,7 +66,7 @@ The fix is not more checklist features. It is teaching the module to use the lin
 
 Underneath all three is one shift. Today a property runs on the manager's memory and daily instruction; the module makes it run on a system instead. The routines, the standards, and the record stop living in one person's head — so the property does not break when that person is busy, on leave, or gone. The module does three things toward that, in the order a person meets them. They are one loop, not three tools — the same work, told, proved, and seen.
 
-**It tells you what to do.** This is the everyday heart of it, and it is help, not oversight. People wait to be told — even for their own job — and managers burn their mornings telling them. The module gives each person their routine: the recurring work, the rules that fit the property's state, RentOk's recommendation of what a property like this should run, and their own reminders. The work shows up; they do it; no one has to chase. That is daily efficiency that manages itself, and it runs in every direction — a founder sets a monthly routine for each manager, a manager a weekly one for herself, a staff member a reminder for a job they must not forget. The standards a property runs on get set once and then keep themselves: automated by the rules, and applied **before** quality drops — the vacant room kept show-ready so it fills faster, the check done before the warranty lapses, the follow-up sent before the rent is badly overdue.
+**It tells you what to do.** This is the everyday heart of it, and it is help, not oversight. People wait to be told — even for their own job — and managers burn their mornings telling them. The module gives each person their routine: the recurring work, RentOk's recommendation of what a property like this should run, and their own reminders. The work shows up; they do it; no one has to chase. That is daily efficiency that manages itself, and it runs in every direction — a founder sets a monthly routine for each manager, a manager a weekly one for herself, a staff member a reminder for a job they must not forget. The standards a property runs on get set once and then keep running, and they are applied **before** quality drops — the vacant room kept show-ready so it fills faster, the check done before the warranty lapses, the follow-up sent before the rent is badly overdue.
 
 **It proves it was done** — with the proof owned by the person who did it. This is where accountability comes from, and it is not punishment. The photo and the timestamp are the worker's defense first and the record second. The proof is honest because the tool is built to protect the person giving it — and honest proof is the only kind worth holding anyone to.
 
@@ -114,14 +114,14 @@ For the manager, all three appear in the **same list she already checks, under t
 
 Making work appear on its own should feel like something managers already do — and it should start from what RentOk already knows. Today the home screen tells her five tenants owe rent and three need KYC. She can see the problem; she cannot hand it to anyone. So the redesign gives those alerts one action: **turn this into work.** She taps the alert, picks the rows she wants, assigns them, and gets one task per tenant — each with an owner, a due date, and a record of what was tried.
 
-**We deliberately did not build rules that watch conditions on their own.**[^rules] Three of the routines a rule was meant to serve turned out to be events rather than conditions, one is already handled by complaint escalation, and we have no evidence yet for which conditions an operator actually wants. We will learn that by watching which routines managers keep re-scoping by hand.
+**We are not building rules that watch conditions on their own — not this cycle.**[^rules] Three of the routines a rule was meant to serve turned out to be events rather than conditions, one is already handled by complaint escalation, and we have no evidence yet for which conditions an operator actually wants. We will learn that by watching which routines managers keep re-scoping by hand.
 
 ## What we will not build this cycle
 
 - **Fines, salary deductions, or a staff scorecard** — the bet forbids it. Staff who feel the tool can cost them money stop filling it honestly.
 - **Anything acting on its own** — the module shows and pre-fills; a person always decides. No task closes itself, no complaint is raised without someone raising it, no alert becomes work without someone turning it into work.
 - **Rules that watch a condition and create work on their own** — deferred until we have watched an operator want one.
-- **A free-form rule builder** — an "if this, then that" editor is a developer tool, not an operator tool. Curated, recommended rules this cycle; open-ended power comes through the assistant, later.
+- **A free-form rule builder** — an "if this, then that" editor is a developer tool, not an operator tool. Open-ended power comes through the assistant, later.
 - **Attendance and shift-clocking** — a different product; folding it in blurs what this module is for.
 - **Rebuilding move-out** — the move-out inspection is already a task that records deposit deductions correctly. We reuse it as the pattern; we do not touch it.
 - **A native Task tab in the mobile app** — the runner and the manager's list reach the app through the existing web view, not a new tab.
@@ -133,7 +133,7 @@ Each is a thing someone will argue for. Each is out because the user does not ne
 **At launch, on the first real property:**
 - A manager sets up tasks from the template library without a blank box, turns a rent-overdue alert into work for three named tenants, and the right work reaches the right staff on its own each morning.
 - A task tied to a rent due shows whether it has been paid, so she closes it knowing, and a failed check hands the manager a ready-filled complaint — a person decides on both.
-- A staff member on a shared phone, on a weak connection, completes a task with proof, loses the network mid-way, and does not lose the work — and can see their own record of what they did.
+- A staff member on a weak connection completes a task with proof, loses the network mid-way, and does not lose the work — and can see their own record of what they did.
 - The founder opens one view and sees which of his properties are keeping to the standard.
 
 **Six months on:**
@@ -142,11 +142,11 @@ Each is a thing someone will argue for. Each is out because the user does not ne
 
 ## What this makes possible next
 
-Once tasks know the real thing they are about, and rules run themselves, the module becomes the place a property's whole operating rhythm lives — and two horizons open.
+Once tasks know the real thing they are about, the module becomes the place a property's whole operating rhythm lives — and two horizons open.
 
 The property starts to run its own standards without being told to. The move-out that now creates the room-prep task is the first of it; the rest of the property's events — a notice given, a warranty running out, a tenant joining — follow next cycle, so the work appears from what is actually happening. Rules that watch a condition are the step after that, once we know from real use which conditions matter.
 
-And the biggest one — **you build any of it by talking.** RentOk's assistant, grounded in the real property, lets an operator say "clean all vacant rooms on the second floor every day, and if it's not done by 6pm, tell me" — and the rule is built, drafted for the operator to confirm. This is where the open-ended power lives without a developer tool ever appearing on screen, and it is the accessibility unlock for the exact people the bet is about: Priya and Ramu, who read Hindi better than English, can *speak* the work into existence. A generic task app's assistant can build "a task"; it cannot build "a task for all vacant rooms on the second floor," because it does not own the rooms. We do. To keep that door open, this cycle builds task and rule creation as something the assistant can later call — not a screen it can never reach.
+And the biggest one — **you build any of it by talking.** RentOk's assistant, grounded in the real property, lets an operator say "clean all vacant rooms on the second floor every day, and if it's not done by 6pm, tell me" — and the work is drafted for her to confirm. This is also where rules that watch a condition eventually return: spoken, not configured. This is where the open-ended power lives without a developer tool ever appearing on screen, and it is the accessibility unlock for the exact people the bet is about: Priya and Ramu, who read Hindi better than English, can *speak* the work into existence. A generic task app's assistant can build "a task"; it cannot build "a task for all vacant rooms on the second floor," because it does not own the rooms. We do. To keep that door open, this cycle builds task and rule creation as something the assistant can later call — not a screen it can never reach.
 
 That is the horizon: a property that runs its own standards, holds its own people accountable through proof they trust, and can be operated by talking to it — the tool the staff want, not the tool the owner imposes.
 
