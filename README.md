@@ -27,6 +27,11 @@ Full wording in [CHANGELOG.md](CHANGELOG.md). Use those sentences exactly.
 
 ## Status
 
+> ⚠️ **This README is stale as of 2026-08-04 and is the first thing to fix.** It says D1–D18 (we are at
+> **D83**) and F1–F40 (we are at **F59**); its model paragraph still says a task *"suggests"*, which D65
+> killed; its open strategic calls are all decided; and its Hindi ship gate was reversed by D76.
+> **Read [HANDOFF.md](HANDOFF.md) instead** — it is current and says what to do next.
+
 **In progress.** The model and the requirements are locked; the spec layer is not yet written.
 
 - ✅ CHANGELOG (D1–D18), feature requirements (F1–F40), Brief, Feature Gap Audit, grounding notes, review findings
