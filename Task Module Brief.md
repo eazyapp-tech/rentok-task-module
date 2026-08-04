@@ -26,7 +26,21 @@ Today the module can run a scheduled checklist and little else. This redesign li
 
 ## The problem
 
-A property runs on work that has to happen every day and has to be provable: rooms cleaned, meters read, KYC collected, move-out inspections done, deposits settled, complaints closed. Two problems sit on top of each other. The first is that the work often does not happen until someone is told to do it — staff wait for instruction even on their own routine, and the manager spends every morning giving it. The second is that even when it happens, no one can be sure it did — who did it, when, and what to do when it did not. And both get worse the further you sit from the property: a manager on-site can at least walk the floor and hand out the work; a founder running eight properties is flying blind on all but the loudest problems.
+A property runs on more work than one person can hold in their head, and it is spread across several people. So the work fails in three ordinary ways.
+
+Someone **forgets**. Someone **does it late**. Someone **says it is done** when it is not.
+
+None of those needs a bad person. They are what happens when there are more jobs than one head can hold and nothing is keeping count.
+
+**The expensive part is not the failure. It is that nobody finds out until it has turned into something else.**
+
+The room is not cleaned on Monday. Nobody knows on Monday. The tenant complains on Thursday — and it arrives as *a complaint*, not as a missed cleaning. He does not renew in March — and that arrives as *a vacancy*. So the owner learns about a ten-minute failure through a large, slow consequence, months later, in a form that no longer says what caused it.
+
+And there is a structural reason he learns late:
+
+> **The person who reports on the work is the same person whose memory dropped it.**
+
+Asking the manager for a better update does not fix that. The report has the same blind spot as the process. It gets worse the further you sit from the property — a manager on-site can at least walk the floor; a founder running eight properties only ever hears the problems that have already grown loud enough to reach him.
 
 The Task module was built for one shape of this: a manager schedules a checklist, a staff member fills it in. That is where it stops. Today:
 
@@ -37,6 +51,8 @@ The Task module was built for one shape of this: a manager schedules a checklist
 5. The module has no access control of its own — the link staff submit through is open, and the controller checks no permissions.
 
 So people keep the real system where it has always been: in their head, on WhatsApp, in a paper register. The module holds a copy of the checklist but not the truth of whether the work happened, and no one above the manager can see any of it.
+
+**What we can honestly change.** The forgetting we can end outright — the work appears without anyone having to remember it, which is the one real prevention in here. Late work and claimed work we cannot prevent. What we can do is **collapse the distance between them happening and someone knowing** — from months to the same day. Nothing in this module forces a person to do anything, and we should not write as though it does.
 
 ## The market signal
 
@@ -87,6 +103,8 @@ Efficiency is not a nice-to-have beside accountability — it is what makes the 
 **Proof that protects the person who collected it.**
 
 Holding a team accountable and refusing to build a watch-tool are not in tension — one is the goal, the other is the only way to reach it. A tool built to catch and punish gets gamed: staff fill hollow forms, share phones to dodge blame, stop collecting real proof. You cannot hold anyone genuinely accountable on data they are motivated to fake. Fear makes people accountable to the watcher, not to the standard.
+
+There is a sharper way to say why the record belongs to the worker. **Without one, honest work and claimed work look exactly the same** — which means the person who actually did it gets nothing for having done it, and the person who did not gets away with it. A record does not exist to catch the second person. It exists so the first one can prove they are not the second.
 
 A tool the worker trusts gets used honestly, because it helps them — and honest data is the only thing real accountability can run on. When Priya cleans a room at 9am and the tenant complains at 4pm, the photo and the timestamp are *her* defense, not the owner's accusation. The owner sees the exception; the staff sees their record. Same data, but who it belongs to is the whole product. So a founder gets a **more** accountable team from a tool the team trusts than from one the team fears.
 
@@ -195,6 +213,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
+- **2026-08-04 (d)** — **Rewrote the problem in the operator's words (D82).** The work fails three ways — forgotten, late, or said-done-when-it-was-not — and the expensive part is that nobody finds out until it has become a complaint or a vacancy. Named the structural reason: the person reporting on the work is the one whose memory dropped it. Added what we can honestly change (forgetting is prevented; the other two are surfaced sooner, not stopped) and removed any suggestion that the module blocks or forces work. Reframed the record as what lets an honest person prove they are honest, rather than what catches the dishonest one.
 - **2026-08-04 (c)** — **Widened the story to the property's whole work (D81).** The previous version framed this around recurring routines, which was drawn from what the code does today rather than from the user. A real fifty-building operator runs twelve kinds of work across five roles on two custom GPTs, a shared ChatGPT account, Google Forms and WhatsApp — that evidence is now in the market section. Rewrote "What makes this last" around one place for all the work, named the underlying shape (work → person → proof → visible upward), and added the roadmap question that follows from it. Added the third honest limit: "any work" is not true yet.
 - **2026-08-04 (b)** — **Named the moat (D80).** Removed "none of them can do the things we can" — it is not true on features and it invited a comparison that was never the argument. The moat is canonical sentence 8: a property runs on a system, not one person's memory, and the routines accumulate out of her head. Added "What makes this last", including the two honest limits (routines carry the what and when, not the how; the moat is slow) and the reason the no-fines promise is a precondition rather than a value beside it. Broke the differentiator paragraph into a list.
 - **2026-08-04** — Reconciled with D64–D79. **Standing rules are out of the brief entirely** — they appeared in six places, including "what success looks like", describing a capability that was deferred. What replaces them: an alert RentOk already raises can be turned into work, one task per item. **Suggest-close is out too** — a task now *shows* the linked thing's live state and the person decides (D65). The "what has to ship" section was rewritten: the three jobs are the ship gate, and the entity link is what makes this ours, which is a different claim. The staff persona's shared-phone line was corrected (D74). Vacant-room readiness is back, via a finished move-out creating the prep task (F3).

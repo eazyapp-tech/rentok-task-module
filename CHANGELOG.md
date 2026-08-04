@@ -637,6 +637,65 @@ makes a tool infinitely flexible and useless on day one, because nobody knows wh
 The defence is unchanged and now matters more: **F9 and F47 are the on-ramp** (D80). A blank
 "create a task" box is the failure mode this story invites.
 
+
+### D82 — The problem is late discovery, not lazy staff
+**Decided 2026-08-04.** Sets how the problem is stated everywhere. Sharpens D80/D81 rather than changing them.
+
+Earlier drafts described the problem as *"work is scattered across five tools"*. That is S2L's symptom
+— they are sophisticated enough to have built workarounds. **Most operators have built nothing; things
+simply do not happen and nobody finds out.** The problem is stated in the operator's own words instead:
+
+**Layer one — the work fails in three ordinary ways.** Someone **forgets**. Someone **does it late**.
+Someone **says it is done** when it is not. None of these needs a bad person; they are what happens when
+there are more jobs than one head can hold and nothing keeps count.
+
+**Layer two, and this is the expensive one — nobody finds out until it has turned into something else.**
+The room is not cleaned Monday. Nobody knows Monday. The tenant complains Thursday, and it arrives as *a
+complaint*, not a missed cleaning. He does not renew in March, and that arrives as *a vacancy*. The owner
+learns about a ten-minute failure through a large slow consequence, months later, in a form that no longer
+names the cause.
+
+> **The person who reports on the work is the same person whose memory dropped it.**
+
+That is why asking the manager for a better update does not fix it — the report carries the same blind
+spot as the process. It is the strongest line in the argument and the reason "just get a daily update"
+is not a competing solution.
+
+**What we may honestly claim — this is a limit on language, not just a description:**
+
+| Failure | The honest claim |
+|---|---|
+| Forgotten | **Prevented.** The work appears without anyone having to remember it. The only true prevention in the module. |
+| Done late | **Not prevented — surfaced the same day** instead of next quarter. |
+| Said done, was not | **Not prevented — made expensive.** A photo, a time and a place stop claimed work and real work looking identical. |
+
+**"Block it" and "ensure it gets done" must not appear in any doc.** Nothing here forces a person to do
+anything, and a doc that implies otherwise is found out by the first customer.
+
+**The "they lie about it" framing is inverted, deliberately.** Pitched carelessly it is a watch-tool and
+walks into Priya's documented fear. Stated correctly: **without a record, honest work and claimed work look
+exactly the same — so the person who actually did it gets nothing for having done it.** A record exists so
+an honest person can prove they are not the other one. Same mechanism, opposite owner; consistent with D15,
+D22 and D71.
+
+**Two features are reframed by this, not changed:**
+- **F22 is not "the owner watches." It is "the owner finds out on day one."** Which is why D71 (the manager
+  sees the same list at the same time) is commercially load-bearing and not only ethical — nobody is being
+  reported on.
+- **F21's on-time rate is the leading indicator** — the number that moves *before* the complaint and the
+  vacancy, rather than the one that explains them afterwards.
+
+**Which failure leads the pitch, and why the order matters.** Forgetting and inefficiency are the manager's
+pain; accountability is the owner's, and the owner pays. Leading with accountability wins the meeting and
+confirms the manager's fear that the tool exists to catch her out — and she is the one who has to use it.
+**So: forgetting first, accountability as the outcome.** The owner only gets real accountability if the
+manager actually uses the thing, and she only uses it if it solves her forgetting first.
+
+**Known weakness, recorded rather than hidden:** the cost chain — a missed cleaning becomes a complaint
+becomes a vacancy — is currently a story, not evidence. If figures exist for how many complaints trace to
+work that did not happen, or what an unready room costs per day, the argument becomes arithmetic instead of
+persuasion. Worth getting.
+
 ---
 
 ## What this supersedes
