@@ -34,7 +34,9 @@ None of those needs a bad person. They are what happens when there are more jobs
 
 **The expensive part is not the failure. It is that nobody finds out until it has turned into something else.**
 
-The room is not cleaned on Monday. Nobody knows on Monday. The tenant complains on Thursday — and it arrives as *a complaint*, not as a missed cleaning. He does not renew in March — and that arrives as *a vacancy*. So the owner learns about a ten-minute failure through a large, slow consequence, months later, in a form that no longer says what caused it.
+The room is not cleaned on Monday. Nobody knows on Monday. The tenant complains on Thursday — and it arrives as *a complaint*, not as a missed cleaning. So the owner learns about a ten-minute failure through a slower, larger consequence, in a form that no longer says what caused it.
+
+**This is measurable, and we measured it.** Across a year of our own data, **31% of complaints tied to a room are a repeat — the same room, the same kind of problem, within seven days.** For maintenance it is 33%. That is not a third of tenants finding new faults. It is a third of the complaint queue being somebody chasing something that was already reported and did not get done.[^complaints]
 
 And there is a structural reason he learns late:
 
@@ -203,6 +205,8 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 [^2]: Ramu (guard) is a composite persona from the same Persona Bible. Sourced verbatim: line 192 — "If the app replaces his paper register, he may feel threatened. Position as 'modern security tools that make your job respected.'"
 
+[^complaints]: Live query against production, 4 Aug 2026. 70,513 room-linked complaints over 12 months, test properties excluded. A "repeat" is a complaint on the same room in the same category group as an earlier one. Within 7 days: 31.5% overall, 33.4% maintenance, 20.4% cleaning and housekeeping. Within 30 days it rises to 44.1%, which we treat as an upper bound because two genuinely different faults could fall in the same category. Cleaning and housekeeping together are 10.7% of all complaints.
+
 [^rules]: **Reversed 2026-08-03 (D64).** Earlier versions of this brief sold standing rules — "clean every vacant room daily until it is filled" — as a headline capability and as ship-blocking. They are deferred entirely, along with the stored room-occupancy flag they needed. Vacant-room readiness is instead covered by a finished move-out creating the prep task directly (F3, pulled into this cycle), which needs no poller and no flag.
 
 [^devices]: **Corrected 2026-08-03 (D74).** Earlier versions of this brief said staff "share a cheap Android phone, often one between several." That is not true of RentOk's customer base — staff have their own numbers. The **weak connection is real** and everything built for it stands: offline partial save, photo compression, the 3-second cold-load gate. Shared-device kiosk and quick-switch stay in the v2 backlog as a watch item, not a known gap. The same wrong claim is corrected in the Feature Gap Audit and in `review-findings.md`.
@@ -213,6 +217,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
+- **2026-08-04 (e)** — **Put a number on the cost chain (D83).** 31% of room-linked complaints are a repeat on the same room within seven days — a third of the queue is someone chasing work that did not happen. The chain stops being a story. **Removed the vacancy half of it:** production data shows more than half of empty rooms sit over a month and 28% never refill within a year, so most vacancy is a demand problem this module does not touch.
 - **2026-08-04 (d)** — **Rewrote the problem in the operator's words (D82).** The work fails three ways — forgotten, late, or said-done-when-it-was-not — and the expensive part is that nobody finds out until it has become a complaint or a vacancy. Named the structural reason: the person reporting on the work is the one whose memory dropped it. Added what we can honestly change (forgetting is prevented; the other two are surfaced sooner, not stopped) and removed any suggestion that the module blocks or forces work. Reframed the record as what lets an honest person prove they are honest, rather than what catches the dishonest one.
 - **2026-08-04 (c)** — **Widened the story to the property's whole work (D81).** The previous version framed this around recurring routines, which was drawn from what the code does today rather than from the user. A real fifty-building operator runs twelve kinds of work across five roles on two custom GPTs, a shared ChatGPT account, Google Forms and WhatsApp — that evidence is now in the market section. Rewrote "What makes this last" around one place for all the work, named the underlying shape (work → person → proof → visible upward), and added the roadmap question that follows from it. Added the third honest limit: "any work" is not true yet.
 - **2026-08-04 (b)** — **Named the moat (D80).** Removed "none of them can do the things we can" — it is not true on features and it invited a comparison that was never the argument. The moat is canonical sentence 8: a property runs on a system, not one person's memory, and the routines accumulate out of her head. Added "What makes this last", including the two honest limits (routines carry the what and when, not the how; the moat is slow) and the reason the no-fines promise is a precondition rather than a value beside it. Broke the differentiator paragraph into a list.

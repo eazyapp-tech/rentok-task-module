@@ -696,6 +696,58 @@ becomes a vacancy — is currently a story, not evidence. If figures exist for h
 work that did not happen, or what an unready room costs per day, the argument becomes arithmetic instead of
 persuasion. Worth getting.
 
+
+### D83 — The cost chain is measured; the vacancy half of it is dropped
+**Decided 2026-08-04.** Closes the known weakness recorded in D82. Live production query, 4 Aug 2026.
+
+D82 recorded that the cost chain — a missed job becomes a complaint becomes a vacancy — was *"a story, not
+evidence."* Both halves were tested.
+
+**The complaint half holds, and is stronger than the story was.**
+
+| Category group | Repeat within 7 days | Within 30 days |
+|---|---|---|
+| Maintenance (electrical, plumbing, power, carpentry, paint) | **33.4%** | 48.0% |
+| Other | 32.0% | 41.8% |
+| Cleaning + housekeeping | 20.4% | 30.3% |
+| **All room-linked complaints** | **31.5%** | **44.1%** |
+
+Base: 70,513 room-linked complaints over 12 months, test properties excluded. A "repeat" is a complaint on
+the same room in the same category group as an earlier one. Cleaning and housekeeping together are 10.7% of
+all ~120k complaints.
+
+**What to say:** *about a third of the complaint queue is somebody chasing something that was already
+reported and did not get done.* Quote the **7-day** figure; treat 30-day as an upper bound, because two
+genuinely different faults can share a category.
+
+**The vacancy half does not hold and is cut from every doc.** Median gap between a tenant leaving a room and
+the next joining is 18 days, median rent ₹8,000/month (₹267/day) — but the distribution kills the argument:
+
+| Gap before the room refills | Share |
+|---|---|
+| 0–7 days | 22.1% |
+| 8–30 days | 22.7% |
+| 31–90 days | 18.2% |
+| 90+ days | 8.8% |
+| **Never refilled within 12 months** | **28.1%** |
+
+More than half of vacant rooms sit longer than a month and **28% never refill inside a year**. Those rooms
+are not waiting for a cleaner, they are waiting for a tenant. Readiness binds only for the ~22% that refill
+within a week.
+
+**So "an unready room costs ₹267 a day" must not be written.** The first person to check would find that
+most empty rooms have nothing to do with readiness — and would then doubt the complaint number, which is the
+one that is real. **Recorded so nobody re-derives this argument in three months.**
+
+**This does not weaken F3.** Making a room ready faster is still worth doing for the fifth of turnovers where
+readiness is the constraint; it is the *portfolio-wide vacancy-cost* claim that fails, not the feature.
+
+**Caveats.** Complaint categories come from `first_level` free text, which contains duplicate spellings
+(`Internet` vs `Internet `, two forms of `Waterproofing & Paint`); the grouping is ours and does not move the
+totals materially. Vacancy is measured room-level via `tenant.room`, not bed-level — in shared rooms this
+*understates* the gap, so the real picture is no better than shown. `tenant.room` is the older structure;
+a bed-level rerun via `tenant_room` would firm it up without changing the conclusion.
+
 ---
 
 ## What this supersedes
