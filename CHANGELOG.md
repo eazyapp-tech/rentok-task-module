@@ -492,6 +492,74 @@ A uniqueness rule on task creation (one schedule + one period + one target = one
 
 **No property-level holiday list.** F24c (skip a single occurrence) is Band B under D67, so a festival is a few taps. A holiday list is a new screen and a new setting for something that happens a handful of times a year. **The review raised it and then withdrew it.** Revisit only if a property running many routines complains.
 
+
+### D80 — The moat is canonical sentence 8: the routines accumulate out of one person's head
+**Decided 2026-08-04.** Settles the open moat question and F1's band.
+
+**Two wrong answers were tried and discarded first.** The Brief claimed a *capability* moat —
+"none of them can do the things we can" — which is not true on features: MaintainX and
+SafetyCulture build better checklist tools than this cycle will, asset history is core to them,
+and failed-check-to-ticket is their strongest area. The second attempt claimed the moat was "an
+alert becomes work" (F58) — but that lives on the home-screen feed, **not in the module being
+rebuilt**.
+
+**A moat is not decided by looking at competitors.** It is decided by what the product does for
+the people it is built for. Stated as such:
+
+> **A property runs on a system, not on one person's memory — so it survives the manager's
+> absence and the staff churning.**
+
+That is **canonical sentence 8**, already written and never called the moat.
+
+**Why it is a moat and not a slogan:**
+
+1. **It accumulates.** Each routine Priya sets up is a piece of her operating knowledge moved out
+   of her head into the product. She built it, so nobody can hand it to a replacement — including
+   a replacement product. Realistically six to eight routines at a PG, not dozens; the depth is
+   modest and the mechanism is not.
+2. **It pays out on the schedule this business actually runs on.** Today when a cleaner quits,
+   Priya walks the new person around for days while things get missed. With the routines built,
+   the new person opens the app and the work is there. At PG churn that lands every month.
+3. **It is worth more here than almost anywhere.** Running on memory is fine when the same people
+   are there next year. Here the people keep leaving and the property does not. Same mechanism,
+   several times the value — which comes from who we build for, not from what anyone else built.
+
+**The narrower, honest claim:** routines replace the **remembering and the daily assigning**, not
+the skill transfer. A checklist says what and when; it does not teach a new cleaner how this
+property wants a room cleaned. F30's reference picture on an item carries some of the "how" —
+which makes F30 more load-carrying than its placement suggests.
+
+**What this changes:**
+
+- **F9 and F47 are strategy, not convenience.** Nothing accumulates until routines exist, so the
+  template library is the on-ramp to the only thing that makes anyone stay. Highest leverage in
+  the set.
+- **F24c, F48, F49, F50 are moat defence.** They are the difference between six routines at month
+  six and two. Not completeness items.
+- **F30 rises with F9** — the reference picture is how a routine carries the "how".
+- **F22 and F25a are sales, not moat.** They win the deal and justify the renewal. Real job,
+  different job; they should not compete with the on-ramp for the same slot.
+- **F1 stays Band C.** It is neither the moat nor the on-ramp — an ordinary convenience. This
+  closes the question D68 left open by wrongly calling it "moot".
+- **The Brief drops "none of them can do the things we can."** It points at the wrong thing and
+  invites a comparison that is not the argument.
+
+**The bet is the precondition for the moat, not a value beside it.** If Priya believes the module
+is the owner watching her, she never builds the routines — and nothing accumulates. **D15, D22,
+D69 and D71 are therefore load-bearing on the moat**, not a separate ethical position. The docs
+previously carried these as two unrelated ideas.
+
+**Accepted weakness: this moat is slow.** Nothing about it protects anyone in week one or month
+two. It exists only once she has built enough routines to feel their absence. **Adoption is
+therefore what buys the time for the moat to form** — the template library, the daily message
+arriving when people can act on it, the runner loading in three seconds on a bad connection. That
+is a better reason to care about those than "table stakes".
+
+**Named dependency:** the day-one payoff assumes the new hire is already in the team list and can
+read the runner. D74 left the app's own words in English; the task content is in the manager's own
+script (D32, D74), so the questions are readable and the buttons are learned. Watch this if
+onboarding a new staff member proves slower than expected.
+
 ---
 
 ## What this supersedes

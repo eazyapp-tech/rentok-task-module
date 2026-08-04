@@ -53,9 +53,19 @@ Adversarial review findings, worked through one at a time. Each row gets a decis
 | 23 | Partial payment keeps the collection visit spawning | MEDIUM | closed by D64 | Died with F6 — no money rule exists |
 | 24 | Device photo retention (F39) | MEDIUM | **decided** | Merged into D73 |
 
-## OPEN — what the moat actually is, and where F1 sits
+## RESOLVED — what the moat is, and where F1 sits
 
-**Undecided as of 2026-08-04. Nothing written to the Brief. Sanchay is thinking about it.**
+**Settled 2026-08-04 as [D80](CHANGELOG.md). The Brief is rewritten.**
+
+> **The answer:** a moat is not decided by looking at competitors — it is decided by what the
+> product does for the people it is built for. The moat is **canonical sentence 8**: *a property
+> runs on a system, not on one person's memory.* The routines accumulate Priya's operating
+> knowledge out of her head, she builds them herself, and at PG churn rates the payoff lands
+> every month. **F1 stays Band C.** F9/F47 are the on-ramp; F24c/F48/F49/F50 are moat defence;
+> F22/F25a are sales. The no-fines promise is the precondition, not a parallel value.
+
+The two wrong answers below are kept because both were plausible and both were discarded for
+reasons worth remembering.
 
 The doc-handoff review found that D68's line *"F1 is moot"* is wrong — F1 (*a task shows the
 linked thing's live state*) **is** the requirement that implements D65. It sits in **Band C**
@@ -66,7 +76,7 @@ or the Brief's differentiator claim changes. That question opened a bigger one.
 plus F3. Sanchay's objection: **the alert lives on the home screen, not in the Task module.** If
 that is the moat, the moat is not in the module being rebuilt.
 
-**Second answer, not yet accepted.** Test each claim against MaintainX:
+**Second answer, also discarded.** Test each claim against MaintainX:
 
 | Claim | Can a competitor do it? |
 |---|---|
@@ -94,13 +104,17 @@ Room 204 sits beside a deposit deduction, a rent dispute and a tenant complaint 
 — F8's real value is not that history exists but that it is admissible where the money argument
 happens), and the complaint queue is shared with the tenant.
 
-**Proposed Brief change, NOT applied:** drop *"None of them can do the things we can"* — it is not
+**Brief change, now APPLIED (D80):** dropped *"None of them can do the things we can"* — it is not
 true on features and invites the comparison we lose. Replace with, in order: (1) you will not run
 two systems; (2) the proof lands where the money argument happens; (3) the work is starting to
 appear on its own.
 
-**Blocked on this:** F1's band. If the moat claim moves off F1, F1 stays Band C as an ordinary
-convenience. If it does not, F1 should move to Band B so the differentiator is not cut-first.
+**Why the second answer was discarded too:** consolidation is a real reason nobody buys a second
+tool, but it is still a competitor-shaped argument — it describes why they do not leave, not what
+the product does for them. The third answer (D80) is the product's own: the routines accumulate
+out of one person's head, which is what this business, with its churn, actually needs.
+
+**Settled:** F1 stays Band C.
 
 ---
 

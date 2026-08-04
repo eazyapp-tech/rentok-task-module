@@ -42,7 +42,9 @@ So people keep the real system where it has always been: in their head, on Whats
 
 Every competitor in this category — MaintainX is the clearest — sells the same thing: a way for an owner to watch whether staff did their jobs. They are watch-tools with friendly paint. The proof they collect is proof *against* the person who collected it. That sells, but it fights the person filling the form, and in a high-churn, low-trust staffing market that is a slow leak.
 
-None of them can do the things we can. They do not own the rent due, the tenant record, or the complaint queue, so their tasks cannot know the real thing they are about. They do not know how a property like yours operates, so they cannot recommend the checklists you should run. And they cannot hold a real chain of people accountable, because a watch-tool only ever points down at the worker. We can do all of it, because we already run the property the work is about.
+We are not trying to out-feature them, and we should not pretend to. They have built checklist tools for years and this cycle will not beat them on checklists.
+
+**We are building a different thing for a different problem.** Their tool records work. Ours takes a property that runs on one person's memory and moves it into a system — so it keeps running when that person is busy, on leave, or gone. In a business where the staff change every month, that is the problem worth solving, and it is not the problem a watch-tool is built for.
 
 ## Who we are building for — the chain of accountability
 
@@ -90,15 +92,32 @@ That is the bet, and it holds even where it costs us. **We will not ship a built
 
 **The three jobs are the ship gate.** Tell people what to do — routines with real scope reaching the right person on their phone. Prove it happened — proof collected as part of the work, owned by the person who collected it. Let each level see — one list for the manager, the exceptions for the owner, and the manager seeing the same list about her own property. If any of those three does not work, the module has not done what we said it does.
 
-**Two things sit alongside that and make it ours rather than anyone's.** They are the reason to build this here instead of buying MaintainX, and they are not the same claim as "this has to ship."
+## What makes this last
 
-**One — a task knows the real thing it is about.** A task can be tied to a rent due, a tenant, a room, or an asset, and it **shows that thing's live state** so the person can decide: *"Room 204 · ₹8,000 due · PAID, 2 Aug."* It never judges whether the work is done. And every task ever done to room 204 can be looked up in one place, which is what a dispute or a handover actually asks for. A competitor cannot do this, because they do not own the rent, the tenant, or the room.
+**The routines are the thing that lasts.** Every routine Priya sets up is a piece of her operating knowledge moved out of her head and into the product. She builds it herself, so nobody can hand it to her replacement.
 
-**Two — a detected problem can become work, and a found problem becomes a ticket.** RentOk already notices what is wrong — rent overdue, KYC missing, a complaint running late. What it cannot do is turn that into work with an owner and a record. Now it can, one task per item. And when a check finds a fault, the module hands over a **complaint with the details already written** for a person to raise. Nothing acts on its own.
+That matters here more than almost anywhere, because of who we build for. Running a property on memory is fine when the same people are there next year. **In a PG the people keep leaving and the property does not.** Today when a cleaner quits, Priya walks the new one around for days while things get missed. With the routines built, the new person opens the app and the work is there — and that happens every month, not once a year.
 
-**Named, not quietly deferred:** the property's *other* events making work appear on their own — beyond the move-out that now creates the room-prep task — is the sprint right after this one.
+Two honest limits. **The routines carry the what and the when, not the how** — a checklist does not teach someone how this property wants a room cleaned, though a reference picture on an item carries part of it. And **it is slow**: nothing about this protects anyone in week one. It exists only once she has built enough routines to feel their absence.
 
-Around those two, the redesign gives the module what every operations tool already has and ours does not, and the bet needs several of these to *be* the bet: **proof collected as part of the work** — location, time, signature, photo, all owned by the staff member first — this is the headline, not a footnote; the staff member's own record; a manager's **review loop** (approve, reject with a reason, send back); **due dates and reminders** that chase late work; a **comment thread** where staff and manager talk on a task, with the same person-tagging used elsewhere in RentOk; the module's **access control**, finally built, so each level sees what it should; a first cut of **insight** — what is failing and where; and the **checklist template library** that lets a manager set up the right tasks without a blank box, with RentOk recommending the ones a property like hers should run. The library is one deliverable inside this redesign, not a project beside it.
+Which is why the template library is not a convenience. **Nothing accumulates until routines exist**, so the fastest path to a property that runs itself is a library she can start from instead of a blank box. And it is why a routine getting switched off and forgotten is the thing to design against.
+
+**None of it happens if Priya does not trust the module.** If it reads as the owner watching her, she never builds the routines, and there is nothing to accumulate. The no-fines, no-scorecard promise is not a value sitting beside this argument — it is what makes the argument possible.
+
+**Named, not quietly deferred:** the property's own events making work appear without anyone looking — beyond the move-out that now creates the room-prep task — is the sprint right after this one.
+
+The redesign also gives the module what every serious operations tool has and ours does not:
+
+- **Proof collected as part of the work** — location, time, signature, photo, all owned by the staff member first. This is the headline, not a footnote.
+- The staff member's own record of what they did.
+- A review loop for the manager: approve, reject with a reason, send back.
+- Due dates and reminders that chase late work.
+- A comment thread on a task, with the same person-tagging used elsewhere in RentOk.
+- Access control, finally built, so each level sees what it should.
+- A first cut of insight — what is failing and where.
+- A checklist template library, so a manager never starts from a blank box, with RentOk recommending what a property like hers should run.
+
+The library is one deliverable inside this redesign, not a project beside it.
 
 The PRD lists every one of these as a numbered requirement with its own test. This brief only claims the shape.
 
@@ -168,6 +187,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
+- **2026-08-04 (b)** — **Named the moat (D80).** Removed "none of them can do the things we can" — it is not true on features and it invited a comparison that was never the argument. The moat is canonical sentence 8: a property runs on a system, not one person's memory, and the routines accumulate out of her head. Added "What makes this last", including the two honest limits (routines carry the what and when, not the how; the moat is slow) and the reason the no-fines promise is a precondition rather than a value beside it. Broke the differentiator paragraph into a list.
 - **2026-08-04** — Reconciled with D64–D79. **Standing rules are out of the brief entirely** — they appeared in six places, including "what success looks like", describing a capability that was deferred. What replaces them: an alert RentOk already raises can be turned into work, one task per item. **Suggest-close is out too** — a task now *shows* the linked thing's live state and the person decides (D65). The "what has to ship" section was rewritten: the three jobs are the ship gate, and the entity link is what makes this ours, which is a different claim. The staff persona's shared-phone line was corrected (D74). Vacant-room readiness is back, via a finished move-out creating the prep task (F3).
 - **2026-07-21 (d)** — Raised the mission's why one level: a property that ran on the manager's memory now runs on a system, so it does not break when a person is busy, away, or gone. Named the continuity payoff — new hires inherit the routine, the property survives the manager's leave, new properties start from recommended routines — as the answer to staff churn.
 - **2026-07-21 (c)** — Rebalanced enablement-first. Named the everyday problem (people wait to be told, even for their own job; managers burn mornings assigning it) and made the module's first job "tell people what to do" — the routine runs itself, in every direction (self and reports), via recurring tasks, standing rules, recommendations, and reminders. Restructured the mission as three jobs — tell → prove → see — one loop, help not punishment. Accountability now sits as the trust layer of "prove," not the dominant theme.
