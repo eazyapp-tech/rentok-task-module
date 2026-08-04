@@ -3,6 +3,7 @@ title: "Task Module — Build Sequence and Break Points"
 date: 2026-08-04
 owner: "Sanchay"
 status: "draft — needs engineering's cost before a line is drawn"
+changelog: "2026-08-04 — F9, F13, F29, F30 moved from stage 7 to stage 2 (Sanchay). Fault loop noted as unblocked from stage 3."
 tags: [rentok, tasks, sequencing, cut]
 ---
 
@@ -43,7 +44,7 @@ else can be built in any order.
 | **M2 / F26** (permissions) | — | Pairs with M1 (D69) so the staff default lands when cleaning already has assignees. |
 | F41 (runner identity) | F16 | Identity comes from the task record; a pooled task has none, so it needs the name tap. |
 | F36 (server validation) | F44 | Validation needs a checklist that cannot change under it. |
-| F11 (runner with proof) | F29, F30, F46, F39 | The runner renders question types and per-item settings. |
+| F11 (runner with proof) | F46, F39 | Proof capture — verified time, location, signature. Question rendering is F29/F30 and lands earlier, at stage 2. |
 | F12 (partial save) | F11 | Nothing to save otherwise. |
 | F31 (an item carries a problem) | F29, F30 | Needs an item that can be marked failed. |
 | F2 (problem → complaint) | F31 | The failed item is what raises it. |
@@ -60,7 +61,7 @@ else can be built in any order.
 | F40 (notifications) | F18 | Nudges are relative to a due time. |
 | F45 (server decides late) | F18 | — |
 | F13 (bilingual templates) | F9 | Templates must exist to be written twice. |
-| F9 (library) | F29, F30 *(soft)* | See the open sequencing questions below — it could ship on today's five question types. |
+| F9 (library) | F29, F30 | Resolved by moving all three to stage 2 — templates are authored once, against the full set of question types, rather than written on five types and rewritten later. |
 | F17 (staff see own) | F26 | It is a permission. |
 | F53, F15a, F33a | F4 / F11 | They are outcomes and actions on an existing task. |
 
@@ -85,19 +86,34 @@ caller nobody has identified, which means it can stop without anyone knowing.
 
 ---
 
-## Stage 2 — Give the work an owner and a real cadence
+## Stage 2 — Give the work an owner, a real cadence, and something worth filling in
 
-**Ships:** F10 · F16 · F5 · F4 · F32 · **M1 + P0**
+**Ships:** F10 · F16 · F5 · F4 · F32 · **M1 + P0** · **F29 · F30 · F9 · F13**
 
 **The user can now:** create a one-off task and give it to a named person. Set cleaning to Mon/Wed/Fri
 instead of daily. Scope work to a floor or a chosen set of rooms. And after M1, **every room finally
 has a recorded doer** instead of one shared link for the whole team.
 
-**They still cannot:** be chased — nothing is ever late and nothing notifies. No proof beyond a tick.
-No visibility above the manager.
+And she starts from **a library rather than a blank box** — in Hindi as well as English — with
+checklists that can express what an inspection actually needs: pass/fail/not-applicable, a rating, a
+measurement, a required item, a reference picture, sections.
 
-**Why here:** this is the first stage a manager notices, and M1 is the single biggest change to the
-most frequent task in the building.
+**They still cannot:** be chased — nothing is ever late and nothing notifies. Proof is still a tick and
+a photo, without a verified time, location or signature. No visibility above the manager.
+
+**Why here:** this is the first stage a manager notices, and M1 is the single biggest change to the most
+frequent task in the building.
+
+**Why the library and the question types moved here (decided 2026-08-04).** They sat in stage 7 by
+dependency, which contradicted D80 — the library is the on-ramp, and **nothing accumulates until
+routines exist**. Pulling F29 and F30 up removes the dependency properly, rather than shipping F9 on
+today's five question types and rewriting the templates later. The moat starts accruing at stage 2
+instead of stage 7.
+
+**The trade, stated plainly:** stage 2 is now the biggest stage in the sequence, so **the time to first
+user-visible value goes up.** If that matters, it splits cleanly at the seam — **2a** (F10, F16, F5, F4,
+F32, M1+P0) is owner and cadence on today's checklists; **2b** (F29, F30, F9, F13) is the library and the
+richer types. 2a alone is still a coherent ship.
 
 ---
 
@@ -110,7 +126,7 @@ recorded as late if it is not done. A guard hands his open work over at 10pm wit
 festival day is skipped instead of the routine being switched off. Someone who could not do a job says
 why. The guard with no smartphone stops being permanently late.
 
-**They still cannot:** prove any of it with a photo. No review, no insight, no owner view.
+**They still cannot:** prove it beyond a photo and a self-reported time — no verified timestamp, no location checked against the property, no signature. No review, no insight, no owner view.
 
 **Why F24c, F33a, F15a and F53 are here and not later:** D67. The moment F18 exists, every one of these
 is the difference between a true record and a false one. Ship F18 without them and the module starts
@@ -120,11 +136,15 @@ accusing people in week one.
 
 ## Stage 4 — The proof
 
-**Ships:** F29 · F30 · F11 · F39 · F12 · F17
+**Ships:** F11 · F39 · F12 · F17
 
-**The user can now:** collect real evidence as part of the work — photo from the camera, timestamp,
-location, signature. Work survives a dropped signal. **Every staff member sees their own record**, which
-is the first stage where the bet is actually built rather than promised.
+**The user can now:** collect real evidence as part of the work — verified timestamp, location checked
+against the property, signature, photos compressed for a weak line. Work survives a dropped signal.
+**Every staff member sees their own record**, which is the first stage where the bet is actually built
+rather than promised.
+
+*(F29 and F30 moved to stage 2. What remains here is proof capture, not question rendering — the runner
+already renders questions today.)*
 
 **They still cannot:** turn a fault into a ticket. No review. No manager or owner view.
 
@@ -141,7 +161,14 @@ instead of making a seventh.
 
 **They still cannot:** review anything. No insight, no owner view, no library.
 
-**Why here:** this is S2L's stated top ask, and it needs the runner (stage 4) to exist first.
+**Why here:** this is S2L's stated top ask.
+
+**It is now unblocked earlier than it sits.** The fault loop depended on F29/F30 for an item that can be
+marked failed — and those moved to stage 2. Nothing else holds it: F2 uses the complaint module that
+already exists, and a failed item can carry a photo today without waiting for F11's signature and
+location. **So this stage could run any time after stage 3, including before stage 4.** Left here because
+proof is more foundational to the bet than any one customer's ask — but if S2L's timeline matters, this
+is the cheapest thing to pull forward.
 
 ---
 
@@ -163,15 +190,14 @@ that never happened, about the one person who cannot argue back.
 
 ## Stage 7 — The on-ramp and the things that run themselves
 
-**Ships:** F9 · F13 · F48 · F49 · F50 · F7 · F3 · F58
+**Ships:** F48 · F49 · F50 · F7 · F3 · F58
 
-**The user can now:** set up from a library instead of a blank box, in Hindi as well as English. See,
-edit, pause and stop her routines, and see what each has produced. Keep her own follow-ups. A finished
-move-out creates the room-prep task on its own. An alert on the home screen becomes assigned work with
-one action.
+**The user can now:** see, edit, pause and stop her routines, and see what each has produced. Keep her
+own follow-ups. A finished move-out creates the room-prep task on its own. An alert on the home screen
+becomes assigned work with one action.
 
-**This is the stage where D80's moat starts accruing** — nothing accumulates until routines exist, and
-the library is what makes them exist.
+*(The library moved to stage 2, so D80's moat now starts accruing there rather than here. What is left
+in this stage is the work that runs without being asked.)*
 
 ---
 
@@ -180,12 +206,12 @@ the library is what makes them exist.
 These are the places I would expect engineering or you to move something, and they are judgement, not
 dependency.
 
-**1. F9 (the library) is in stage 7 but D80 calls it the highest-leverage item in the set.**
-It sits late because it is listed as depending on F29/F30 — richer question types to build templates
-with. **But it could ship on today's five question types and gain the richer ones later**, which would
-move it to stage 2 or 3, where it starts the moat accruing months earlier. It is also largely *content*
-work (the Checklist Library project), which may not compete for the same engineers as everything else
-here. **Worth deciding deliberately rather than inheriting from the dependency list.**
+**1. F9 (the library) — DECIDED 2026-08-04: moved to stage 2, and F29/F30 with it.**
+It sat in stage 7 by dependency, contradicting D80's claim that the library is the on-ramp and that
+nothing accumulates until routines exist. Rather than ship F9 on today's five question types and rewrite
+the templates later, the question types move up too. The cost is that stage 2 becomes the biggest stage
+and first user-visible value takes longer; the seam to split it at is written into stage 2. **A knock-on
+worth noting: this unblocks the fault loop (stage 5) to run any time after stage 3.**
 
 **2. F51 (someone leaves, their work returns) is in Band C but churn is called "the whole game".**
 D25 calls staff departure *"the most common event in the system."* It is not in any stage above because
