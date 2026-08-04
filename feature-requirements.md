@@ -24,7 +24,7 @@ Every requirement, with **what it is** and **what the operator loses without it*
 
 **The rule that decides between B and C (D67):** *if a Band B feature would produce a false record without it, or would damage another part of RentOk, it belongs in Band B.* The test is tight — not "would this be better with it", but "does the record become false, or does another module break." F14, F24a and F33b all fail it and stay in C.
 
-**Finding an F-number:** **A** — F26, F36, F37, F38, F41, F44, F45, F46 · **B** — F2, F3, F4, F5, F7, F8, F9, F10, F11, F12, F13, F15a, F16, F17, F18, F19, F20, F21, F22, F24c, F29, F30, F31, F32, F33a, F39, F40, F48, F49, F50, F53, F54, F57, F58 · **C** — F1, F14, F15b, F24a, F24b, F25a, F25b, F27, F33b, F43, F47, F51, F52, F59 · **Later** — F3b, F6, F28, F34, F35, F42
+**Finding an F-number:** **A** — F26, F36, F37, F38, F41, F44, F45, F46 · **B** — F2, F3, F4, F5, F7, F8, F9, F10, F11, F12, F13, F15a, F16, F17, F18, F19, F20, F21, F22, F24c, F29, F30, F31, F32, F33a, F39, F40, F48, F49, F50, F51, F53, F54, F57, F58 · **C** — F1, F14, F15b, F24a, F24b, F25a, F25b, F27, F33b, F43, F47, F52, F59 · **Later** — F3b, F6, F28, F34, F35, F42
 
 **Prerequisites** and **migrations** are listed separately. They are sequencing facts, not priorities.
 
@@ -224,6 +224,10 @@ Free text (D79).
 Moved up from Band C (D67).
 *Without it:* a festival or a one-off clash means turning the whole routine off, and often forgetting to turn it back on — and every festival day is recorded as the whole team failing, permanently.
 
+**F51 — When someone leaves, their open work returns to the manager to reassign or close.**
+Submitted proof keeps their name forever; their own tasks are archived (D25). Moved up from Band C — D25 calls staff departure *"the most common event in the system"*, and it fails D67's test: open tasks left on a person who has gone keep going overdue against them, so F21 and F22 report failures against someone who no longer works there.
+*Without it:* in a business defined by churn, every resignation silently orphans that person's open work.
+
 **F33a — Reassign a task, including by the person holding it.**
 This is what replaces shift handover (D34, D25).
 *Without it:* the guard going off duty at 10pm has to wake the manager to pass on his open work — or it stays his and goes overdue against him.
@@ -254,10 +258,6 @@ A due, tenant, room or asset — for context, filtering, navigation and history 
 
 **F33b — Assign one task across many rooms or people at once.**
 *Without it:* setting up a 200-room property means doing it 200 times.
-
-**F51 — When someone leaves, their open work returns to the manager to reassign or close.**
-Submitted proof keeps their name forever; their own tasks are archived (D25).
-*Without it:* in a business defined by churn, every resignation silently orphans that person's open work.
 
 **F52 — When a manager is deactivated, her rules and pending reviews transfer.**
 Rules do not fire under a dead account (D42).
@@ -343,7 +343,7 @@ Stress-tested after v2.0 and cut. **Standing rules are deferred entirely** (D64)
 
 ## What changed in version 2.3
 
-The story widened to the property's whole work, not its routines (D81) — which added **F59** (a visit log: one task that records arriving and leaving), tightened **F8** to say history shows the submitted answers and not only that a task happened, and put high-frequency logs and licence-expiry tracking explicitly in *Not building*. The problem is now stated as late discovery rather than lazy staff (D82), and the cost chain behind it is measured rather than asserted (D83).
+The story widened to the property's whole work, not its routines (D81) — which added **F59** (a visit log: one task that records arriving and leaving), tightened **F8** to say history shows the submitted answers and not only that a task happened, and put high-frequency logs and licence-expiry tracking explicitly in *Not building*. The problem is now stated as late discovery rather than lazy staff (D82), and the cost chain behind it is measured rather than asserted (D83). **F51 moved C → B** — a resignation currently leaves open work going overdue against someone who has left, which makes F21 and F22 report failures about a person who no longer works there.
 
 ## What changed in version 2.2
 

@@ -3,7 +3,7 @@ title: "Task Module — Build Sequence and Break Points"
 date: 2026-08-04
 owner: "Sanchay"
 status: "draft — needs engineering's cost before a line is drawn"
-changelog: "2026-08-04 — F9, F13, F29, F30 moved from stage 7 to stage 2 (Sanchay). Fault loop noted as unblocked from stage 3."
+changelog: "2026-08-04 — F9, F13, F29, F30 moved from stage 7 to stage 2; F51 moved from Band C into stage 3 (Sanchay). Fault loop noted as unblocked from stage 3."
 tags: [rentok, tasks, sequencing, cut]
 ---
 
@@ -64,6 +64,7 @@ else can be built in any order.
 | F9 (library) | F29, F30 | Resolved by moving all three to stage 2 — templates are authored once, against the full set of question types, rather than written on five types and rewritten later. |
 | F17 (staff see own) | F26 | It is a permission. |
 | F53, F15a, F33a | F4 / F11 | They are outcomes and actions on an existing task. |
+| F51 (someone leaves) | F33a | Returning open work is a reassignment. |
 
 ---
 
@@ -119,16 +120,16 @@ richer types. 2a alone is still a coherent ship.
 
 ## Stage 3 — Make it chase itself
 
-**Ships:** F18 · F40 · F24c · F33a · F15a · F53
+**Ships:** F18 · F40 · F24c · F33a · F15a · F53 · **F51**
 
 **The user can now:** work arrives on the phone each morning, gets nudged before it is due, and is
 recorded as late if it is not done. A guard hands his open work over at 10pm without waking anyone. A
 festival day is skipped instead of the routine being switched off. Someone who could not do a job says
-why. The guard with no smartphone stops being permanently late.
+why. The guard with no smartphone stops being permanently late. And when someone quits, their open work comes back to the manager instead of going overdue against a person who has left.
 
 **They still cannot:** prove it beyond a photo and a self-reported time — no verified timestamp, no location checked against the property, no signature. No review, no insight, no owner view.
 
-**Why F24c, F33a, F15a and F53 are here and not later:** D67. The moment F18 exists, every one of these
+**Why F24c, F33a, F15a, F53 and F51 are here and not later:** D67. The moment F18 exists, every one of these
 is the difference between a true record and a false one. Ship F18 without them and the module starts
 accusing people in week one.
 
@@ -213,10 +214,11 @@ the templates later, the question types move up too. The cost is that stage 2 be
 and first user-visible value takes longer; the seam to split it at is written into stage 2. **A knock-on
 worth noting: this unblocks the fault loop (stage 5) to run any time after stage 3.**
 
-**2. F51 (someone leaves, their work returns) is in Band C but churn is called "the whole game".**
-D25 calls staff departure *"the most common event in the system."* It is not in any stage above because
-it is Band C. If churn really is the defining event, it belongs in stage 3 with the other
-record-honesty items — a resignation currently orphans open work silently.
+**2. F51 (someone leaves, their work returns) — DECIDED 2026-08-04: moved to Band B and into stage 3.**
+D25 calls staff departure *"the most common event in the system"*, and F51 fails D67's test — open tasks
+on someone who has left keep going overdue against them, so F21 and F22 report failures about a person
+who no longer works there. It sits with the other record-honesty items and depends on F33a, which is
+already in that stage.
 
 **3. F58 (alert → work) is in stage 7 but nothing technical holds it there.**
 It needs F4, F8 and the existing feed. F8 lands in stage 6, so F58 could be the first thing in stage 7
@@ -228,7 +230,7 @@ matters if any stage has to be shown to someone.
 ## What is in no stage
 
 Band C, minus the two called out above: **F14** (comments) · **F15b** (voice notes) · **F24a** (quick
-capture) · **F24b** (approve from phone) · **F33b** (bulk assign) · **F52** (manager deactivated) ·
+capture) · **F24b** (approve from phone) · **F33b** (bulk assign) · **F52** (manager deactivated — the sibling of F51, left in Band C because a manager leaving is rare where staff leaving is constant) ·
 **F47** (starter routines) · **F25a** (owner digest) · **F59** (visit log) · **F1** (linked-thing live
 state) · **F43** (tags) · **F25b** (export).
 
