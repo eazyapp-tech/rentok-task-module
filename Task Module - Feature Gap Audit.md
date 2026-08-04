@@ -12,6 +12,12 @@ Companion to `Task Module Brief.md`. This is the systematic feature-space audit 
 
 ## How to read
 
+> **What these tiers were scored against — read this before citing one (added 2026-08-04).** The tiers below were scored against **work and inspection tools**: MaintainX, SafetyCulture, Xenia and similar. So read `[TS]` as *"table stakes for a dedicated task product"*, **not** *"table stakes in PG software."*
+>
+> The Indian PG category — Ownant, NestDash, Stayqa, Roomindo, NoBroker — competes on rent collection, WhatsApp automation, UPI, tenant KYC, GST billing, vacancy listings and price per bed. **None of them has a staff task module**, and no published comparison in that market has a row for one. A `[TS]` score here therefore says nothing about whether Indian buyers expect the capability.
+>
+> The closest real peers are elsewhere: **co-living operations platforms** (JumboTiger) and **hotel housekeeping tools** (Flexkeeping, Optii, Quore, and India-localised ones like CleanDesk), which share our labour model of on-site staff cleaning rooms daily. Two things from them worth carrying: their recurring-work engines are built on **events and cadences with no polled state**, and JumboTiger ships **portfolio-wide cleanliness league tables** — the thing D15 and D22 forbid us from building.
+
 Three competitive baseline tiers:
 - **[TS] Table stakes** — every serious competitor (MaintainX, SafetyCulture, Xenia, Lumiform, GoAudits, Fiix, UpKeep, Connecteam, Yardi, Cribb) has this. Absence = below floor.
 - **[D] Differentiator** — only the best have it; building it moves us up the stack.
