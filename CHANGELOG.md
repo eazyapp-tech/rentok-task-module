@@ -495,6 +495,7 @@ A uniqueness rule on task creation (one schedule + one period + one target = one
 
 ### D80 — The moat is canonical sentence 8: the routines accumulate out of one person's head
 **Decided 2026-08-04.** Settles the open moat question and F1's band.
+*(Scope corrected by D81 — the mechanism here is right, the surface was drawn far too small. It is not routines accumulating; it is the property's whole work, across every role.)*
 
 **Two wrong answers were tried and discarded first.** The Brief claimed a *capability* moat —
 "none of them can do the things we can" — which is not true on features: MaintainX and
@@ -559,6 +560,82 @@ is a better reason to care about those than "table stakes".
 read the runner. D74 left the app's own words in English; the task content is in the manager's own
 script (D32, D74), so the questions are readable and the buttons are learned. Watch this if
 onboarding a new staff member proves slower than expected.
+
+
+### D81 — The module is the property's whole work, not its routines
+**Decided 2026-08-04. Widens D80's surface; the mechanism is unchanged.**
+
+D80 framed the moat as recurring routines accumulating out of the manager's head, and put the
+number at "six to eight". **Both were too small.** That estimate came from imagining housekeeping
+— i.e. from what the code does today — which let the current implementation set the ceiling. It is
+the same error as building the moat out of competitor comparisons: looking at what exists instead
+of at the user.
+
+**The evidence was already in the vault.** The S2L dependency map (20 Jul 2026, ~50 buildings)
+records the work they actually run:
+
+| Role | Work |
+|---|---|
+| Caretaker | Daily — cleaning, CCTV, water tank level, WiFi, biometric access, plants, motor on/off. Weekly — terrace, tanks, balcony |
+| Supervisor | Weekly audit **of the caretaker's work**. Monthly building audit — permits, fire NOC, utility NOC |
+| Anyone visiting a property | **Visit form** — purpose, what was done, arrival and departure photos, timestamped |
+| Property manager | Complaints; room-level splits between two managers |
+| Ops lead | Reviews raw reports daily and directs the team on gaps |
+| Building owner | Auto-emailed monthly audit report |
+
+Twelve kinds of work across five roles, at one account. And what they use to run it **today**: two
+custom GPTs, a **shared ChatGPT account across 50 people** to log motor on/off, Google Forms and
+WhatsApp. That is not a customer who needs a cleaning checklist — it is a customer assembling an
+operations system out of consumer AI tools because none exists.
+
+**Two lines from that map are live requirements evidence:**
+
+> *"explicit room-level assignment between managers isn't currently possible in-app, so today's
+> workaround is informal — two managers both see the same room list and split it manually, one
+> starts from the top, the other from the bottom."*
+
+> *"Shared 'dummy' manager account to be created — used only when one manager needs to help
+> another complete checklists."*
+
+They are **creating fake user accounts** to work around missing assignment. F10, F16 and F33a are
+paying-customer pain today, not speculation.
+
+**The corrected story:**
+
+> **A property's work is scattered across WhatsApp, Google Forms, ChatGPT, paper and one person's
+> memory. The module makes it one thing — every job, assigned to a named person, with proof,
+> visible up the chain.**
+
+The primitive is not a checklist. It is **work → person → proof → visible upward** — which is
+role-agnostic, property-type-agnostic and frequency-agnostic, and therefore has no natural
+ceiling. It also reframes the roadmap: the question stops being *"what feature next"* and becomes
+**"what work is still outside the system"**, which is a question the customer can answer for us,
+as S2L just did.
+
+**The moat mechanism from D80 is unchanged and its surface is much larger:** the more kinds of
+work move in, the harder the module is to leave, because there is no single thing to move back to
+— they would have to return to five tools.
+
+---
+
+**The honest limit, tested against their own list.** "Anything becomes a task" is **not true
+today**, and four of their eight work types prove it. Rather than build for all four:
+
+| Their work | Call |
+|---|---|
+| Daily/weekly checklists · room-level splits · move-out asset docs | **Already covered** (F5, F10, F16, existing move-out) |
+| Supervisor audits the caretaker's work | **Confirm, do not build.** He needs to see what the caretaker submitted — F8's history view should answer it. **F8 must state that history includes the submitted answers, not only that a task happened.** |
+| Monthly compliance audit (fire NOC, permits, utility NOC) | **No build.** An annual recurring task with a manually set date covers it. No expiry tracking, no renewal warning — say so rather than implying we track expiries. |
+| **Visit log** — arrival photo, departure photo, time on site | **Build it, small.** See F59. Confirmed as a real pattern for any operator whose staff travel between buildings, not S2L-specific. |
+| **Motor on/off log**, several times a day | **Explicitly out of scope.** This is telemetry, not work — a due date is the wrong shape for something logged four times a day. Naming it out is more useful than leaving it ambiguous. |
+
+**Scope decision:** this widens what we *say*, not what we ship. The requirements were broadly
+right; the story was too small. One small addition (F59), three decisions, no re-plan.
+
+**Accepted risk — the horizontal trap.** "Anything can be a task" is exactly the framing that
+makes a tool infinitely flexible and useless on day one, because nobody knows what to put in it.
+The defence is unchanged and now matters more: **F9 and F47 are the on-ramp** (D80). A blank
+"create a task" box is the failure mode this story invites.
 
 ---
 

@@ -46,6 +46,10 @@ We are not trying to out-feature them, and we should not pretend to. They have b
 
 **We are building a different thing for a different problem.** Their tool records work. Ours takes a property that runs on one person's memory and moves it into a system — so it keeps running when that person is busy, on leave, or gone. In a business where the staff change every month, that is the problem worth solving, and it is not the problem a watch-tool is built for.
 
+Look at what a real operator does when nothing exists. One of ours runs about fifty buildings. Their caretakers fill a daily checklist, their supervisors audit the caretakers weekly and audit the building monthly for permits and fire clearance, anyone visiting a property fills a visit form with arrival and departure photos, and the building owner gets a monthly report. To run all of that they use **two custom GPTs, a shared ChatGPT account across fifty people, Google Forms and WhatsApp.**
+
+Nobody assembles that out of consumer tools unless the need is enormous and nothing fits. That is the size of the gap.
+
 ## Who we are building for — the chain of accountability
 
 The module serves a chain, and each link uses it to make the next one accountable and efficient — never by watching harder, always by making the work and its proof clear.
@@ -94,13 +98,17 @@ That is the bet, and it holds even where it costs us. **We will not ship a built
 
 ## What makes this last
 
-**The routines are the thing that lasts.** Every routine Priya sets up is a piece of her operating knowledge moved out of her head and into the product. She builds it herself, so nobody can hand it to her replacement.
+**One place for all of the property's work.** Not the cleaning. All of it — the caretaker's daily round, the supervisor's audit, the monthly building check, the visit someone made on Tuesday, the one-off "get the water tank cleaned", the follow-up the manager owes herself. Every job, given to a named person, with proof, visible up the chain.
 
-That matters here more than almost anywhere, because of who we build for. Running a property on memory is fine when the same people are there next year. **In a PG the people keep leaving and the property does not.** Today when a cleaner quits, Priya walks the new one around for days while things get missed. With the routines built, the new person opens the app and the work is there — and that happens every month, not once a year.
+The shape underneath is always the same: **work goes to a person, they do it, there is a record, and each level above can see it.** That does not care what the job is, which role does it, or how often it happens — which is why there is no natural ceiling on what moves in.
 
-Two honest limits. **The routines carry the what and the when, not the how** — a checklist does not teach someone how this property wants a room cleaned, though a reference picture on an item carries part of it. And **it is slow**: nothing about this protects anyone in week one. It exists only once she has built enough routines to feel their absence.
+**And each thing that moves in is a piece of somebody's memory that the property no longer depends on.** Priya builds her routines herself, so nobody can hand them to her replacement. That matters here more than almost anywhere: running a property on memory is fine when the same people are there next year, and **in a PG the people keep leaving and the property does not.** Today when a cleaner quits, Priya walks the new one around for days while things get missed. With the work already in the system, the new person opens the app and the job is there — every month, not once a year.
 
-Which is why the template library is not a convenience. **Nothing accumulates until routines exist**, so the fastest path to a property that runs itself is a library she can start from instead of a blank box. And it is why a routine getting switched off and forgotten is the thing to design against.
+It also tells us what to build next, and the answer does not come from us. **The question is not "what feature now" but "what work is still outside the system"** — and the operator can answer that, because they are already doing that work somewhere else.
+
+Three honest limits. **"Any work" is not true yet** — a visit with an arrival and a departure needs a small addition, and something logged four times a day is not a task at all and should not become one. **The routines carry the what and the when, not the how** — a checklist does not teach someone how this property wants a room cleaned, though a reference picture on an item carries part of it. And **it is slow**: nothing about this protects anyone in week one. It exists only once she has built enough routines to feel their absence.
+
+Which is why the template library is not a convenience — and it matters more the broader this gets, because "you can put anything in it" is exactly how a tool ends up with nothing in it. **Nothing accumulates until the work exists in there**, so the fastest path to a property that runs itself is a library she can start from instead of a blank box. And it is why a routine getting switched off and forgotten is the thing to design against.
 
 **None of it happens if Priya does not trust the module.** If it reads as the owner watching her, she never builds the routines, and there is nothing to accumulate. The no-fines, no-scorecard promise is not a value sitting beside this argument — it is what makes the argument possible.
 
@@ -187,6 +195,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
+- **2026-08-04 (c)** — **Widened the story to the property's whole work (D81).** The previous version framed this around recurring routines, which was drawn from what the code does today rather than from the user. A real fifty-building operator runs twelve kinds of work across five roles on two custom GPTs, a shared ChatGPT account, Google Forms and WhatsApp — that evidence is now in the market section. Rewrote "What makes this last" around one place for all the work, named the underlying shape (work → person → proof → visible upward), and added the roadmap question that follows from it. Added the third honest limit: "any work" is not true yet.
 - **2026-08-04 (b)** — **Named the moat (D80).** Removed "none of them can do the things we can" — it is not true on features and it invited a comparison that was never the argument. The moat is canonical sentence 8: a property runs on a system, not one person's memory, and the routines accumulate out of her head. Added "What makes this last", including the two honest limits (routines carry the what and when, not the how; the moat is slow) and the reason the no-fines promise is a precondition rather than a value beside it. Broke the differentiator paragraph into a list.
 - **2026-08-04** — Reconciled with D64–D79. **Standing rules are out of the brief entirely** — they appeared in six places, including "what success looks like", describing a capability that was deferred. What replaces them: an alert RentOk already raises can be turned into work, one task per item. **Suggest-close is out too** — a task now *shows* the linked thing's live state and the person decides (D65). The "what has to ship" section was rewritten: the three jobs are the ship gate, and the entity link is what makes this ours, which is a different claim. The staff persona's shared-phone line was corrected (D74). Vacant-room readiness is back, via a finished move-out creating the prep task (F3).
 - **2026-07-21 (d)** — Raised the mission's why one level: a property that ran on the manager's memory now runs on a system, so it does not break when a person is busy, away, or gone. Named the continuity payoff — new hires inherit the routine, the property survives the manager's leave, new properties start from recommended routines — as the answer to staff churn.

@@ -24,7 +24,7 @@ Every requirement, with **what it is** and **what the operator loses without it*
 
 **The rule that decides between B and C (D67):** *if a Band B feature would produce a false record without it, or would damage another part of RentOk, it belongs in Band B.* The test is tight — not "would this be better with it", but "does the record become false, or does another module break." F14, F24a and F33b all fail it and stay in C.
 
-**Finding an F-number:** **A** — F26, F36, F37, F38, F41, F44, F45, F46 · **B** — F2, F3, F4, F5, F7, F8, F9, F10, F11, F12, F13, F15a, F16, F17, F18, F19, F20, F21, F22, F24c, F29, F30, F31, F32, F33a, F39, F40, F48, F49, F50, F53, F54, F57, F58 · **C** — F1, F14, F15b, F24a, F24b, F25a, F25b, F27, F33b, F43, F47, F51, F52 · **Later** — F3b, F6, F28, F34, F35, F42
+**Finding an F-number:** **A** — F26, F36, F37, F38, F41, F44, F45, F46 · **B** — F2, F3, F4, F5, F7, F8, F9, F10, F11, F12, F13, F15a, F16, F17, F18, F19, F20, F21, F22, F24c, F29, F30, F31, F32, F33a, F39, F40, F48, F49, F50, F53, F54, F57, F58 · **C** — F1, F14, F15b, F24a, F24b, F25a, F25b, F27, F33b, F43, F47, F51, F52, F59 · **Later** — F3b, F6, F28, F34, F35, F42
 
 **Prerequisites** and **migrations** are listed separately. They are sequencing facts, not priorities.
 
@@ -230,7 +230,7 @@ The person adds this failure to an existing complaint — with today's photo —
 *Without it:* one leaking tap becomes seven complaints in a week, and the queue she relies on for real tenant issues becomes unusable.
 
 **F8 — Link a task to a real thing, and see everything ever done to it.**
-A due, tenant, room or asset — for context, filtering, navigation and history (D2).
+A due, tenant, room or asset — for context, filtering, navigation and history (D2). **History shows the submitted answers and photos, not only that a task happened** — that is what lets a supervisor audit a caretaker's work without a second system (D81).
 *Without it:* "what has been done to room 204 this year" cannot be answered, which is the question a dispute or a handover actually asks — so the proof exists and nobody can find it.
 
 ---
@@ -267,6 +267,10 @@ Rules do not fire under a dead account (D42).
 **F25a — A weekly digest to the owner over WhatsApp.**
 Moved down from Band B (D78) — F22 is the promise; this is convenience on a screen that already exists.
 *Without it:* the owner has to open the app to learn anything, and mostly he won't.
+
+**F59 — A visit log: a task that records arriving and leaving.**
+One field pair on top of an ordinary task — arrival with a photo, departure with a photo — so the record shows who was at the property, when, and for how long (D81). Everything else about it is a normal task: purpose, checklist, assignment, proof.
+*Without it:* an operator whose staff travel between buildings cannot tell a real visit from a claimed one. S2L run ~50 buildings with supervisors doing about three a day, and asked for this directly; today they have no way to check a claimed visit happened.
 
 **F1 — A task shows the live state of the thing it is linked to.**
 "Room 204 · ₹8,000 due · PAID, 2 Aug", or "Partially paid, ₹3,000 of ₹8,000". It never judges whether the work is done — the person reads the real state and closes it (D65).
@@ -320,7 +324,7 @@ Ships to all users — there is no pilot (D47) — but enablement is controlled 
 
 ## Not building
 
-Fines, salary deductions, or a staff scorecard — for anyone, including managers (D15, D22) · anything that acts without a person confirming (D1) · a free-form if-this-then-that rule builder (D7) · attendance and shift clocking · a native Task tab (D11) · rebuilding move-in/move-out (D14, D61) · the guard's visitor register.
+**High-frequency logs** — anything recorded several times a day, such as a motor's on/off timestamps. That is telemetry, not work; a due date is the wrong shape for it (D81) · **Tracking licence and certificate expiry dates** — a fire NOC or trade licence renewal is an annual recurring task with a date the manager sets. We do not track expiries or warn before them (D81) · Fines, salary deductions, or a staff scorecard — for anyone, including managers (D15, D22) · anything that acts without a person confirming (D1) · a free-form if-this-then-that rule builder (D7) · attendance and shift clocking · a native Task tab (D11) · rebuilding move-in/move-out (D14, D61) · the guard's visitor register.
 
 ## What changed in version 2.1
 
