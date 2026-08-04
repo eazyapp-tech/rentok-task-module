@@ -1,7 +1,7 @@
 ---
 title: "Task Module — Feature Requirements"
 date: 2026-08-04
-version: "2.2"
+version: "2.3"
 owner: "Sanchay"
 status: "current"
 tags: [rentok, tasks, requirements]
@@ -213,17 +213,20 @@ Shows the state of the *work*, and each person their own number — never a rank
 *Without it:* the off-site owner is still asking managers how things are going, which is the position he pays us to get out of — and the manager is blindsided in a call by a list she has never seen, which is the fear that makes her kill adoption for everyone under her.
 
 **F53 — A manager can complete a task on behalf of someone without a smartphone.**
-Recorded as done by her, for them; those people are left out of automatic escalation (D30).*Without it:* the guard's work is either missing from the system or permanently late — so F21's on-time rate and F22's exception list both show a failure that never happened, about the one person with no way to argue back.
+Recorded as done by her, for them; those people are left out of automatic escalation (D30).
+*Without it:* the guard's work is either missing from the system or permanently late — so F21's on-time rate and F22's exception list both show a failure that never happened, about the one person with no way to argue back.
 
 **F15a — A "couldn't do it" outcome with a reason.**
-Free text (D79).*Without it:* blocked work looks identical to ignored work — "tenant was asleep" is recorded as a failure — and a person whose camera will not open has no way to submit at all.
+Free text (D79).
+*Without it:* blocked work looks identical to ignored work — "tenant was asleep" is recorded as a failure — and a person whose camera will not open has no way to submit at all.
 
 **F24c — Skip or reschedule a single occurrence.**
 Moved up from Band C (D67).
 *Without it:* a festival or a one-off clash means turning the whole routine off, and often forgetting to turn it back on — and every festival day is recorded as the whole team failing, permanently.
 
 **F33a — Reassign a task, including by the person holding it.**
-This is what replaces shift handover (D34, D25).*Without it:* the guard going off duty at 10pm has to wake the manager to pass on his open work — or it stays his and goes overdue against him.
+This is what replaces shift handover (D34, D25).
+*Without it:* the guard going off duty at 10pm has to wake the manager to pass on his open work — or it stays his and goes overdue against him.
 
 **F54 — When raising a complaint from a failure, show the open ones for that room first.**
 The person adds this failure to an existing complaint — with today's photo — or starts a new one. They decide; the system does not match them automatically (D29, simplified per D65). *Build note: the move-out path looks up complaints with no open/closed filter, so the "show me the open ones" check is new work, not a pattern to copy.*
@@ -261,7 +264,7 @@ Rules do not fire under a dead account (D42).
 *Without it:* a departed manager's routines keep generating work nobody owns, and her pending approvals block forever.
 
 **F47 — New properties start with their routines already set up; existing ones are offered them.**
-(D48.) The routines are **created, enabled and unassigned**. For nothing to fire until the admin assigns someone, the scheduler must skip routines with no assignees — see **P0** — he opens the app and sees the property already set up, with no failure history piling up against nobody (D78).
+(D48.) The routines are **created, enabled and unassigned**, so nothing fires until the admin assigns someone — which needs the scheduler to skip routines with nobody on them (**P0**). He opens the app and sees the property already set up, with no failure history piling up against nobody (D78).
 *Without it:* she has to do the setup work before she gets anything back. That is how a busy manager stops using something in the second week.
 
 **F25a — A weekly digest to the owner over WhatsApp.**
@@ -324,13 +327,23 @@ Ships to all users — there is no pilot (D47) — but enablement is controlled 
 
 ## Not building
 
-**High-frequency logs** — anything recorded several times a day, such as a motor's on/off timestamps. That is telemetry, not work; a due date is the wrong shape for it (D81) · **Tracking licence and certificate expiry dates** — a fire NOC or trade licence renewal is an annual recurring task with a date the manager sets. We do not track expiries or warn before them (D81) · Fines, salary deductions, or a staff scorecard — for anyone, including managers (D15, D22) · anything that acts without a person confirming (D1) · a free-form if-this-then-that rule builder (D7) · attendance and shift clocking · a native Task tab (D11) · rebuilding move-in/move-out (D14, D61) · the guard's visitor register.
+
+- **High-frequency logs** — anything recorded several times a day, such as a motor's on/off times. That is telemetry, not work; a due date is the wrong shape for it (D81).
+- **Tracking licence and certificate expiry dates** — a fire NOC or trade licence renewal is a recurring task with a date the manager sets. We do not track expiries or warn before them (D81).
+- Fines, salary deductions, or a staff scorecard — for anyone, including managers (D15, D22).
+- Anything that acts without a person confirming (D1).
+- A free-form if-this-then-that rule builder (D7).
+- Attendance and shift clocking · a native Task tab (D11) · rebuilding move-in/move-out (D14, D61) · the guard's visitor register.
 
 ## What changed in version 2.1
 
 Stress-tested after v2.0 and cut. **Standing rules are deferred entirely** (D64) — F6, rule management, preview and guards all go, along with the stored room-occupancy prerequisite. **A task no longer suggests that work is done; it shows the live state of the thing it is linked to** (D65) — that removes a hand-written rule for every kind of linked thing, each of which could be wrong. **An alert can now be turned into work, one task per item** (D66, F58) — the small bridge that lets a detected problem become work with an owner. Operator-managed areas moved to V1.1; complaint matching became "show the open ones and let the person choose"; checklist editing is blocked while tasks are open rather than version-pinned.
 
 *(The v2.1 line "vacant-room readiness has no home in V1" is superseded by v2.2 — F3 is pulled in.)*
+
+## What changed in version 2.3
+
+The story widened to the property's whole work, not its routines (D81) — which added **F59** (a visit log: one task that records arriving and leaving), tightened **F8** to say history shows the submitted answers and not only that a task happened, and put high-frequency logs and licence-expiry tracking explicitly in *Not building*. The problem is now stated as late discovery rather than lazy staff (D82), and the cost chain behind it is measured rather than asserted (D83).
 
 ## What changed in version 2.2
 

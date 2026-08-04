@@ -53,71 +53,6 @@ Adversarial review findings, worked through one at a time. Each row gets a decis
 | 23 | Partial payment keeps the collection visit spawning | MEDIUM | closed by D64 | Died with F6 — no money rule exists |
 | 24 | Device photo retention (F39) | MEDIUM | **decided** | Merged into D73 |
 
-## RESOLVED — what the moat is, and where F1 sits
-
-**Settled 2026-08-04 as [D80](CHANGELOG.md). The Brief is rewritten.**
-
-> **The answer:** a moat is not decided by looking at competitors — it is decided by what the
-> product does for the people it is built for. The moat is **canonical sentence 8**: *a property
-> runs on a system, not on one person's memory.* The routines accumulate Priya's operating
-> knowledge out of her head, she builds them herself, and at PG churn rates the payoff lands
-> every month. **F1 stays Band C.** F9/F47 are the on-ramp; F24c/F48/F49/F50 are moat defence;
-> F22/F25a are sales. The no-fines promise is the precondition, not a parallel value.
-
-The two wrong answers below are kept because both were plausible and both were discarded for
-reasons worth remembering.
-
-The doc-handoff review found that D68's line *"F1 is moot"* is wrong — F1 (*a task shows the
-linked thing's live state*) **is** the requirement that implements D65. It sits in **Band C**
-while the Brief presents it as one of the two things that make this ours. So either F1 moves up,
-or the Brief's differentiator claim changes. That question opened a bigger one.
-
-**First answer, and it was wrong.** The reviewer proposed the moat is F58 (an alert becomes work)
-plus F3. Sanchay's objection: **the alert lives on the home screen, not in the Task module.** If
-that is the moat, the moat is not in the module being rebuilt.
-
-**Second answer, also discarded.** Test each claim against MaintainX:
-
-| Claim | Can a competitor do it? |
-|---|---|
-| A task shows the linked thing's live state (F1) | Not today, but it is a display — an integration approximates it |
-| Every task ever done to room 204 (F8) | **Yes** — asset history is core to MaintainX |
-| Failed check → routed ticket (F2) | **Yes** — their strongest area. We are catching up, not leading |
-| No fines, no scorecard (the bet) | Yes, if they chose. Positioning, copyable in a sprint |
-
-On features we lose. The operator's real question is not "which task tool is better" but **"do I
-run a second system?"** — a second staff directory kept current at PG churn rates, 200 rooms
-re-created as assets, a second WhatsApp number, a second per-seat bill, a second login. We
-already hold all of it.
-
-So the proposed framing: **this cycle's moat is consolidation, not capability. We win by being
-adequate and already there.** That makes the ship bar *"good enough that nobody goes looking"* —
-which is Band A + B as they stand.
-
-**The one real capability moat is not built yet:** producing work nobody thought to assign. Today
-still needs Priya to notice an alert. The moat version is the property's own events creating the
-work — a move-out finishes and the prep task exists, without anyone looking. **This cycle ships
-exactly one of those (F3) and the seam it runs on.** Honest to say it is one event old.
-
-**Two smaller things that are genuinely ours today:** the proof attaches to money (a photo of
-Room 204 sits beside a deposit deduction, a rent dispute and a tenant complaint on the same room
-— F8's real value is not that history exists but that it is admissible where the money argument
-happens), and the complaint queue is shared with the tenant.
-
-**Brief change, now APPLIED (D80):** dropped *"None of them can do the things we can"* — it is not
-true on features and invites the comparison we lose. Replace with, in order: (1) you will not run
-two systems; (2) the proof lands where the money argument happens; (3) the work is starting to
-appear on its own.
-
-**Why the second answer was discarded too:** consolidation is a real reason nobody buys a second
-tool, but it is still a competitor-shaped argument — it describes why they do not leave, not what
-the product does for them. The third answer (D80) is the product's own: the routines accumulate
-out of one person's head, which is what this business, with its churn, actually needs.
-
-**Settled:** F1 stays Band C.
-
----
-
 ## Decisions
 
 ### D64 — Standing rules are dropped; system-generated tasks become assignable
@@ -354,8 +289,8 @@ never be sure which things bypass her.
 
 **The reviewer was wrong and Sanchay corrected it.** The review proposed a repeatable checklist
 block plus by-floor scope so a monthly building audit would not fan out into 200 tasks. That was
-over-built. A monthly audit is **one walk, one form, one monthly report** — which is exactly what
-S2L does in Google Forms today, so it is observed behaviour, not a guess. It needs no new
+over-built. A monthly audit is **one walk, one form, one monthly report** — the shape
+S2L's own supervisor audit already takes, so it is observed behaviour, not a guess. It needs no new
 question type, no new scope branch, and no engineering. Every question type already exists.
 
 **The shape:** one property-wide task, monthly. "All rooms clean? / Lift working? / Generator
@@ -613,3 +548,68 @@ likely to keep using paper. Treat low F7 adoption as expected, not as a bug.
 
 **F2 cannot name a place outside its own task (from D70).** A problem found on a property-wide audit
 raises a complaint against the property, not the room. Revisit if S2L complains about re-typing.
+
+---
+
+## Settled later — what the moat is (D80, D81)
+
+**Settled 2026-08-04 as [D80](CHANGELOG.md). The Brief is rewritten.**
+
+> **The answer:** a moat is not decided by looking at competitors — it is decided by what the
+> product does for the people it is built for. The moat is **canonical sentence 8**: *a property
+> runs on a system, not on one person's memory.* The routines accumulate Priya's operating
+> knowledge out of her head, she builds them herself, and at PG churn rates the payoff lands
+> every month. **F1 stays Band C.** F9/F47 are the on-ramp; F24c/F48/F49/F50 are moat defence;
+> F22/F25a are sales. The no-fines promise is the precondition, not a parallel value.
+
+The two wrong answers below are kept because both were plausible and both were discarded for
+reasons worth remembering.
+
+The doc-handoff review found that D68's line *"F1 is moot"* is wrong — F1 (*a task shows the
+linked thing's live state*) **is** the requirement that implements D65. It sits in **Band C**
+while the Brief presents it as one of the two things that make this ours. So either F1 moves up,
+or the Brief's differentiator claim changes. That question opened a bigger one.
+
+**First answer, and it was wrong.** The reviewer proposed the moat is F58 (an alert becomes work)
+plus F3. Sanchay's objection: **the alert lives on the home screen, not in the Task module.** If
+that is the moat, the moat is not in the module being rebuilt.
+
+**Second answer, also discarded.** Test each claim against MaintainX:
+
+| Claim | Can a competitor do it? |
+|---|---|
+| A task shows the linked thing's live state (F1) | Not today, but it is a display — an integration approximates it |
+| Every task ever done to room 204 (F8) | **Yes** — asset history is core to MaintainX |
+| Failed check → routed ticket (F2) | **Yes** — their strongest area. We are catching up, not leading |
+| No fines, no scorecard (the bet) | Yes, if they chose. Positioning, copyable in a sprint |
+
+On features we lose. The operator's real question is not "which task tool is better" but **"do I
+run a second system?"** — a second staff directory kept current at PG churn rates, 200 rooms
+re-created as assets, a second WhatsApp number, a second per-seat bill, a second login. We
+already hold all of it.
+
+So the proposed framing: **this cycle's moat is consolidation, not capability. We win by being
+adequate and already there.** That makes the ship bar *"good enough that nobody goes looking"* —
+which is Band A + B as they stand.
+
+**The one real capability moat is not built yet:** producing work nobody thought to assign. Today
+still needs Priya to notice an alert. The moat version is the property's own events creating the
+work — a move-out finishes and the prep task exists, without anyone looking. **This cycle ships
+exactly one of those (F3) and the seam it runs on.** Honest to say it is one event old.
+
+**Two smaller things that are genuinely ours today:** the proof attaches to money (a photo of
+Room 204 sits beside a deposit deduction, a rent dispute and a tenant complaint on the same room
+— F8's real value is not that history exists but that it is admissible where the money argument
+happens), and the complaint queue is shared with the tenant.
+
+**Brief change proposed by this discarded answer, and NOT applied:** it suggested dropping *"None of them can do the things we can"* — it is not
+true on features and invites the comparison we lose. Replace with, in order: (1) you will not run
+two systems; (2) the proof lands where the money argument happens; (3) the work is starting to
+appear on its own.
+
+**Why the second answer was discarded too:** consolidation is a real reason nobody buys a second
+tool, but it is still a competitor-shaped argument — it describes why they do not leave, not what
+the product does for them. The third answer (D80) is the product's own: the routines accumulate
+out of one person's head, which is what this business, with its churn, actually needs.
+
+**Settled:** F1 stays Band C.

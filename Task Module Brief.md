@@ -12,7 +12,7 @@ tags:
 
 # Task Module — Product Vision Brief
 
-> **What this is.** The one-page bet for the Task module redesign, in plain language, before the PRD. It says why we are doing this and what has to be true. The PRD enumerates the features; the [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) holds the code-level evidence. This brief holds neither — it holds the bet.
+> **What this is.** The bet behind the Task module redesign, in plain language, before the PRD. It says why we are doing this and what has to be true. The PRD enumerates the features; the [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) holds the code-level evidence. This brief holds neither — it holds the bet.
 
 ## What we are building
 
@@ -22,7 +22,7 @@ Start with the everyday problem. Most days the manager knows what needs doing an
 
 Underneath, three things change. A task tied to a real thing in RentOk — a rent due, a tenant, a room — **shows that thing's live state**, so the person closing it can see what is actually true instead of checking another screen. An alert RentOk already raises — rent overdue, KYC missing — can be **turned into work**, one task per tenant, with an owner and a record. And a task that finds a problem carries it straight into a complaint, details already filled in, ready to raise. Nothing acts on its own — a person decides.
 
-Today the module can run a scheduled checklist and little else. This redesign lifts it to the standard every serious operations tool holds — and then adds the things none of them have, because only RentOk owns the rent, the tenants, and the standards the work is about.
+Today the module can run a scheduled checklist and little else. This redesign lifts it to the standard every serious operations tool holds.
 
 ## The problem
 
@@ -36,9 +36,9 @@ None of those needs a bad person. They are what happens when there are more jobs
 
 The room is not cleaned on Monday. Nobody knows on Monday. The tenant complains on Thursday — and it arrives as *a complaint*, not as a missed cleaning. So the owner learns about a ten-minute failure through a slower, larger consequence, in a form that no longer says what caused it.
 
-**This is measurable, and we measured it.** Across a year of our own data, **31% of complaints tied to a room are a repeat — the same room, the same kind of problem, within seven days.** For maintenance it is 33%. That is not a third of tenants finding new faults. It is a third of the complaint queue being somebody chasing something that was already reported and did not get done.[^complaints]
+Across a year of our own data, **32% of complaints tied to a room are a repeat — the same room, the same kind of problem, within seven days.** For maintenance it is 33%. That is not a third of tenants finding new faults. It is a third of the complaint queue being somebody chasing something that was already reported and did not get done.[^complaints]
 
-And there is a structural reason he learns late:
+And there is a structural reason the owner learns late:
 
 > **The person who reports on the work is the same person whose memory dropped it.**
 
@@ -54,7 +54,7 @@ The Task module was built for one shape of this: a manager schedules a checklist
 
 So people keep the real system where it has always been: in their head, on WhatsApp, in a paper register. The module holds a copy of the checklist but not the truth of whether the work happened, and no one above the manager can see any of it.
 
-**What we can honestly change.** The forgetting we can end outright — the work appears without anyone having to remember it, which is the one real prevention in here. Late work and claimed work we cannot prevent. What we can do is **collapse the distance between them happening and someone knowing** — from months to the same day. Nothing in this module forces a person to do anything, and we should not write as though it does.
+**What we can honestly change.** The forgetting we can end outright — the work appears without anyone having to remember it, which is the one real prevention in here. Late work and claimed work we cannot prevent. What we can do is **collapse the distance between them happening and someone knowing** — from months to the same day. Nothing in this module forces a person to do anything.
 
 ## The market signal
 
@@ -62,11 +62,13 @@ Every competitor in this category — MaintainX is the clearest — sells the sa
 
 We are not trying to out-feature them, and we should not pretend to. They have built checklist tools for years and this cycle will not beat them on checklists.
 
-**We are building a different thing for a different problem.** Their tool records work. Ours takes a property that runs on one person's memory and moves it into a system — so it keeps running when that person is busy, on leave, or gone. In a business where the staff change every month, that is the problem worth solving, and it is not the problem a watch-tool is built for.
+**We are building a different thing for a different problem.** Their tool records the work. Ours moves the property's operating knowledge out of one person's head. In a business where staff change every month, that is the problem worth solving, and it is not what a watch-tool is built for.
 
-Look at what a real operator does when nothing exists. One of ours runs about fifty buildings. Their caretakers fill a daily checklist, their supervisors audit the caretakers weekly and audit the building monthly for permits and fire clearance, anyone visiting a property fills a visit form with arrival and departure photos, and the building owner gets a monthly report. To run all of that they use **two custom GPTs, a shared ChatGPT account across fifty people, Google Forms and WhatsApp.**
+Look at what a real operator is already reaching for. One of ours runs about fifty buildings. Their caretakers fill a daily checklist, their supervisors audit the caretakers weekly and audit the building monthly for permits and fire clearance, and they want a visit form with arrival and departure photos for anyone who goes to a site.
 
-Nobody assembles that out of consumer tools unless the need is enormous and nothing fits. That is the size of the gap.
+To run the inspection half of that they have **built and rolled out their own custom GPT** — it walks a caretaker through a room question by question and holds the report until every item is filled. A second one, for move-out asset documentation, is in design. They have **proposed a shared ChatGPT account across about fifty staff** simply to log when a water motor is switched on and off, because a failed motor costs them around ₹20,000 to repair.
+
+An operator does not build their own AI tooling, or propose sharing one consumer account across fifty people, unless the need is large and nothing fits. That is the size of the gap.
 
 ## Who we are building for — the chain of accountability
 
@@ -88,15 +90,13 @@ The fix is not more checklist features. It is teaching the module to use the lin
 
 ## The mission: tell people what to do, prove it, help them improve
 
-Underneath all three is one shift. Today a property runs on the manager's memory and daily instruction; the module makes it run on a system instead. The routines, the standards, and the record stop living in one person's head — so the property does not break when that person is busy, on leave, or gone. The module does three things toward that, in the order a person meets them. They are one loop, not three tools — the same work, told, proved, and seen.
+Underneath all three is one shift. Today a property runs on the manager's memory and daily instruction; the module makes it run on a system instead. The module does three things toward that, in the order a person meets them. They are one loop, not three tools — the same work, told, proved, and seen.
 
 **It tells you what to do.** This is the everyday heart of it, and it is help, not oversight. People wait to be told — even for their own job — and managers burn their mornings telling them. The module gives each person their routine: the recurring work, RentOk's recommendation of what a property like this should run, and their own reminders. The work shows up; they do it; no one has to chase. That is daily efficiency that manages itself, and it runs in every direction — a founder sets a monthly routine for each manager, a manager a weekly one for herself, a staff member a reminder for a job they must not forget. The standards a property runs on get set once and then keep running, and they are applied **before** quality drops — the vacant room kept show-ready so it fills faster, the check done before the warranty lapses, the follow-up sent before the rent is badly overdue.
 
 **It proves it was done** — with the proof owned by the person who did it. This is where accountability comes from, and it is not punishment. The photo and the timestamp are the worker's defense first and the record second. The proof is honest because the tool is built to protect the person giving it — and honest proof is the only kind worth holding anyone to.
 
 **It lets each level see and help the next.** A founder sees which properties are keeping to the standard and holds his managers to it; a manager sees what is failing and where; a staff member sees their own record and gets better on their own. Each level enables and sees — it does not hover. A weak link surfaces before it becomes a fire, across every property, without anyone being on-site.
-
-And because the operation now lives in the system, it survives the people changing — which, in a business where staff quit constantly, is the whole game. A new hire opens the app and inherits the routine instead of shadowing someone for a week. The property keeps running when the manager is on leave. A new property starts from the routines RentOk recommends, not a blank slate. That is the difference between a property that holds its standard and one that resets every time someone walks out the door.
 
 Efficiency is not a nice-to-have beside accountability — it is what makes the whole thing last. A tool that first helps you do your job, and saves your manager the morning spent assigning it, earns the right to also record it. A tool that only records gets abandoned by the second week.
 
@@ -116,24 +116,6 @@ That is the bet, and it holds even where it costs us. **We will not ship a built
 
 **The three jobs are the ship gate.** Tell people what to do — routines with real scope reaching the right person on their phone. Prove it happened — proof collected as part of the work, owned by the person who collected it. Let each level see — one list for the manager, the exceptions for the owner, and the manager seeing the same list about her own property. If any of those three does not work, the module has not done what we said it does.
 
-## What makes this last
-
-**One place for all of the property's work.** Not the cleaning. All of it — the caretaker's daily round, the supervisor's audit, the monthly building check, the visit someone made on Tuesday, the one-off "get the water tank cleaned", the follow-up the manager owes herself. Every job, given to a named person, with proof, visible up the chain.
-
-The shape underneath is always the same: **work goes to a person, they do it, there is a record, and each level above can see it.** That does not care what the job is, which role does it, or how often it happens — which is why there is no natural ceiling on what moves in.
-
-**And each thing that moves in is a piece of somebody's memory that the property no longer depends on.** Priya builds her routines herself, so nobody can hand them to her replacement. That matters here more than almost anywhere: running a property on memory is fine when the same people are there next year, and **in a PG the people keep leaving and the property does not.** Today when a cleaner quits, Priya walks the new one around for days while things get missed. With the work already in the system, the new person opens the app and the job is there — every month, not once a year.
-
-It also tells us what to build next, and the answer does not come from us. **The question is not "what feature now" but "what work is still outside the system"** — and the operator can answer that, because they are already doing that work somewhere else.
-
-Three honest limits. **"Any work" is not true yet** — a visit with an arrival and a departure needs a small addition, and something logged four times a day is not a task at all and should not become one. **The routines carry the what and the when, not the how** — a checklist does not teach someone how this property wants a room cleaned, though a reference picture on an item carries part of it. And **it is slow**: nothing about this protects anyone in week one. It exists only once she has built enough routines to feel their absence.
-
-Which is why the template library is not a convenience — and it matters more the broader this gets, because "you can put anything in it" is exactly how a tool ends up with nothing in it. **Nothing accumulates until the work exists in there**, so the fastest path to a property that runs itself is a library she can start from instead of a blank box. And it is why a routine getting switched off and forgotten is the thing to design against.
-
-**None of it happens if Priya does not trust the module.** If it reads as the owner watching her, she never builds the routines, and there is nothing to accumulate. The no-fines, no-scorecard promise is not a value sitting beside this argument — it is what makes the argument possible.
-
-**Named, not quietly deferred:** the property's own events making work appear without anyone looking — beyond the move-out that now creates the room-prep task — is the sprint right after this one.
-
 The redesign also gives the module what every serious operations tool has and ours does not:
 
 - **Proof collected as part of the work** — location, time, signature, photo, all owned by the staff member first. This is the headline, not a footnote.
@@ -148,6 +130,31 @@ The redesign also gives the module what every serious operations tool has and ou
 The library is one deliverable inside this redesign, not a project beside it.
 
 The PRD lists every one of these as a numbered requirement with its own test. This brief only claims the shape.
+
+**Next sprint:** the property's own events making work appear without anyone looking — beyond the move-out that now creates the room-prep task — starts right after this one.
+
+## What makes this last
+
+One place for all of the property's work. Not the cleaning. All of it — the caretaker's daily round, the supervisor's audit, the monthly building check, the visit someone made on Tuesday, the one-off "get the water tank cleaned", the follow-up the manager owes herself. Every job, given to a named person, with proof, visible up the chain.
+
+The shape underneath is always the same: **work goes to a person, they do it, there is a record, and each level above can see it.** That does not care what the job is, which role does it, or how often it happens — which is why there is no natural ceiling on what moves in.
+
+And each thing that moves in is a piece of somebody's memory that the property no longer depends on. Priya builds her routines herself, so nobody can hand them to her replacement. That matters here more than almost anywhere: running a property on memory is fine when the same people are there next year, and **in a PG the people keep leaving and the property does not.** Today when a cleaner quits, Priya walks the new one around for days while things get missed. With the work already in the system, the new person opens the app and the job is there — every month, not once a year.
+
+It also tells us what to build next, and the answer does not come from us. **The question is not "what feature now" but "what work is still outside the system"** — and the operator can answer that, because they are already doing that work somewhere else.
+
+Three honest limits:
+
+- **"Any work" is not true yet.** A visit with an arrival and a departure needs a small addition. Something logged four times a day is not a task at all and should not become one.
+- **A routine carries the what and the when, not the how.** A checklist does not teach a new cleaner how this property wants a room cleaned — a reference picture on an item carries part of it, not all.
+- **It is slow.** Nothing here protects anyone in week one. It only works once she has built enough routines to feel their absence.
+
+So the template library is not a convenience. **Nothing accumulates until the work is in there** — and "you can put anything in it" is exactly how a tool ends up with nothing in it. The fastest path to a property that runs itself is a library she starts from, not a blank box.
+
+For the same reason, a routine that gets switched off and forgotten is the thing to design against.
+
+None of it happens if Priya does not trust the module. If it reads as the owner watching her, she never builds the routines, and there is nothing to accumulate. The no-fines, no-scorecard promise is not a value sitting beside this argument — it is what makes the argument possible.
+
 
 ## How the tasks show up — three sources, one place
 
@@ -193,7 +200,7 @@ Once tasks know the real thing they are about, the module becomes the place a pr
 
 The property starts to run its own standards without being told to. The move-out that now creates the room-prep task is the first of it; the rest of the property's events — a notice given, a warranty running out, a tenant joining — follow next cycle, so the work appears from what is actually happening. Rules that watch a condition are the step after that, once we know from real use which conditions matter.
 
-And the biggest one — **you build any of it by talking.** RentOk's assistant, grounded in the real property, lets an operator say "clean all vacant rooms on the second floor every day, and if it's not done by 6pm, tell me" — and the work is drafted for her to confirm. This is also where rules that watch a condition eventually return: spoken, not configured. This is where the open-ended power lives without a developer tool ever appearing on screen, and it is the accessibility unlock for the exact people the bet is about: Priya and Ramu, who read Hindi better than English, can *speak* the work into existence. A generic task app's assistant can build "a task"; it cannot build "a task for all vacant rooms on the second floor," because it does not own the rooms. We do. To keep that door open, this cycle builds task and rule creation as something the assistant can later call — not a screen it can never reach.
+And the biggest one — **you build any of it by talking.** RentOk's assistant, grounded in the real property, lets an operator say "clean all vacant rooms on the second floor every day, and if it's not done by 6pm, tell me" — and the work is drafted for her to confirm. This is also where rules that watch a condition eventually return: spoken, not configured. This is where the open-ended power lives without a developer tool ever appearing on screen, and it is the accessibility unlock for the exact people the bet is about: Priya and Ramu, who read Hindi better than English, can *speak* the work into existence. A generic task app's assistant can build "a task"; it cannot build "a task for all vacant rooms on the second floor," because it does not own the rooms. We do. To keep that door open, this cycle builds task creation as something the assistant can later call — not a screen it can never reach.
 
 That is the horizon: a property that runs its own standards, holds its own people accountable through proof they trust, and can be operated by talking to it — the tool the staff want, not the tool the owner imposes.
 
@@ -205,7 +212,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 [^2]: Ramu (guard) is a composite persona from the same Persona Bible. Sourced verbatim: line 192 — "If the app replaces his paper register, he may feel threatened. Position as 'modern security tools that make your job respected.'"
 
-[^complaints]: Live query against production, 4 Aug 2026. 70,513 room-linked complaints over 12 months, test properties excluded. A "repeat" is a complaint on the same room in the same category group as an earlier one. Within 7 days: 31.5% overall, 33.4% maintenance, 20.4% cleaning and housekeeping. Within 30 days it rises to 44.1%, which we treat as an upper bound because two genuinely different faults could fall in the same category. Cleaning and housekeeping together are 10.7% of all complaints.
+[^complaints]: Live query against production, 4 Aug 2026. 70,513 room-linked complaints over 12 months, test properties excluded. A "repeat" is a complaint on the same room in the same category group as an earlier one. Within 7 days: 31.5% overall, 33.4% maintenance, 20.4% cleaning and housekeeping. Within 30 days it rises to 44.1%, which we treat as an upper bound because two genuinely different faults could fall in the same category. Cleaning and housekeeping together are 10.7% of all complaints. Categories come from the `first_level` field, which is free text and contains duplicate spellings; the grouping into cleaning / maintenance / other is ours.
 
 [^rules]: **Reversed 2026-08-03 (D64).** Earlier versions of this brief sold standing rules — "clean every vacant room daily until it is filled" — as a headline capability and as ship-blocking. They are deferred entirely, along with the stored room-occupancy flag they needed. Vacant-room readiness is instead covered by a finished move-out creating the prep task directly (F3, pulled into this cycle), which needs no poller and no flag.
 
@@ -217,9 +224,10 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
+- **2026-08-04 (f)** — **Handoff-review fixes.** The S2L evidence was overstated and is now restated to what the source supports: one inspection GPT is built and live, a second is in design, and the shared ChatGPT account for motor logging is proposed rather than running. "Google Forms" was invented by an earlier draft and is removed everywhere. Dropped the leftover "adds the things none of them have" claim, which contradicted the market section four lines below it. Cut the runs-on-memory argument from four places to one. Moved the ship-scope list back under "What has to ship", where it belongs. Limits made a list; bold thinned; the doc stopped calling itself one page.
 - **2026-08-04 (e)** — **Put a number on the cost chain (D83).** 31% of room-linked complaints are a repeat on the same room within seven days — a third of the queue is someone chasing work that did not happen. The chain stops being a story. **Removed the vacancy half of it:** production data shows more than half of empty rooms sit over a month and 28% never refill within a year, so most vacancy is a demand problem this module does not touch.
 - **2026-08-04 (d)** — **Rewrote the problem in the operator's words (D82).** The work fails three ways — forgotten, late, or said-done-when-it-was-not — and the expensive part is that nobody finds out until it has become a complaint or a vacancy. Named the structural reason: the person reporting on the work is the one whose memory dropped it. Added what we can honestly change (forgetting is prevented; the other two are surfaced sooner, not stopped) and removed any suggestion that the module blocks or forces work. Reframed the record as what lets an honest person prove they are honest, rather than what catches the dishonest one.
-- **2026-08-04 (c)** — **Widened the story to the property's whole work (D81).** The previous version framed this around recurring routines, which was drawn from what the code does today rather than from the user. A real fifty-building operator runs twelve kinds of work across five roles on two custom GPTs, a shared ChatGPT account, Google Forms and WhatsApp — that evidence is now in the market section. Rewrote "What makes this last" around one place for all the work, named the underlying shape (work → person → proof → visible upward), and added the roadmap question that follows from it. Added the third honest limit: "any work" is not true yet.
+- **2026-08-04 (c)** — **Widened the story to the property's whole work (D81).** The previous version framed this around recurring routines, which was drawn from what the code does today rather than from the user. A real fifty-building operator runs six roles' worth of work and has built its own inspection GPT to cope — that evidence is now in the market section, stated only to what the source supports. Rewrote "What makes this last" around one place for all the work, named the underlying shape (work → person → proof → visible upward), and added the roadmap question that follows from it. Added the third honest limit: "any work" is not true yet.
 - **2026-08-04 (b)** — **Named the moat (D80).** Removed "none of them can do the things we can" — it is not true on features and it invited a comparison that was never the argument. The moat is canonical sentence 8: a property runs on a system, not one person's memory, and the routines accumulate out of her head. Added "What makes this last", including the two honest limits (routines carry the what and when, not the how; the moat is slow) and the reason the no-fines promise is a precondition rather than a value beside it. Broke the differentiator paragraph into a list.
 - **2026-08-04** — Reconciled with D64–D79. **Standing rules are out of the brief entirely** — they appeared in six places, including "what success looks like", describing a capability that was deferred. What replaces them: an alert RentOk already raises can be turned into work, one task per item. **Suggest-close is out too** — a task now *shows* the linked thing's live state and the person decides (D65). The "what has to ship" section was rewritten: the three jobs are the ship gate, and the entity link is what makes this ours, which is a different claim. The staff persona's shared-phone line was corrected (D74). Vacant-room readiness is back, via a finished move-out creating the prep task (F3).
 - **2026-07-21 (d)** — Raised the mission's why one level: a property that ran on the manager's memory now runs on a system, so it does not break when a person is busy, away, or gone. Named the continuity payoff — new hires inherit the routine, the property survives the manager's leave, new properties start from recommended routines — as the answer to staff churn.

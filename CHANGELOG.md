@@ -46,6 +46,10 @@ These are the words. Use them exactly, everywhere. They are the model, settled.
 
 ## Numbered decisions
 
+**Finding a decision:** D1–D18 the design conversation · D19–D45 the 2026-07-21 grilling · D46–D63 rollout,
+trust and content · D64–D66 reversals · D67–D79 the 2026-08-03 review · D80–D83 the moat and the problem.
+Within a group the order is by topic, not by number.
+
 Each decision is a stable ID (D1…). Cite the ID, do not restate the decision. Each records the call, why, and the alternative rejected — so we do not re-litigate.
 
 ### D1 — Nothing acts on its own; a person decides
@@ -371,6 +375,7 @@ Band C's definition ("the promise holds, but there are visible holes") had no ro
 **Accepted cost:** Band B grows by five. If B is over capacity, that trade is engineering's to surface, not a reason to misfile the items.
 
 ### D68 — The Brief stops calling the entity link ship-blocking; F8 moves to Band B
+*(The "Open" question below is closed by D80 — F1 stays Band C, and the Brief's differentiator paragraph was removed rather than hedged.)*
 The Brief's *"What has to ship for the bet to hold"* called one capability ship-blocking and bundled three claims into it; two of those sat in Band C and one (F6) is now cut — so the Brief and the requirements disagreed about what the cycle is for.
 
 **The Brief was overclaiming, not the ranking.** What Priya misses on a Monday is the hour spent handing out work and not knowing afterwards whether it happened — *tell* and *prove*, which is what Band B already says. The entity link is what makes this ours rather than MaintainX's; that is a different sentence from "this has to ship."
@@ -418,7 +423,7 @@ The self-stated name **stays visible on the individual task** — Priya needs "w
 **Noted, not fixed:** F22's shape still works against D22's spirit. "Sunshine PG: 6 rooms not cleaned in 3 days", newest first, across eight properties, read on a Sunday — the owner is counting how often each name appears. That is a ranking arrived at by inference. It is the honest cost of giving the owner anything at all.
 
 ### D72 — A property-wide audit is one task and one form; problems are free text
-**The review was wrong here and was corrected.** It proposed repeatable checklist blocks and by-floor scope so a monthly building audit would not fan out into 200 tasks. Over-built. A monthly audit is **one walk, one form, one monthly report** — which is what S2L does in Google Forms today, so it is observed behaviour, not a guess. It needs no new question type, no new scope branch, and no engineering.
+**The review was wrong here and was corrected.** It proposed repeatable checklist blocks and by-floor scope so a monthly building audit would not fan out into 200 tasks. Over-built. A monthly audit is **one walk, one form, one monthly report** — which is the shape S2L's own supervisor audit already takes, so it is observed behaviour, not a guess. It needs no new question type, no new scope branch, and no engineering.
 
 **The shape:** one property-wide task, monthly. "All rooms clean? / Lift working? / Generator checked?" plus a free-text question listing any problems found, with photos.
 
@@ -497,12 +502,8 @@ A uniqueness rule on task creation (one schedule + one period + one target = one
 **Decided 2026-08-04.** Settles the open moat question and F1's band.
 *(Scope corrected by D81 — the mechanism here is right, the surface was drawn far too small. It is not routines accumulating; it is the property's whole work, across every role.)*
 
-**Two wrong answers were tried and discarded first.** The Brief claimed a *capability* moat —
-"none of them can do the things we can" — which is not true on features: MaintainX and
-SafetyCulture build better checklist tools than this cycle will, asset history is core to them,
-and failed-check-to-ticket is their strongest area. The second attempt claimed the moat was "an
-alert becomes work" (F58) — but that lives on the home-screen feed, **not in the module being
-rebuilt**.
+*(Two earlier answers — a capability moat, and "an alert becomes work" — were tried and discarded. The
+argument is in [review-round-2-decisions.md](review-round-2-decisions.md).)*
 
 **A moat is not decided by looking at competitors.** It is decided by what the product does for
 the people it is built for. Stated as such:
@@ -528,13 +529,14 @@ That is **canonical sentence 8**, already written and never called the moat.
 **The narrower, honest claim:** routines replace the **remembering and the daily assigning**, not
 the skill transfer. A checklist says what and when; it does not teach a new cleaner how this
 property wants a room cleaned. F30's reference picture on an item carries some of the "how" —
-which makes F30 more load-carrying than its placement suggests.
+which makes F30 matter more than its placement suggests.
 
 **What this changes:**
 
-- **F9 and F47 are strategy, not convenience.** Nothing accumulates until routines exist, so the
-  template library is the on-ramp to the only thing that makes anyone stay. Highest leverage in
-  the set.
+- **F9 is strategy, not convenience.** Nothing accumulates until routines exist, so the template
+  library is the on-ramp to the only thing that makes anyone stay — the highest-leverage item in
+  the set. **F47 (starter routines) is its cheap accelerant and stays in Band C** per D78; it makes
+  the on-ramp faster, it is not the on-ramp.
 - **F24c, F48, F49, F50 are moat defence.** They are the difference between six routines at month
   six and two. Not completeness items.
 - **F30 rises with F9** — the reference picture is how a routine carries the "how".
@@ -547,7 +549,7 @@ which makes F30 more load-carrying than its placement suggests.
 
 **The bet is the precondition for the moat, not a value beside it.** If Priya believes the module
 is the owner watching her, she never builds the routines — and nothing accumulates. **D15, D22,
-D69 and D71 are therefore load-bearing on the moat**, not a separate ethical position. The docs
+D69 and D71 therefore hold the moat up**, not a separate ethical position. The docs
 previously carried these as two unrelated ideas.
 
 **Accepted weakness: this moat is slow.** Nothing about it protects anyone in week one or month
@@ -583,10 +585,22 @@ records the work they actually run:
 | Ops lead | Reviews raw reports daily and directs the team on gaps |
 | Building owner | Auto-emailed monthly audit report |
 
-Twelve kinds of work across five roles, at one account. And what they use to run it **today**: two
-custom GPTs, a **shared ChatGPT account across 50 people** to log motor on/off, Google Forms and
-WhatsApp. That is not a customer who needs a cleaning checklist — it is a customer assembling an
-operations system out of consumer AI tools because none exists.
+Six roles and roughly seventeen distinct jobs, at one account.
+
+**What they have actually reached for — stated carefully, because the source doc's own verification
+section corrects two errors that an earlier draft of this decision then repeated:**
+- **One custom GPT is built and live** — a general room-inspection agent that walks a caretaker
+  through a room question by question and holds the report until every mandatory item is filled.
+  A **second** GPT, for move-out asset documentation, is **in design and not built**. Do not say
+  "two custom GPTs".
+- A **shared ChatGPT account across ~50 staff to log motor on/off is proposed, not committed**, and
+  its feasibility is explicitly open in the source. A failed motor costs them ~₹20,000.
+- The **visit form** and the **monthly owner report** are listed in the source under *ON US — RentOk
+  build & ship*. They are things S2L wants, **not things they run today**.
+- **"Google Forms" appears in no source.** It was invented by an earlier draft. Do not repeat it.
+
+That is still a customer building their own operations tooling because none exists — the claim holds
+on what is real, and does not need the parts that were not.
 
 **Two lines from that map are live requirements evidence:**
 
@@ -597,18 +611,23 @@ operations system out of consumer AI tools because none exists.
 > *"Shared 'dummy' manager account to be created — used only when one manager needs to help
 > another complete checklists."*
 
-They are **creating fake user accounts** to work around missing assignment. F10, F16 and F33a are
-paying-customer pain today, not speculation.
+**These are two separate things and must not be joined** — the source's verification section
+explicitly corrects an earlier draft for exactly that conflation, and an earlier draft of this
+decision made it again. The **room-split workaround** is evidence for F10 and F16. The **dummy
+account** — future tense in the source, *"to be created"* — is for one manager helping another
+complete checklists, which is evidence for proxy completion (F53, D30), not for assignment.
+
+Either way, F10 and F16 are paying-customer pain today rather than speculation.
 
 **The corrected story:**
 
-> **A property's work is scattered across WhatsApp, Google Forms, ChatGPT, paper and one person's
-> memory. The module makes it one thing — every job, assigned to a named person, with proof,
+> **A property's work is scattered across WhatsApp, paper, spreadsheets, whatever tooling the team
+> has cobbled together, and one person's memory.** The module makes it one thing — every job, assigned to a named person, with proof,
 > visible up the chain.**
 
-The primitive is not a checklist. It is **work → person → proof → visible upward** — which is
-role-agnostic, property-type-agnostic and frequency-agnostic, and therefore has no natural
-ceiling. It also reframes the roadmap: the question stops being *"what feature next"* and becomes
+The shape is not a checklist. It is **work → person → proof → visible upward** — which does not care
+what the job is, which role does it, or how often it happens. So there is no natural ceiling on what
+moves in. It also reframes the roadmap: the question stops being *"what feature next"* and becomes
 **"what work is still outside the system"**, which is a question the customer can answer for us,
 as S2L just did.
 
@@ -619,13 +638,14 @@ work move in, the harder the module is to leave, because there is no single thin
 ---
 
 **The honest limit, tested against their own list.** "Anything becomes a task" is **not true
-today**, and four of their eight work types prove it. Rather than build for all four:
+today**, and four of their work types prove it. Rather than build for all four:
 
 | Their work | Call |
 |---|---|
 | Daily/weekly checklists · room-level splits · move-out asset docs | **Already covered** (F5, F10, F16, existing move-out) |
 | Supervisor audits the caretaker's work | **Confirm, do not build.** He needs to see what the caretaker submitted — F8's history view should answer it. **F8 must state that history includes the submitted answers, not only that a task happened.** |
-| Monthly compliance audit (fire NOC, permits, utility NOC) | **No build.** An annual recurring task with a manually set date covers it. No expiry tracking, no renewal warning — say so rather than implying we track expiries. |
+| Monthly compliance audit (fire NOC, permits, utility NOC) | **Already covered** — a monthly recurring task, per D70. S2L run theirs at least twice a month. |
+| Tracking when a licence or certificate *expires* | **No build.** A renewal is a recurring task with a date the manager sets. No expiry tracking, no warning before it — say so rather than implying we track expiries. |
 | **Visit log** — arrival photo, departure photo, time on site | **Build it, small.** See F59. Confirmed as a real pattern for any operator whose staff travel between buildings, not S2L-specific. |
 | **Motor on/off log**, several times a day | **Explicitly out of scope.** This is telemetry, not work — a due date is the wrong shape for something logged four times a day. Naming it out is more useful than leaving it ambiguous. |
 
@@ -634,7 +654,7 @@ right; the story was too small. One small addition (F59), three decisions, no re
 
 **Accepted risk — the horizontal trap.** "Anything can be a task" is exactly the framing that
 makes a tool infinitely flexible and useless on day one, because nobody knows what to put in it.
-The defence is unchanged and now matters more: **F9 and F47 are the on-ramp** (D80). A blank
+The defence is unchanged and now matters more: **F9 is the on-ramp, F47 its accelerant** (D80). A blank
 "create a task" box is the failure mode this story invites.
 
 
@@ -680,7 +700,7 @@ D22 and D71.
 
 **Two features are reframed by this, not changed:**
 - **F22 is not "the owner watches." It is "the owner finds out on day one."** Which is why D71 (the manager
-  sees the same list at the same time) is commercially load-bearing and not only ethical — nobody is being
+  sees the same list at the same time) earns its keep commercially, not only ethically — nobody is being
   reported on.
 - **F21's on-time rate is the leading indicator** — the number that moves *before* the complaint and the
   vacancy, rather than the one that explains them afterwards.
@@ -720,8 +740,10 @@ all ~120k complaints.
 reported and did not get done.* Quote the **7-day** figure; treat 30-day as an upper bound, because two
 genuinely different faults can share a category.
 
-**The vacancy half does not hold and is cut from every doc.** Median gap between a tenant leaving a room and
-the next joining is 18 days, median rent ₹8,000/month (₹267/day) — but the distribution kills the argument:
+**The vacancy half does not hold and is cut from every doc.** Median rent is ₹8,000/month (₹267/day). The gap
+between a tenant leaving a room and the next joining is **18 days median *among rooms that refilled at all***;
+across all vacancies there is no meaningful median, because 28% never refilled inside the year. The
+distribution is what kills the argument:
 
 | Gap before the room refills | Share |
 |---|---|
@@ -757,6 +779,10 @@ a bed-level rerun via `tenant_room` would firm it up without changing the conclu
 
 ## Changelog of this changelog
 
+- **2026-08-04 (b)** — Added **D80–D83**: the moat (canonical sentence 8, the work accumulating out of one
+  person's head), the widened surface (the property's whole work, not its routines), the problem stated as
+  late discovery rather than lazy staff, and the cost chain measured — the complaint half holds at 31.5%
+  repeat-within-7-days, the vacancy half was tested and cut. D68 annotated.
 - **2026-08-04** — Canonical sentences **1, 2, 3 and 9 rewritten**. They still described standing rules and suggest-close, both dropped by D64 and D65, so the sentences every other doc is told to copy exactly no longer matched the product. D1 retitled for the same reason. D3, D13, D22, D26, D33, D37, D41, D42, D43 and D60 annotated in place where a later decision reduced them. Added D67–D79.
 
 - **2026-07-21** — Created as the source of truth. Locked 12 canonical sentences and 18 decisions (D1–D18) from the design conversation. Supersedes the outward-write-back model. (Product-lens review pending: a batch of behavior decisions D19+ to be added, and D16 to be reordered after D15.)
