@@ -49,9 +49,9 @@ question either depends on that price or on putting the thing in front of a real
 2. **P1 — the cron exists but is not in this repo.** Sanchay confirmed it runs (the product works today); it
    simply is not registered anywhere in `rentok-backend`. **The job is to find it and authenticate it**, not
    to build one. Backend issue **#6363**. *(Earlier drafts wrongly said no scheduler exists — corrected.)*
-3. **F36 must not ship before the question-type list is settled.** F36 validates submissions against a list
-   of allowed types. **343 live questions use `rating_5`, `rating_10` and `dropdown`, none of which are in
-   the backend's type union.** F36 first = 12.7% of production checklists rejected on day one.
+3. ~~**F36 must not ship before the question-type list is settled.**~~ **Settled 2026-08-05 — D84.** The
+   union is now fixed and F36 validates against it. The day-one rejection risk is real and is handled by
+   **M5** (rename `rating_5` / `rating_10` / `dropdown` in live data), which runs before F36.
 
 ### Answered by Sanchay, already in the docs
 
@@ -65,9 +65,14 @@ question either depends on that price or on putting the thing in front of a real
 - **Voice note** → keep as product intent, push for it, likely V1.1. It is listed twice (F29's voice item
   and F15b) — **merge them**.
 
-### Question types — decided in principle, deliberately not committed
+### Question types — committed 2026-08-05 (D84)
 
-Sanchay's ask was parity with a form builder. Tested against 2,698 live questions:
+**Sanchay's call: build them all.** The deferral recorded below is reversed; the union is settled and F36
+validates against it. Two migrations follow — **M4** (`structure` gains sections and branching) and **M5**
+(rename the live `rating_5`/`rating_10`/`dropdown` values before F36 can reject unknown types). Full list
+and consequences in **D84**; the build lands in stage 2 (F29/F30).
+
+The evidence behind the list, tested against 2,698 live questions:
 
 - **Free or nearly** — make `number` findable (152 questions type "how many…" while the box sits unused),
   pass/fail as a three-option dropdown, and add `rating`/`dropdown` to the backend's type list so they stop
@@ -81,8 +86,10 @@ Sanchay's ask was parity with a form builder. Tested against 2,698 live question
   insights, export and validation. Revisit only if it turns out to be the answer to the property-wide audit
   (D70).
 
-**The PM call: do not commit the real builds yet.** With ~10 pilot properties, two weeks of watching people
-use the builder beats any query available today.
+~~**The PM call: do not commit the real builds yet.**~~ **Reversed 2026-08-05 (D84).** The argument was that
+two weeks of ~10 pilot properties would teach more than any available query. It was outweighed by F36: with
+the union unsettled, stage 1's validation has no stable target, and a permissive union is validation that
+validates nothing.
 
 ### Open, non-blocking
 
@@ -97,13 +104,14 @@ use the builder beats any query available today.
 
 **Agreed order:**
 
-1. **Fix `README.md`** — 30 minutes, do it first. It is the front door and it is badly stale: says
-   *D1–D18* (we are at D83) and *F1–F40* (we are at F59); its "model in one breath" still says a task
-   *"reads that thing's state and **suggests**"*, killed by D65; it lists *"7 strategic calls awaiting a
-   decision"*, all decided; and its hard ship gate promises *"Hindi plus at least one regional language at
-   launch"*, which **D76 reversed**. It also omits `build-sequence.md`, `engineering-handoff.md` and this file.
-2. **Write the spec for stages 1 and 2 only** — the substantial piece. Acceptance criteria per requirement,
-   data and API shapes, edge cases and states, and the migration steps for M1 / M2 / P0.
+1. ~~**Fix `README.md`**~~ — **done 2026-08-04.** Rewritten against D83 / F59 / the 7 stages: the "suggests"
+   wording is gone (D65), the Hindi ship gate now says what D76 actually decided, the settled strategic calls
+   are out, and `build-sequence.md`, `engineering-handoff.md` and this file are linked. The same pass fixed
+   `build-sequence.md`'s dependency map, which still claimed *"there is no scheduler in the repo."*
+2. ~~**Write the spec for stages 1 and 2 only**~~ — **done 2026-08-05**, at
+   [spec-stage-1-2.md](spec-stage-1-2.md). Grounded against `rentok-backend` file-by-file, not from these
+   docs. It added **M4** and **M5** (D84), found **three live defects** (§6), and left **six questions for
+   engineering** plus one still product's — per-property or per-account custom categories, which blocks F32.
 3. *(pause for engineering's estimates)*
 4. **Pre-mortem, scoped to what actually ships** — not before. A pre-mortem is a pre-ship artifact; running
    it against an uncut scope means running it twice. The archived one is superseded anyway.
@@ -126,13 +134,14 @@ Nothing exists for either.
 | **CHANGELOG.md** | **Source of truth.** 12 canonical sentences + D1–D83, each with the rejected alternative. If a doc contradicts it, the doc is stale. | Current |
 | feature-requirements.md | F1–F59 in bands A / B / C / Later. v2.3. | Current |
 | build-sequence.md | 7 stages, dependency map, break points. **No estimates by design.** | Current |
+| spec-stage-1-2.md | The build spec for stages 1 and 2. Acceptance criteria, data and API shapes, edges, migration order. **§1 is the only code-verified picture of the module as it stands** — trust it over grounding-notes where they differ. | Current |
 | engineering-handoff.md | The three asks for Nimit and Jatin. | Current |
 | Task Module Brief.md | The WHY, the bet, the moat. | Current |
 | Task Module - Feature Gap Audit.md | Code-level evidence, 15 domains. **Its `[TS]` tier is scored against work/inspection tools, not PG software** — see the note at the top. | Current, scoped |
 | grounding-notes.md | What the code does today. | Current |
 | review-round-2-decisions.md | The argument behind D67–D79, including the three places the review was wrong. **Its own D-numbers are off by three — use the mapping at the top.** | Historical |
 | review-findings.md | Round-1 review. **Marked historical**; strategic call #1 is withdrawn (D74). | Historical |
-| README.md | **Stale — fix first.** | ⚠️ |
+| README.md | The front door. Rewritten 2026-08-04 against D83 / F59 / the 7 stages. | Current |
 | `archive/` | Superseded PRD, pre-mortem, v0 brief. **Never build from these; their F-numbers collide with the live list.** | ⛔ |
 
 ---

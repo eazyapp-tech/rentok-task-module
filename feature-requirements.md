@@ -37,7 +37,7 @@ Today it does the opposite: with no assignees it creates **one task with no owne
 *Without it:* F47 ships and a brand-new customer's first week is a list of failures against a property with no staff, and every unassigned routine writes false "not done" records.
 
 **P1 — A reliable, authenticated scheduler that fires recurring work.**
-There is no scheduled job anywhere in the codebase; the trigger endpoint is open and depends on an unidentified external caller ([D40](CHANGELOG.md), backend issue #6363).
+A scheduler fires today — the product works — but it is registered nowhere in `rentok-backend`; `POST /tasks/trigger` is the only entry point and it has no `HeaderValidator`, so it is open and depends on an unidentified external caller ([D40](CHANGELOG.md), backend issue #6363). **The job is to find that caller and authenticate the endpoint, not to build a scheduler.**
 *Without it:* recurring work silently never appears, and nobody finds out until a manager asks why the cleaning list is empty. Every recurring requirement below sits on this.
 
 *(A second prerequisite — storing whether a room is empty — was dropped along with standing rules. See D64.)*

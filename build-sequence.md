@@ -38,7 +38,7 @@ else can be built in any order.
 
 | This | Cannot ship without | Why |
 |---|---|---|
-| Anything recurring (F5, F18, F40, F48, F49, F50, F24c) | **P1** | There is no scheduler in the repo. The trigger endpoint is open and depends on an unidentified caller. |
+| Anything recurring (F5, F18, F40, F48, F49, F50, F24c) | **P1** | A scheduler runs today but is not registered anywhere in `rentok-backend`. The trigger endpoint is open and depends on that unidentified caller. The job is to find it and authenticate it, not to build one — backend issue #6363. |
 | **P0** (skip unassigned routines) | **M1** | Room cleaning deliberately creates unassigned tasks today. Skipping first stops cleaning dead. |
 | **M1** (cleaning becomes a normal task) | F10, F16 | It needs all-rooms scope and pooled assignment to exist. |
 | **M2 / F26** (permissions) | — | Pairs with M1 (D69) so the staff default lands when cleaning already has assignees. |

@@ -770,6 +770,51 @@ totals materially. Vacancy is measured room-level via `tenant.room`, not bed-lev
 *understates* the gap, so the real picture is no better than shown. `tenant.room` is the older structure;
 a bed-level rerun via `tenant_room` would firm it up without changing the conclusion.
 
+### D84 — The question types are committed, and F36 validates against the settled list
+**Decided 2026-08-05 by Sanchay.** Reverses the recorded PM call to defer.
+
+The 2026-08-04 handoff held the "real builds" (branching, number-with-unit, date, time, sections) back on
+the grounds that two weeks of ~10 pilot properties using the builder would teach more than any query
+available today. **Sanchay's call: build them.** The evidence for each was already collected from 2,698 live
+questions, and holding them back leaves F36 with nothing stable to validate against — the one thing stage 1
+cannot ship without.
+
+**The committed list.** Five types exist in the code today (`taskTemplate.ts` — `text`, `number`, `yes_no`,
+`photo`, `select`). The settled union adds:
+
+| Type | Why it is in | Evidence |
+|---|---|---|
+| `rating` | 343 live questions already use `rating_5` / `rating_10`, which the type union does not contain — they are invisible to any validator | live data |
+| `dropdown` → **kept as `select`** | The live data writes `dropdown`; the code calls the same thing `select`. One name, not two — see the migration note below | live data |
+| `date`, `time` | 17 questions ask for a date in a free-text box | live data |
+| `number_with_unit` | 49 questions carry the unit in the label ("reading in units") | live data |
+| `multi_select` | Demand is invisible by construction — "tick all that are broken" is written as five yes/no questions, which looks like ordinary use (D-trap 4) | judgement |
+| `photos` (several on one item) | Same | judgement |
+| `instruction` (no input) | F29 | F29 |
+| **branching** — show an item only if a named earlier item has a given answer | 58 questions fake it with *"if yes, explain"* | live data |
+| **sections** — items grouped under a heading | 59 templates have 10+ questions | live data |
+
+**The live-data figures in this table are from the 4 Aug 2026 analysis and were not re-run.** The union does
+not depend on them; M5's blast radius does — re-count before that migration ships.
+
+**Still dropped: `grid`.** Its answer is a table rather than a value, which changes history, insights,
+export and validation all at once. Revisit only if it turns out to be the answer to the property-wide
+audit (D70).
+
+**Two consequences, both real work:**
+
+1. **`structure` stops being a flat array.** Sections and branching both need shape the current
+   `Array<{id,type,label,required,options?}>` cannot carry. The builder, the runner, the report and F36 all
+   read that column, so this is a migration, not an additive field — specified as **M4**.
+2. **`rating_5` / `rating_10` / `dropdown` must be renamed in live data** before F36 can reject unknown
+   types, or 12.7% of production checklists fail validation on day one — specified as **M5**.
+
+**Rejected:** shipping F36 with a permissive union that accepts the unknown types unvalidated. That is
+validation that validates nothing, and it would have to be torn out the moment the real types landed.
+
+**Sequencing.** The types are built in stage 2 (F29/F30), but the **union is settled now**, so F36 in
+stage 1 validates against the final list and needs no second pass. M5 runs before F36; M4 runs before F29.
+
 ---
 
 ## What this supersedes
@@ -779,6 +824,10 @@ a bed-level rerun via `tenant_room` would firm it up without changing the conclu
 
 ## Changelog of this changelog
 
+- **2026-08-05** — Added **D84**: the question types are committed (reversing the deferral recorded in the
+  2026-08-04 handoff), the union is settled now so F36 has a fixed target, `grid` stays dropped, and two
+  migrations are named — **M4** (`structure` gains sections and branching) and **M5** (rename
+  `rating_5`/`rating_10`/`dropdown` in live data before F36 can reject unknown types).
 - **2026-08-04 (b)** — Added **D80–D83**: the moat (canonical sentence 8, the work accumulating out of one
   person's head), the widened surface (the property's whole work, not its routines), the problem stated as
   late discovery rather than lazy staff, and the cost chain measured — the complaint half holds at 31.5%
