@@ -1,6 +1,6 @@
 ---
 title: "Task Module — Product Vision Brief"
-date: 2026-08-04
+date: 2026-08-05
 owner: "Sanchay"
 status: "current"
 companion: "Task Module - Feature Gap Audit.md"
@@ -12,7 +12,7 @@ tags:
 
 # Task Module — Product Vision Brief
 
-> **What this is.** The bet behind the Task module redesign, in plain language, before the PRD. It says why we are doing this and what has to be true. The PRD enumerates the features; the [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) holds the code-level evidence. This brief holds neither — it holds the bet.
+> **What this is.** The bet behind the Task module redesign, in plain language. It says why we are doing this and what has to be true. [feature-requirements.md](feature-requirements.md) enumerates the features and [spec-stage-1-2.md](spec-stage-1-2.md) says how the first two stages get built; the [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) holds the code-level evidence. This brief holds none of those — it holds the bet.
 
 ## What we are building
 
@@ -129,7 +129,7 @@ The redesign also gives the module what every serious operations tool has and ou
 
 The library is one deliverable inside this redesign, not a project beside it.
 
-The PRD lists every one of these as a numbered requirement with its own test. This brief only claims the shape.
+[feature-requirements.md](feature-requirements.md) lists every one of these as a numbered requirement, and [spec-stage-1-2.md](spec-stage-1-2.md) gives the first two stages their tests. This brief only claims the shape.
 
 **Next sprint:** the property's own events making work appear without anyone looking — beyond the move-out that now creates the room-prep task — starts right after this one.
 
@@ -224,6 +224,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
+- **2026-08-05** — **Pointed at the docs that exist.** The brief referred twice to a PRD; no PRD is being written (one covering all 43 Band A+B requirements would be rewritten the moment stage 2 meets real managers). Those pointers now go to [feature-requirements.md](feature-requirements.md) and [spec-stage-1-2.md](spec-stage-1-2.md). **No change to the bet.** D84 (the question types) and D85 (categories belong to the account) landed the same day and are deliberately *not* here — both are build shape, which belongs in the spec.
 - **2026-08-04 (f)** — **Handoff-review fixes.** The S2L evidence was overstated and is now restated to what the source supports: one inspection GPT is built and live, a second is in design, and the shared ChatGPT account for motor logging is proposed rather than running. "Google Forms" was invented by an earlier draft and is removed everywhere. Dropped the leftover "adds the things none of them have" claim, which contradicted the market section four lines below it. Cut the runs-on-memory argument from four places to one. Moved the ship-scope list back under "What has to ship", where it belongs. Limits made a list; bold thinned; the doc stopped calling itself one page.
 - **2026-08-04 (e)** — **Put a number on the cost chain (D83).** 31% of room-linked complaints are a repeat on the same room within seven days — a third of the queue is someone chasing work that did not happen. The chain stops being a story. **Removed the vacancy half of it:** production data shows more than half of empty rooms sit over a month and 28% never refill within a year, so most vacancy is a demand problem this module does not touch.
 - **2026-08-04 (d)** — **Rewrote the problem in the operator's words (D82).** The work fails three ways — forgotten, late, or said-done-when-it-was-not — and the expensive part is that nobody finds out until it has become a complaint or a vacancy. Named the structural reason: the person reporting on the work is the one whose memory dropped it. Added what we can honestly change (forgetting is prevented; the other two are surfaced sooner, not stopped) and removed any suggestion that the module blocks or forces work. Reframed the record as what lets an honest person prove they are honest, rather than what catches the dishonest one.
