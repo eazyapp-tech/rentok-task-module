@@ -650,9 +650,10 @@ easy to underestimate.
 4. A recurring schedule takes an optional end date and stops firing after it.
 5. Priority is a small fixed set, not free text.
 
-**Data / API.** Columns on `task_schedule` and `task_instance`. **M3's open question is still open: are
-custom categories per property or per account?** Per property breaks F22's cross-property filter (stage 6).
-**Decide before this ships** — it is a data-shape choice, not a UI one.
+**Data / API.** Columns on `task_schedule` and `task_instance`. **Custom categories are per property
+(D85).** A category row carries a `property_id`; RentOk's shared categories (from the alerts, M3) carry
+null and are common to every property. F22's cross-property view groups on the shared set and lists custom
+ones under the property that made them.
 
 ---
 
@@ -753,5 +754,4 @@ Handed over with the spec, in addition to the three asks in
 7. **F37 — audit log volume.** The spec proposes logging scheduler creation at the run level. Confirm that is
    enough for a dispute.
 
-**Still product's, and blocking F32:** are custom categories per property or per account? Per property breaks
-F22's cross-property filter in stage 6.
+**Nothing here is product's.** F32's category question was the last one and is settled — per property (D85).

@@ -815,6 +815,23 @@ validation that validates nothing, and it would have to be torn out the moment t
 **Sequencing.** The types are built in stage 2 (F29/F30), but the **union is settled now**, so F36 in
 stage 1 validates against the final list and needs no second pass. M5 runs before F36; M4 runs before F29.
 
+### D85 — Custom categories belong to the property
+**Decided 2026-08-05 by Sanchay.** Closes M3's open sub-question and unblocks F32.
+
+A category the operator makes up herself belongs to **one property**, not to the whole account.
+
+**What this costs, stated plainly.** F22 lets an owner look across all her properties at once. If every
+property invents its own categories, that view has nothing common to group by.
+
+**What keeps F22 working anyway:** the **shared set stays shared.** RentOk's own categories — the ones
+already used by the alerts (M3) — are the same in every property and are the ones F22 groups by. Only the
+custom ones are local, and in the cross-property view they are listed under the property that made them.
+So the owner keeps a real comparison on the shared set and still sees what each property added.
+
+**Rejected: account-wide custom categories.** It keeps F22 simpler, but it means one manager's word choice
+lands in every other property's list. With D21's suggest-as-she-types guard, per-property drift is a smaller
+problem than an account-wide list nobody owns.
+
 ---
 
 ## What this supersedes
@@ -824,6 +841,9 @@ stage 1 validates against the final list and needs no second pass. M5 runs befor
 
 ## Changelog of this changelog
 
+- **2026-08-05 (b)** — Added **D85**: custom categories belong to the property, not the account. RentOk's
+  shared categories stay shared, so F22's cross-property view still has something common to group by.
+  Unblocks F32.
 - **2026-08-05** — Added **D84**: the question types are committed (reversing the deferral recorded in the
   2026-08-04 handoff), the union is settled now so F36 has a fixed target, `grid` stays dropped, and two
   migrations are named — **M4** (`structure` gains sections and branching) and **M5** (rename
