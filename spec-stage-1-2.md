@@ -60,12 +60,11 @@ Grounded, not remembered. Every row was read in the code on 5 Aug 2026.
 
 Settled now so F36 has a fixed target. Built in stage 2 (F29/F30); validated from stage 1.
 
-**Provenance of the numbers.** The live-data figures behind this list — 2,698 questions, 343 using
-`rating_5`/`rating_10`/`dropdown`, 12.7% of checklists, 58 faking branching, 49 with a unit, 17 dates, 59
-templates with 10+ questions — come from the 4 Aug 2026 analysis recorded in
-[HANDOFF.md](HANDOFF.md). **They were not re-run for this spec.** The type *union* below does not depend on
-them; **M5's blast radius does.** Re-run the count before M5 ships, because it decides whether that migration
-touches 343 rows or many more.
+**Where the numbers come from.** Re-run against live data on **5 Aug 2026** — see M5 for the full table.
+
+- **Confirmed:** 2,698 questions across 394 templates; 343 of them use `rating_5`, `rating_10` or `dropdown`. **There are no unknown type values beyond those three**, which is what makes M5's mapping complete.
+- **Corrected:** the risk was recorded as *12.7% of checklists*. That was 343/2,698 — the share of **questions**. The share of **checklists** is **190/394 = 48.2%**.
+- **Not re-run:** the counts behind the *new* types — 58 questions faking branching, 49 with a unit, 17 dates, 59 templates with 10+ questions. These come from the 4 Aug analysis in [HANDOFF.md](HANDOFF.md). They argue *why* each type is worth building; none of them changes what gets built now that the list is committed (D84).
 
 ### The union
 
@@ -183,10 +182,28 @@ that expects a user, and this caller is a machine.
 
 ### M5 — Rename the live question types
 
-**Runs before F36.** Without it, F36 rejects 12.7% of production checklists on the first morning.
+**Runs before F36.** Without it, F36 rejects **48.2% of production checklists** on the first morning.
 
-**Today.** 343 live questions carry `rating_5`, `rating_10` or `dropdown` in `structure[].type`. None is in
-the code's union, so nothing has ever looked at them.
+**Today.** Counted against live data on 5 Aug 2026. **There are exactly six type values in production and no
+unknown ones** — so M5's mapping is complete, which is the thing that had never been checked.
+
+| Type in the data | Questions | Templates | In the code's union? |
+|---|---|---|---|
+| `yes_no` | 1,391 | 304 | yes |
+| `text` | 777 | 199 | yes |
+| `photo` | 187 | 150 | yes |
+| `rating_5` | 173 | 136 | **no** |
+| `dropdown` | 145 | 46 | **no** |
+| `rating_10` | 25 | 21 | **no** |
+| **Total** | **2,698** | **394** | |
+
+**190 of 394 templates — 48.2% — contain at least one unknown type.** The earlier figure of 12.7% was the
+share of *questions* (343 of 2,698) reported against the wrong denominator. **Nearly half of all checklists
+break without M5, not one in eight.**
+
+**Two things this also settled.** `select` and `number` have **zero** questions in production — `select`
+because the data writes `dropdown` for the same thing, which makes the rename collision-free; `number`
+because the box exists and nobody finds it (the reason F29 makes it findable).
 
 **Acceptance.**
 1. Every `structure[].type` in `task_template` is one of the D84 union after the migration runs.
@@ -198,8 +215,9 @@ the code's union, so nothing has ever looked at them.
 **Data / API.** Migration in `src/migrations/`. Reads and writes `task_template.structure` only. No API change.
 
 **Edges.**
-- Templates whose `structure` is null or not an array. They exist; skip and report rather than throw.
+- ~~Templates whose `structure` is null or not an array.~~ **Checked: there are none.** All 394 templates hold a JSON array. Keep the guard anyway — it costs a line — but it is not a case to design around.
 - A template mid-edit while the migration runs. Take the write lock or run in a window.
+- Re-count immediately before the migration ships. These figures are from 5 Aug 2026 and templates are created daily; the *shape* of the answer will hold, the row count will not.
 
 ---
 
@@ -707,7 +725,7 @@ Nothing here is optional and the order is not a preference.
 
 | # | Migration | Runs | Because |
 |---|---|---|---|
-| **M5** | Rename `rating_5` / `rating_10` / `dropdown` | Stage 1, **before F36** | Otherwise 12.7% of live checklists fail validation on day one |
+| **M5** | Rename `rating_5` / `rating_10` / `dropdown` | Stage 1, **before F36** | Otherwise **48.2%** of live checklists fail validation on day one (190 of 394, verified 5 Aug 2026) |
 | **M2** | Permission defaults | Stage 1, **with M1** | Tightening before cleaning has assignees leaves cleaners with nothing (D69) |
 | **M1** | Cleaning becomes an ordinary pooled task | Stage 2, **with M2, before P0** | Skipping unassigned routines first stops cleaning dead |
 | **P0** | Skip routines with nobody assigned | Stage 2, **after M1** | Same |

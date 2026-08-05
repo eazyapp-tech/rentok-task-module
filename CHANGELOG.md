@@ -794,8 +794,16 @@ cannot ship without.
 | **branching** — show an item only if a named earlier item has a given answer | 58 questions fake it with *"if yes, explain"* | live data |
 | **sections** — items grouped under a heading | 59 templates have 10+ questions | live data |
 
-**The live-data figures in this table are from the 4 Aug 2026 analysis and were not re-run.** The union does
-not depend on them; M5's blast radius does — re-count before that migration ships.
+**Verified against live data, 5 Aug 2026.** 2,698 questions across 394 templates. **Production contains
+exactly six type values and no unknown ones**, so M5's mapping is complete. `select` and `number` have zero
+uses — `select` because the data writes `dropdown` for the same thing (so the rename cannot collide),
+`number` because nobody finds the box.
+
+**One figure was wrong and is corrected here.** The day-one risk was recorded as *"12.7% of production
+checklists rejected"*. 12.7% is 343/2,698 — the share of **questions**. The share of **checklists** is
+**190/394 = 48.2%**. Nearly half of all checklists break without M5, not one in eight. The counts behind the
+*new* types (58 branching, 49 unit, 17 date, 59 sectioned) were not re-run; they justify each type and do
+not change what gets built.
 
 **Still dropped: `grid`.** Its answer is a table rather than a value, which changes history, insights,
 export and validation all at once. Revisit only if it turns out to be the answer to the property-wide
@@ -807,7 +815,7 @@ audit (D70).
    `Array<{id,type,label,required,options?}>` cannot carry. The builder, the runner, the report and F36 all
    read that column, so this is a migration, not an additive field — specified as **M4**.
 2. **`rating_5` / `rating_10` / `dropdown` must be renamed in live data** before F36 can reject unknown
-   types, or 12.7% of production checklists fail validation on day one — specified as **M5**.
+   types, or **48.2% of production checklists** fail validation on day one — specified as **M5**.
 
 **Rejected:** shipping F36 with a permissive union that accepts the unknown types unvalidated. That is
 validation that validates nothing, and it would have to be torn out the moment the real types landed.

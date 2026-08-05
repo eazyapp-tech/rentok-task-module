@@ -50,8 +50,10 @@ question either depends on that price or on putting the thing in front of a real
    simply is not registered anywhere in `rentok-backend`. **The job is to find it and authenticate it**, not
    to build one. Backend issue **#6363**. *(Earlier drafts wrongly said no scheduler exists — corrected.)*
 3. ~~**F36 must not ship before the question-type list is settled.**~~ **Settled 2026-08-05 — D84.** The
-   union is now fixed and F36 validates against it. The day-one rejection risk is real and is handled by
-   **M5** (rename `rating_5` / `rating_10` / `dropdown` in live data), which runs before F36.
+   union is now fixed and F36 validates against it. **M5** (rename `rating_5` / `rating_10` / `dropdown`)
+   runs before F36 and handles the day-one rejection risk. **That risk was understated: it is 48.2% of
+   checklists, not 12.7%** — the old figure used questions as the denominator. Re-verified 5 Aug 2026, which
+   also confirmed there are **no unknown type values** beyond the three, so M5's mapping is complete.
 
 ### Answered by Sanchay, already in the docs
 
