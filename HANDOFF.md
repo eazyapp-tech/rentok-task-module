@@ -16,7 +16,7 @@ next, and which mistakes this project has already made twice.
 ## 1. Where the work is
 
 **The product thinking is done.** Brief → requirements → build sequence → engineering handoff, with two
-adversarial review gates and four competitor classes behind it. **83 decisions (D1–D83), 59 requirements
+adversarial review gates and four competitor classes behind it. **85 decisions (D1–D85), 59 requirements
 (F1–F59), 7 build stages.**
 
 **It is now blocked on engineering**, genuinely. Nobody has priced anything, and every remaining product
@@ -62,15 +62,16 @@ question either depends on that price or on putting the thing in front of a real
 - **F58** → the pending-tasks feed has **no assign action today**. It is a new build.
 - **M3** → adopt the alerts' existing categories for tasks, **and let operators add their own custom
   categories** and filter by them. One guard, from D21: suggest previously-used categories as she types, or
-  three managers create "Cleaning", "cleaning" and "Housekeeping" and the filter rots. **Open sub-question:
-  are custom categories per property or per account?** Per property breaks F22's cross-property filter.
+  three managers create "Cleaning", "cleaning" and "Housekeeping" and the filter rots. ~~**Open sub-question:
+  are custom categories per property or per account?**~~ **Settled 2026-08-05 — account (D85).** Decided as
+  per-property earlier the same day and reversed; both arguments are kept in D85.
 - **Voice note** → keep as product intent, push for it, likely V1.1. It is listed twice (F29's voice item
   and F15b) — **merge them**.
 
 ### Question types — committed 2026-08-05 (D84)
 
 **Sanchay's call: build them all.** The deferral recorded below is reversed; the union is settled and F36
-validates against it. Two migrations follow — **M4** (`structure` gains sections and branching) and **M5**
+validates against it. Two migrations follow — **M6** (`structure` gains sections and branching) and **M5**
 (rename the live `rating_5`/`rating_10`/`dropdown` values before F36 can reject unknown types). Full list
 and consequences in **D84**; the build lands in stage 2 (F29/F30).
 
@@ -112,8 +113,8 @@ validates nothing.
    `build-sequence.md`'s dependency map, which still claimed *"there is no scheduler in the repo."*
 2. ~~**Write the spec for stages 1 and 2 only**~~ — **done 2026-08-05**, at
    [spec-stage-1-2.md](spec-stage-1-2.md). Grounded against `rentok-backend` file-by-file, not from these
-   docs. It added **M4** and **M5** (D84), found **three live defects** (§6), and left **six questions for
-   engineering** plus one still product's — per-property or per-account custom categories, which blocks F32.
+   docs. It added **M5** and **M6** (D84), found **four live defects** (§6), and left **six questions for
+   engineering** All questions for product are now answered.
 3. *(pause for engineering's estimates)*
 4. **Pre-mortem, scoped to what actually ships** — not before. A pre-mortem is a pre-ship artifact; running
    it against an uncut scope means running it twice. The archived one is superseded anyway.

@@ -813,7 +813,7 @@ audit (D70).
 
 1. **`structure` stops being a flat array.** Sections and branching both need shape the current
    `Array<{id,type,label,required,options?}>` cannot carry. The builder, the runner, the report and F36 all
-   read that column, so this is a migration, not an additive field — specified as **M4**.
+   read that column, so this is a migration, not an additive field — specified as **M6**.
 2. **`rating_5` / `rating_10` / `dropdown` must be renamed in live data** before F36 can reject unknown
    types, or **48.2% of production checklists** fail validation on day one — specified as **M5**.
 
@@ -821,7 +821,7 @@ audit (D70).
 validation that validates nothing, and it would have to be torn out the moment the real types landed.
 
 **Sequencing.** The types are built in stage 2 (F29/F30), but the **union is settled now**, so F36 in
-stage 1 validates against the final list and needs no second pass. M5 runs before F36; M4 runs before F29.
+stage 1 validates against the final list and needs no second pass. M5 runs before F36; M6 runs before F29.
 
 ### D85 — Custom categories belong to the account
 **Decided 2026-08-05 by Sanchay.** Closes M3's open sub-question and unblocks F32.
@@ -868,7 +868,7 @@ goes.
   Unblocks F32.
 - **2026-08-05** — Added **D84**: the question types are committed (reversing the deferral recorded in the
   2026-08-04 handoff), the union is settled now so F36 has a fixed target, `grid` stays dropped, and two
-  migrations are named — **M4** (`structure` gains sections and branching) and **M5** (rename
+  migrations are named — **M6** (`structure` gains sections and branching) and **M5** (rename
   `rating_5`/`rating_10`/`dropdown` in live data before F36 can reject unknown types).
 - **2026-08-04 (b)** — Added **D80–D83**: the moat (canonical sentence 8, the work accumulating out of one
   person's head), the widened surface (the property's whole work, not its routines), the problem stated as

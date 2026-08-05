@@ -92,7 +92,7 @@ free text.
 
 ### The item shape
 
-`structure` stops being a flat array. Sections and branching cannot be expressed in one — this is **M4**.
+`structure` stops being a flat array. Sections and branching cannot be expressed in one — this is **M6**.
 
 ```ts
 interface Structure {
@@ -445,7 +445,7 @@ cadence at creation.
 
 This is the first stage a manager can see. **M1 + P0 + M2 run together** (D69, D78).
 
-**Order inside the stage:** F10 → F16 → M1 → P0, then M4 → F29 → F30 → F9 → F13. F4, F5 and F32 are
+**Order inside the stage:** F10 → F16 → M1 → P0, then M6 → F29 → F30 → F9 → F13. F4, F5 and F32 are
 independent.
 
 ---
@@ -550,7 +550,7 @@ gets a collective link to `manager.rentok.com/rooms/cleaning-checklist` rather t
 
 ---
 
-### M4 — `structure` gains sections and branching
+### M6 — `structure` gains sections and branching
 
 **Runs before F29.** The shape is in §2.
 
@@ -563,7 +563,7 @@ gets a collective link to `manager.rentok.com/rooms/cleaning-checklist` rather t
 
 **Edges.**
 - Anything outside this repo reading `structure` — the manager web app, an export, a report. Find them before the migration, not after.
-- Run M4 **after** M5, so the type rename happens on the simpler shape.
+- Run M6 **after** M5, so the type rename happens on the simpler shape.
 
 ---
 
@@ -729,7 +729,7 @@ Nothing here is optional and the order is not a preference.
 | **M2** | Permission defaults | Stage 1, **with M1** | Tightening before cleaning has assignees leaves cleaners with nothing (D69) |
 | **M1** | Cleaning becomes an ordinary pooled task | Stage 2, **with M2, before P0** | Skipping unassigned routines first stops cleaning dead |
 | **P0** | Skip routines with nobody assigned | Stage 2, **after M1** | Same |
-| **M4** | `structure` v2 — sections and branching | Stage 2, **after M5, before F29** | The new types need the new shape |
+| **M6** | `structure` v2 — sections and branching | Stage 2, **after M5, before F29** | The new types need the new shape |
 | **M3** | Categories on system-raised tasks | Stage 6 (F57) | Out of scope here. Its per-property-or-per-account question is settled — account-wide (D85) — and F32 in stage 2 depends on that shape |
 
 ---
@@ -768,7 +768,7 @@ Handed over with the spec, in addition to the three asks in
 2. **F4 — `schedule_id` and `template_id` become nullable on `task_instance`.** How much reads those columns
    assuming they are set?
 3. **F41 — the grace window for a submission in flight at expiry.** A number, not a principle.
-4. **M4 — who else reads `task_template.structure`** outside this repo?
+4. **M6 — who else reads `task_template.structure`** outside this repo?
 5. **P1 — if the unidentified caller turns out to be unowned**, building a registered job is a scope change,
    not an absorption.
 6. **§6 defect 3 — does the cross-account template edit need fixing now, ahead of stage 1?** It is live, it

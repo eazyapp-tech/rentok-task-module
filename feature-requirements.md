@@ -1,7 +1,7 @@
 ---
 title: "Task Module — Feature Requirements"
-date: 2026-08-04
-version: "2.3"
+date: 2026-08-05
+version: "2.4"
 owner: "Sanchay"
 status: "current"
 tags: [rentok, tasks, requirements]
@@ -9,7 +9,9 @@ tags: [rentok, tasks, requirements]
 
 # Task Module — Feature Requirements
 
-Every requirement, with **what it is** and **what the operator loses without it**. These F-numbers are the ones every other doc refers to. The [CHANGELOG](CHANGELOG.md) holds the decisions (D#) behind each one, and the PRD and workflow specs describe them in full.
+Every requirement, with **what it is** and **what the operator loses without it**. These F-numbers are the ones every other doc refers to. The [CHANGELOG](CHANGELOG.md) holds the decisions (D#) behind each one, and [spec-stage-1-2.md](spec-stage-1-2.md) describes the first two stages in full — acceptance criteria, data shapes and edge cases.
+
+> **Who this is for.** PM and engineering. It is a **cut order** — what survives if scope shrinks — so it is written in F-numbers and bands, which need this page to decode. If you want the argument rather than the list, read the [Brief](Task%20Module%20Brief.md); if you want what gets built first, read the [spec](spec-stage-1-2.md).
 
 ## How to read this
 
@@ -172,7 +174,8 @@ Only their own — not other people's tasks or completion (D55).
 **F29 — The question types a real inspection needs.**
 Rating, pass/fail/not-applicable, multi-select, several photos, voice note, date and time, a measurement with a unit, and a non-input instruction block.
 *Without it:* an inspection cannot record "not applicable", a quality score, or a meter reading — so the checklists that matter most cannot be written.
-*Note for the build:* the builder already supports a **select with options**, so pass/fail/not-applicable is a three-option select and a 1–5 rating is a five-option select — configuration, not new code. Genuinely new: several photos on one item, and the instruction block.
+**The full list is committed and settled (D84)** — see [spec-stage-1-2.md](spec-stage-1-2.md) §2 for the exact set and the shape of an item.
+*Note for the build, corrected 2026-08-05:* pass/fail/not-applicable is a three-option **select** — configuration, not new code. **A rating is not.** An earlier version of this note called a 1–5 rating "a five-option select"; it is its own type carrying a scale, because F21's insights has to average it and a select's options are free text. Genuinely new: rating, several photos on one item, the instruction block, a measurement with a unit, date and time, multi-select, **branching**, and **sections** — the last two change the shape of the `structure` column (**M6**).
 
 **F30 — Per-item settings.**
 Mark an item required (and a required item must be answered before submitting — D63), require a photo on it, attach a reference picture, group items into sections, add a note.
@@ -198,6 +201,7 @@ System-raised, assigned, and her own (D5, D31).
 *Without it:* the single filter in F20 breaks for one of its three sources on day one.
 
 **F32 — A task carries a category, a priority, a description, and — if recurring — an optional end date.**
+**Custom categories belong to the account, not to one property (D85)** — so the owner can add up the same category across her properties. A property's picker shows the categories used there first.
 *Without it:* F20's filter and sort have nothing to work with.
 
 **F19 — Review: approve, reject with a reason, or send back for rework.**
@@ -317,7 +321,13 @@ Existing schedules carry over untouched; the shortcut button stays and creates a
 
 **M2 — The access-control migration: managers keep today's access, staff default to seeing only their own.** (D69, correcting D13.) The line is `view_team`/`add_team`/`edit_team` — anyone without them starts at "see only my own." **Runs with M1**, because room cleaning today gives every staff member one shared link, so tightening before M1 would leave a cleaner with nothing.
 
-**M3 — System-raised tasks are mapped onto the shared categories.** (D45, F57)
+**M3 — System-raised tasks are mapped onto the shared categories.** (D45, F57) Categories live at the account, not the property (D85).
+
+**M5 — Rename the question types that live data uses but the code does not know.** `rating_5` → `rating` (scale 5), `rating_10` → `rating` (scale 10), `dropdown` → `select`. **Runs before F36**, which rejects unknown types.
+*Why it matters:* verified 5 Aug 2026 — **190 of 394 checklists (48.2%) contain at least one of these**. Validate first and nearly half the live checklists break on the first morning. The same check confirmed there are no other unknown types, so this rename is complete.
+
+**M6 — `structure` gains sections and branching.** The column is a flat array today and cannot express either (D84). **Runs after M5, before F29.**
+*Why it matters:* the builder, the runner, the report and F36 all read that column, so this is a migration rather than a new field — and anything outside the backend reading it has to be found first.
 
 **M4 — Released to everyone, enabled account by account.**
 Ships to all users — there is no pilot (D47) — but enablement is controlled per account so it can be rolled forward over days and stopped instantly (D49).
@@ -340,6 +350,10 @@ Ships to all users — there is no pilot (D47) — but enablement is controlled 
 Stress-tested after v2.0 and cut. **Standing rules are deferred entirely** (D64) — F6, rule management, preview and guards all go, along with the stored room-occupancy prerequisite. **A task no longer suggests that work is done; it shows the live state of the thing it is linked to** (D65) — that removes a hand-written rule for every kind of linked thing, each of which could be wrong. **An alert can now be turned into work, one task per item** (D66, F58) — the small bridge that lets a detected problem become work with an owner. Operator-managed areas moved to V1.1; complaint matching became "show the open ones and let the person choose"; checklist editing is blocked while tasks are open rather than version-pinned.
 
 *(The v2.1 line "vacant-room readiness has no home in V1" is superseded by v2.2 — F3 is pulled in.)*
+
+## What changed in version 2.4
+
+**The question types are committed (D84)** — the full set is settled rather than deferred, which gives **F36** a fixed list to validate against and needs no second pass later. This adds two migrations: **M5** (rename `rating_5`/`rating_10`/`dropdown`, which live data uses and the code does not know) and **M6** (`structure` gains sections and branching, which a flat array cannot hold). **F29's build note is corrected** — an earlier version called a 1–5 rating "a five-option select"; it is its own type carrying a scale, because F21 has to average it. **Custom categories belong to the account, not the property (D85)**, which settles M3's open sub-question and unblocks **F32**. **P1's description is corrected**: a scheduler does fire today, it is simply registered nowhere — the job is to find and authenticate it, not to build one. Verified against live data 5 Aug 2026: **190 of 394 checklists (48.2%) carry a type the code does not know**, not the 12.7% recorded earlier, which was the share of questions rather than checklists.
 
 ## What changed in version 2.3
 
