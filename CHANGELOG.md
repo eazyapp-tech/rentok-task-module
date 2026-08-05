@@ -815,22 +815,36 @@ validation that validates nothing, and it would have to be torn out the moment t
 **Sequencing.** The types are built in stage 2 (F29/F30), but the **union is settled now**, so F36 in
 stage 1 validates against the final list and needs no second pass. M5 runs before F36; M4 runs before F29.
 
-### D85 — Custom categories belong to the property
+### D85 — Custom categories belong to the account
 **Decided 2026-08-05 by Sanchay.** Closes M3's open sub-question and unblocks F32.
 
-A category the operator makes up herself belongs to **one property**, not to the whole account.
+> **Reversed the same day.** This decision was first written as *per property* (commit `05e8675`, from a
+> parallel session) and reversed a few hours later after the two were compared side by side. The
+> per-property argument is preserved below, because it was a good one and should not be re-derived from
+> scratch in three months.
 
-**What this costs, stated plainly.** F22 lets an owner look across all her properties at once. If every
-property invents its own categories, that view has nothing common to group by.
+A category the operator makes up herself belongs to **the whole account**, not to one property.
 
-**What keeps F22 working anyway:** the **shared set stays shared.** RentOk's own categories — the ones
-already used by the alerts (M3) — are the same in every property and are the ones F22 groups by. Only the
-custom ones are local, and in the cross-property view they are listed under the property that made them.
-So the owner keeps a real comparison on the shared set and still sees what each property added.
+**Why.** The per-property version protected F22 by keeping RentOk's own categories shared and making only
+custom ones local — so the owner's cross-property view still had something common to group by. That works
+on day one. It stops working as custom categories are used: a manager at one property makes "Pest control",
+a manager at another makes "Pest control", and the owner sees two things she cannot add up. **The more the
+operators actually use the feature, the less the owner can compare** — which is backwards. The problem is
+not removed by the split, only postponed until there is enough custom usage to matter.
 
-**Rejected: account-wide custom categories.** It keeps F22 simpler, but it means one manager's word choice
-lands in every other property's list. With D21's suggest-as-she-types guard, per-property drift is a smaller
-problem than an account-wide list nobody owns.
+**What per-property was right about:** an account-wide list gets long, and one manager's word choice lands
+in everybody's picker.
+
+**That is a screen problem, and it is solved on screen.** Record which properties have actually used each
+category, and show the ones used at this property first, the rest of the account's list after. Nothing is
+hidden and nothing is duplicated. **A long list is a worse-looking screen; per-property is numbers that do
+not add up.** We take the screen problem.
+
+**The existing guard still applies (D21):** suggest previously-used categories as she types, or three
+managers create "Cleaning", "cleaning" and "Housekeeping" and the filter rots whichever way this decision
+goes.
+
+**Rejected: per-property custom categories** (the earlier form of this decision, argued above).
 
 ---
 

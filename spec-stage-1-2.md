@@ -650,10 +650,14 @@ easy to underestimate.
 4. A recurring schedule takes an optional end date and stops firing after it.
 5. Priority is a small fixed set, not free text.
 
-**Data / API.** Columns on `task_schedule` and `task_instance`. **Custom categories are per property
-(D85).** A category row carries a `property_id`; RentOk's shared categories (from the alerts, M3) carry
-null and are common to every property. F22's cross-property view groups on the shared set and lists custom
-ones under the property that made them.
+**Data / API.** Columns on `task_schedule` and `task_instance`. **Categories belong to the account (D85)** —
+the category table is keyed on `pg_id`, not `property_id`. RentOk's own categories (from the alerts, M3) sit
+in the same list and are marked as built-in so they cannot be renamed or removed.
+
+To keep the list usable, record which properties have used each category — a small join table
+(`category_id`, `property_id`, `last_used_at`) is enough. A property's picker shows its own first, then the
+rest of the account's. **Do not solve this by copying the category per property**, which is the thing D85
+rejected.
 
 ---
 
@@ -708,7 +712,7 @@ Nothing here is optional and the order is not a preference.
 | **M1** | Cleaning becomes an ordinary pooled task | Stage 2, **with M2, before P0** | Skipping unassigned routines first stops cleaning dead |
 | **P0** | Skip routines with nobody assigned | Stage 2, **after M1** | Same |
 | **M4** | `structure` v2 — sections and branching | Stage 2, **after M5, before F29** | The new types need the new shape |
-| **M3** | Categories on system-raised tasks | Stage 6 (F57) | Out of scope here; its per-property-or-per-account question is **not** |
+| **M3** | Categories on system-raised tasks | Stage 6 (F57) | Out of scope here. Its per-property-or-per-account question is settled — account-wide (D85) — and F32 in stage 2 depends on that shape |
 
 ---
 
@@ -754,4 +758,5 @@ Handed over with the spec, in addition to the three asks in
 7. **F37 — audit log volume.** The spec proposes logging scheduler creation at the run level. Confirm that is
    enough for a dispute.
 
-**Nothing here is product's.** F32's category question was the last one and is settled — per property (D85).
+**Nothing here is product's.** F32's category question was the last one and is settled — **account-wide
+(D85)**, reversing the per-property form of that decision from earlier the same day.
