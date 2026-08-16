@@ -73,6 +73,7 @@ checklist · task · schedule · staff / manager / owner · beds. Never SOP, lan
 
 ## Related
 
+- [`pending-tasks/`](pending-tasks/) — home-screen needs-attention feed (`getPendingTasks`). Home is a stack of one; View All is the hub. Not the checklist / task / schedule work in this repo.
 - [`rentok-checklist-library`](https://github.com/eazyapp-tech/rentok-checklist-library) — the F9 sub-project's docs and template content
 - [`rentok-backend`](https://github.com/eazyapp-tech/rentok-backend) — the codebase. Issue **#6249** tracks the deferred full pending-tasks registry build-out; issue **#6363** tracks finding and authenticating the existing scheduler (P1).
 - Vault mirror: `RentOk/PRDs/Task Module/` — currently behind.
