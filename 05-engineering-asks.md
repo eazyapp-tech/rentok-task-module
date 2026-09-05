@@ -30,17 +30,17 @@ The product side is done. **We cannot draw a V1 line without your cost.** That i
 
 ## 1. Price the seven stages
 
-Rough is fine: days or weeks per stage, not a Gantt. We will draw the line where your number lands. Price the backend and the screens as two numbers on the same rows, so the line can be drawn on either. Stage 2 has no designs yet: price the build assuming designs arrive; do not price design time or waiting. Estimates go on the stage's issue in Linear (project "Task Module redesign", team RentOk) once those issues exist; until then, send Sanchay seven numbers and he creates them.
+Rough is fine: days or weeks per stage, not a Gantt. We will draw the line where your number lands. Price the backend and the screens as two numbers on the same rows, so the line can be drawn on either. Stage 2 has no designs yet: price the build assuming designs arrive; do not price design time or waiting. Estimates go on the stage's issue in Linear, project [Task Module redesign](https://linear.app/rentok/project/task-module-redesign-4bafc030f838); the tables below link each row.
 
-| Stage | What it does | Items | Where |
-|---|---|---|---|
-| **1** | Make what already exists safe (invisible to users) | 10 | [spec, stage 1](04-spec-stages-1-2.md#3-stage-1--make-what-already-exists-safe) |
-| **2** | Give the work an owner, a real cadence, and something worth filling in | 12 | [spec, stage 2](04-spec-stages-1-2.md#4-stage-2--give-the-work-an-owner-a-real-cadence-and-something-worth-filling-in) |
-| **3** | Make it chase itself | 7 | [build sequence, stage 3](03-build-sequence.md#stage-3--make-it-chase-itself) |
-| **4** | The proof | 4 | [build sequence, stage 4](03-build-sequence.md#stage-4--the-proof) |
-| **5** | The fault loop: a failed check raises a complaint | 3 | [build sequence, stage 5](03-build-sequence.md#stage-5--the-fault-loop) |
-| **6** | Letting each level see: review, one list, history, insight | 6 | [build sequence, stage 6](03-build-sequence.md#stage-6--letting-each-level-see) |
-| **7** | The on-ramp and the things that run themselves | 6 | [build sequence, stage 7](03-build-sequence.md#stage-7--the-on-ramp-and-the-things-that-run-themselves) |
+| Stage | What it does | Items | Where | Linear |
+|---|---|---|---|---|
+| **1** | Make what already exists safe (invisible to users) | 10 | [spec, stage 1](04-spec-stages-1-2.md#3-stage-1--make-what-already-exists-safe) | [REN-661](https://linear.app/rentok/issue/REN-661) |
+| **2** | Give the work an owner, a real cadence, and something worth filling in | 12 | [spec, stage 2](04-spec-stages-1-2.md#4-stage-2--give-the-work-an-owner-a-real-cadence-and-something-worth-filling-in) | [REN-662](https://linear.app/rentok/issue/REN-662) |
+| **3** | Make it chase itself | 7 | [build sequence, stage 3](03-build-sequence.md#stage-3--make-it-chase-itself) | [REN-663](https://linear.app/rentok/issue/REN-663) |
+| **4** | The proof | 4 | [build sequence, stage 4](03-build-sequence.md#stage-4--the-proof) | [REN-664](https://linear.app/rentok/issue/REN-664) |
+| **5** | The fault loop: a failed check raises a complaint | 3 | [build sequence, stage 5](03-build-sequence.md#stage-5--the-fault-loop) | [REN-665](https://linear.app/rentok/issue/REN-665) |
+| **6** | Letting each level see: review, one list, history, insight | 6 | [build sequence, stage 6](03-build-sequence.md#stage-6--letting-each-level-see) | [REN-666](https://linear.app/rentok/issue/REN-666) |
+| **7** | The on-ramp and the things that run themselves | 6 | [build sequence, stage 7](03-build-sequence.md#stage-7--the-on-ramp-and-the-things-that-run-themselves) | [REN-667](https://linear.app/rentok/issue/REN-667) |
 
 **Stage 2 is the biggest and splits** if we need a smaller first ship: **2a** = F10, F16, M1 with P0, F5, F4, F32 · **2b** = M6, F29, F30, F9, F13.
 
@@ -48,30 +48,30 @@ Rough is fine: days or weeks per stage, not a Gantt. We will draw the line where
 
 Every item has a full section in the spec: what it is, what the code does today, numbered acceptance, data and API, edges. The order inside each stage is the spec's build order.
 
-| Stage | Item | What it is | Spec |
-|---|---|---|---|
-| 1 | P1 | A reliable, authenticated scheduler that fires recurring work | [P1](04-spec-stages-1-2.md#p1--a-reliable-authenticated-scheduler) |
-| 1 | M5 | Rename the three question types live data uses but the code does not know (in 48.2% of checklists) | [M5](04-spec-stages-1-2.md#m5--rename-the-live-question-types) |
-| 1 | F44 | A checklist with open tasks cannot be edited; save it as a new one instead | [F44](04-spec-stages-1-2.md#f44--a-checklist-with-open-tasks-cannot-be-edited) |
-| 1 | F36 | Every submission is validated on the server against its checklist | [F36](04-spec-stages-1-2.md#f36--every-submission-is-validated-on-the-server) |
-| 1 | F26 + M2 | Access control: five permissions; managers keep today's access, staff default to seeing only their own | [F26 + M2](04-spec-stages-1-2.md#f26--m2--access-control) |
-| 1 | F41 | The runner proves who is submitting; links expire | [F41](04-spec-stages-1-2.md#f41--the-runner-proves-who-is-submitting-links-expire) |
-| 1 | F37 | An edit log on every task, and a lock after submission | [F37](04-spec-stages-1-2.md#f37--an-edit-log-and-a-lock-after-submission) |
-| 1 | F38 | Archive and restore instead of deleting | [F38](04-spec-stages-1-2.md#f38--archive-and-restore-instead-of-deleting) |
-| 1 | F46 | Photo questions open the camera, never the gallery | [F46](04-spec-stages-1-2.md#f46--photo-questions-open-the-camera-never-the-gallery) |
-| 1 | F45 | The server decides what is late; several missed reminders arrive as one message | [F45](04-spec-stages-1-2.md#f45--the-server-decides-what-is-late-missed-reminders-arrive-as-one-message) |
-| 2 | F10 | Scope a task to the property, a floor, specific rooms, or areas | [F10](04-spec-stages-1-2.md#f10--scope-a-task-to-the-property-a-floor-specific-rooms-or-areas) |
-| 2 | F16 | Assign to several people two ways: pooled or one-each | [F16](04-spec-stages-1-2.md#f16--assign-to-several-people-two-ways-pooled-or-one-each) |
-| 2 | M1 | Room cleaning becomes an ordinary recurring task, pooled per room | [M1](04-spec-stages-1-2.md#m1--room-cleaning-becomes-an-ordinary-recurring-task-pooled-per-room) |
-| 2 | P0 | The scheduler skips any routine with nobody assigned | [P0](04-spec-stages-1-2.md#p0--the-scheduler-skips-any-routine-with-nobody-assigned) |
-| 2 | M6 | The checklist structure gains sections and branching | [M6](04-spec-stages-1-2.md#m6--structure-gains-sections-and-branching) |
-| 2 | F29 | The question types a real inspection needs | [F29](04-spec-stages-1-2.md#f29--the-question-types-a-real-inspection-needs) |
-| 2 | F30 | Per-item settings: required, photo required, reference picture, note, sections | [F30](04-spec-stages-1-2.md#f30--per-item-settings) |
-| 2 | F5 | Create a recurring task on a real cadence | [F5](04-spec-stages-1-2.md#f5--create-a-recurring-task-on-a-real-cadence) |
-| 2 | F4 | Create a one-off task at any time: assign it, set a due date and time | [F4](04-spec-stages-1-2.md#f4--create-a-one-off-task-at-any-time) |
-| 2 | F32 | A task carries a category, a priority, a description, and an optional end date | [F32](04-spec-stages-1-2.md#f32--a-task-carries-a-category-a-priority-a-description-and-an-optional-end-date) |
-| 2 | F9 | A checklist library to start from, which the operator can change | [F9](04-spec-stages-1-2.md#f9--a-checklist-library-to-start-from) |
-| 2 | F13 | Starter templates ship in Hindi as well as English | [F13](04-spec-stages-1-2.md#f13--starter-templates-ship-in-hindi-as-well-as-english) |
+| Stage | Item | What it is | Spec | Linear |
+|---|---|---|---|---|
+| 1 | P1 | A reliable, authenticated scheduler that fires recurring work | [P1](04-spec-stages-1-2.md#p1--a-reliable-authenticated-scheduler) | [REN-669](https://linear.app/rentok/issue/REN-669) |
+| 1 | M5 | Rename the three question types live data uses but the code does not know (in 48.2% of checklists) | [M5](04-spec-stages-1-2.md#m5--rename-the-live-question-types) | [REN-670](https://linear.app/rentok/issue/REN-670) |
+| 1 | F44 | A checklist with open tasks cannot be edited; save it as a new one instead | [F44](04-spec-stages-1-2.md#f44--a-checklist-with-open-tasks-cannot-be-edited) | [REN-671](https://linear.app/rentok/issue/REN-671) |
+| 1 | F36 | Every submission is validated on the server against its checklist | [F36](04-spec-stages-1-2.md#f36--every-submission-is-validated-on-the-server) | [REN-672](https://linear.app/rentok/issue/REN-672) |
+| 1 | F26 + M2 | Access control: five permissions; managers keep today's access, staff default to seeing only their own | [F26 + M2](04-spec-stages-1-2.md#f26--m2--access-control) | [REN-673](https://linear.app/rentok/issue/REN-673) |
+| 1 | F41 | The runner proves who is submitting; links expire | [F41](04-spec-stages-1-2.md#f41--the-runner-proves-who-is-submitting-links-expire) | [REN-674](https://linear.app/rentok/issue/REN-674) |
+| 1 | F37 | An edit log on every task, and a lock after submission | [F37](04-spec-stages-1-2.md#f37--an-edit-log-and-a-lock-after-submission) | [REN-675](https://linear.app/rentok/issue/REN-675) |
+| 1 | F38 | Archive and restore instead of deleting | [F38](04-spec-stages-1-2.md#f38--archive-and-restore-instead-of-deleting) | [REN-676](https://linear.app/rentok/issue/REN-676) |
+| 1 | F46 | Photo questions open the camera, never the gallery | [F46](04-spec-stages-1-2.md#f46--photo-questions-open-the-camera-never-the-gallery) | [REN-677](https://linear.app/rentok/issue/REN-677) |
+| 1 | F45 | The server decides what is late; several missed reminders arrive as one message | [F45](04-spec-stages-1-2.md#f45--the-server-decides-what-is-late-missed-reminders-arrive-as-one-message) | [REN-678](https://linear.app/rentok/issue/REN-678) |
+| 2 | F10 | Scope a task to the property, a floor, specific rooms, or areas | [F10](04-spec-stages-1-2.md#f10--scope-a-task-to-the-property-a-floor-specific-rooms-or-areas) | [REN-679](https://linear.app/rentok/issue/REN-679) |
+| 2 | F16 | Assign to several people two ways: pooled or one-each | [F16](04-spec-stages-1-2.md#f16--assign-to-several-people-two-ways-pooled-or-one-each) | [REN-680](https://linear.app/rentok/issue/REN-680) |
+| 2 | M1 | Room cleaning becomes an ordinary recurring task, pooled per room | [M1](04-spec-stages-1-2.md#m1--room-cleaning-becomes-an-ordinary-recurring-task-pooled-per-room) | [REN-681](https://linear.app/rentok/issue/REN-681) |
+| 2 | P0 | The scheduler skips any routine with nobody assigned | [P0](04-spec-stages-1-2.md#p0--the-scheduler-skips-any-routine-with-nobody-assigned) | [REN-682](https://linear.app/rentok/issue/REN-682) |
+| 2 | M6 | The checklist structure gains sections and branching | [M6](04-spec-stages-1-2.md#m6--structure-gains-sections-and-branching) | [REN-683](https://linear.app/rentok/issue/REN-683) |
+| 2 | F29 | The question types a real inspection needs | [F29](04-spec-stages-1-2.md#f29--the-question-types-a-real-inspection-needs) | [REN-684](https://linear.app/rentok/issue/REN-684) |
+| 2 | F30 | Per-item settings: required, photo required, reference picture, note, sections | [F30](04-spec-stages-1-2.md#f30--per-item-settings) | [REN-685](https://linear.app/rentok/issue/REN-685) |
+| 2 | F5 | Create a recurring task on a real cadence | [F5](04-spec-stages-1-2.md#f5--create-a-recurring-task-on-a-real-cadence) | [REN-686](https://linear.app/rentok/issue/REN-686) |
+| 2 | F4 | Create a one-off task at any time: assign it, set a due date and time | [F4](04-spec-stages-1-2.md#f4--create-a-one-off-task-at-any-time) | [REN-687](https://linear.app/rentok/issue/REN-687) |
+| 2 | F32 | A task carries a category, a priority, a description, and an optional end date | [F32](04-spec-stages-1-2.md#f32--a-task-carries-a-category-a-priority-a-description-and-an-optional-end-date) | [REN-688](https://linear.app/rentok/issue/REN-688) |
+| 2 | F9 | A checklist library to start from, which the operator can change | [F9](04-spec-stages-1-2.md#f9--a-checklist-library-to-start-from) | [REN-689](https://linear.app/rentok/issue/REN-689) |
+| 2 | F13 | Starter templates ship in Hindi as well as English | [F13](04-spec-stages-1-2.md#f13--starter-templates-ship-in-hindi-as-well-as-english) | [REN-690](https://linear.app/rentok/issue/REN-690) |
 
 ### Stages 3 to 7, item by item
 
@@ -122,7 +122,7 @@ We would chase this regardless of where the cut falls. If nothing reliable calls
 
 **Settled (Sanchay, 4 Aug 2026):** the access migration defaults anyone without the three team flags (`view_team`, `add_team`, `edit_team`) to "see only my own". Everyone else keeps today's access. We picked those flags because there is no task-related flag anywhere in the team-member permission table (all 94 columns checked); managing the team is the closest existing signal for "hands out work". That is D69, correcting D13.
 
-**Still asked of you:** does that proxy hold against how properties actually set permissions today? If many properties give staff a team flag for some unrelated reason, the default lands wrong. You can see the data; we cannot.
+**Still asked of you** (Linear [REN-668](https://linear.app/rentok/issue/REN-668)): does that proxy hold against how properties actually set permissions today? If many properties give staff a team flag for some unrelated reason, the default lands wrong. You can see the data; we cannot.
 
 ---
 

@@ -17,12 +17,12 @@ The redesign of RentOk's Task module: from a checklist runner into the tool a pr
 | You are | Open this | Then |
 |---|---|---|
 | **New to this, any role** | [00-feature-list.md](00-feature-list.md), then [00-feature-map.md](00-feature-map.md) | Three minutes for the list. Ten for the map: what we build, for whom, moment by moment, what is deferred, what is not built. |
-| **Leadership, business** (Srijan) | [00-feature-map.md](00-feature-map.md) | Its "What success looks like" and "How it arrives" sections. Price and status: Linear, once the stage issues exist; until then, Sanchay. |
+| **Leadership, business** (Srijan) | [00-feature-map.md](00-feature-map.md) | Its "What success looks like" and "How it arrives" sections. Price and status: [Linear](https://linear.app/rentok/project/task-module-redesign-4bafc030f838), and nowhere else. |
 | **Marketing, sales** (Anil) | [00-feature-map.md](00-feature-map.md) | Its "How we talk about it": the sentences to use and the words never to use. Then [the stages](#the-stages) for what can be promised when. |
 | **Support** | [00-feature-map.md](00-feature-map.md) | The moments, then the vocabulary in [the rules](#the-rules-every-doc-follows). |
 | **Design** (Ishika, Nitish) | [00-feature-map.md](00-feature-map.md), then the brief's [who we are building for](01-brief.md#who-we-are-building-for--the-chain-of-accountability) and [the bet](01-brief.md#the-bet-accountability-without-surveillance) | [What a designer draws in stage 2](04-spec-stages-1-2.md#what-a-designer-draws-in-stage-2): each item with its surface, in the spec's own words, plus the four stage-1 items needing screens. |
 | **QA** (Devendra) | [04-spec-stages-1-2.md](04-spec-stages-1-2.md) | Each item's numbered Acceptance and its Edges; the [by-role table](04-spec-stages-1-2.md#how-to-read-it-by-role) says what to skip. |
-| **Engineering, pricing the stages** (Jatin) | [00-feature-list.md](00-feature-list.md) for the shape, then [05-engineering-asks.md](05-engineering-asks.md) | Every item named with its spec section, then [the dependency map](03-build-sequence.md#the-dependency-map). Estimates: the stage's Linear issue once it exists; until then, Sanchay. |
+| **Engineering, pricing the stages** (Jatin) | [00-feature-list.md](00-feature-list.md) for the shape, then [05-engineering-asks.md](05-engineering-asks.md) | Every item named with its spec section, then [the dependency map](03-build-sequence.md#the-dependency-map). Estimates: the stage's Linear issue, linked from every row. |
 | **Engineering, building stage 1 or 2** (Jatin, Vivek) | [05-engineering-asks.md](05-engineering-asks.md#stages-1-and-2-item-by-item) | The item's row links its spec section: what it is, today, acceptance, data and API, edges. |
 | **CTO** (Nimit) | [05-engineering-asks.md](05-engineering-asks.md) | The trigger nobody owns, the staff access default, what is still engineering's to decide, and the [four live defects](05-engineering-asks.md#8-four-live-defects-for-nimit). Then price the stages with Jatin. |
 | **Product** (Sanchay) | [CHANGELOG.md](CHANGELOG.md#find-a-decision) | The decision index, then [02-requirements.md](02-requirements.md). |
@@ -47,17 +47,17 @@ Evidence and history sit off the path: [reference/](reference/) holds the code-l
 
 ## The stages
 
-Price and status will live in Linear, project "Task Module redesign", once its stage issues exist, and nowhere else; until then, with Sanchay. This table only says what each stage is and where to read it.
+Price and status live in Linear, project [Task Module redesign](https://linear.app/rentok/project/task-module-redesign-4bafc030f838), and nowhere else. This table only says what each stage is and where to read it.
 
 | Stage | What it does | What a manager can do after it | Read |
 |---|---|---|---|
-| 1 | Make what already exists safe: permissions, validation, an edit log, expiry. Invisible on purpose. | Nothing new. The record can be trusted. | [spec](04-spec-stages-1-2.md#3-stage-1--make-what-already-exists-safe) · [pricing rows](05-engineering-asks.md#stages-1-and-2-item-by-item) |
-| 2 | Give the work an owner, a real cadence, and something worth filling in | Scope to rooms, assign pooled or one-each, set a cadence, create a one-off, build a real checklist, start from a library in Hindi. | [spec](04-spec-stages-1-2.md#4-stage-2--give-the-work-an-owner-a-real-cadence-and-something-worth-filling-in) · [pricing rows](05-engineering-asks.md#stages-1-and-2-item-by-item) |
-| 3 | Make it chase itself | Due dates, reminders and escalation; skip or reschedule one occurrence; reassign; "couldn't do it"; complete on someone's behalf; a leaver's work comes back. | [build sequence](03-build-sequence.md#stage-3--make-it-chase-itself) |
-| 4 | The proof | Do the task in the runner with proof; partial work survives a bad connection; photos compressed; each person sees their own record. | [build sequence](03-build-sequence.md#stage-4--the-proof) |
-| 5 | The fault loop | An item carries a problem; a problem raises a pre-filled complaint with one tap; the open ones for that room show first. | [build sequence](03-build-sequence.md#stage-5--the-fault-loop) |
-| 6 | Letting each level see | Review; one list across all three sources; history per room or tenant; the first insight cut; the exception view. | [build sequence](03-build-sequence.md#stage-6--letting-each-level-see) |
-| 7 | The on-ramp and the things that run themselves | Manage routines; see a routine's reach before switching it on; self-pausing routines; my own tasks; a move-out creates the prep task; an alert becomes work. | [build sequence](03-build-sequence.md#stage-7--the-on-ramp-and-the-things-that-run-themselves) |
+| 1 | Make what already exists safe: permissions, validation, an edit log, expiry. Invisible on purpose. | Nothing new. The record can be trusted. | [spec](04-spec-stages-1-2.md#3-stage-1--make-what-already-exists-safe) · [pricing rows](05-engineering-asks.md#stages-1-and-2-item-by-item) · [Linear](https://linear.app/rentok/issue/REN-661) |
+| 2 | Give the work an owner, a real cadence, and something worth filling in | Scope to rooms, assign pooled or one-each, set a cadence, create a one-off, build a real checklist, start from a library in Hindi. | [spec](04-spec-stages-1-2.md#4-stage-2--give-the-work-an-owner-a-real-cadence-and-something-worth-filling-in) · [pricing rows](05-engineering-asks.md#stages-1-and-2-item-by-item) · [Linear](https://linear.app/rentok/issue/REN-662) |
+| 3 | Make it chase itself | Due dates, reminders and escalation; skip or reschedule one occurrence; reassign; "couldn't do it"; complete on someone's behalf; a leaver's work comes back. | [build sequence](03-build-sequence.md#stage-3--make-it-chase-itself) · [Linear](https://linear.app/rentok/issue/REN-663) |
+| 4 | The proof | Do the task in the runner with proof; partial work survives a bad connection; photos compressed; each person sees their own record. | [build sequence](03-build-sequence.md#stage-4--the-proof) · [Linear](https://linear.app/rentok/issue/REN-664) |
+| 5 | The fault loop | An item carries a problem; a problem raises a pre-filled complaint with one tap; the open ones for that room show first. | [build sequence](03-build-sequence.md#stage-5--the-fault-loop) · [Linear](https://linear.app/rentok/issue/REN-665) |
+| 6 | Letting each level see | Review; one list across all three sources; history per room or tenant; the first insight cut; the exception view. | [build sequence](03-build-sequence.md#stage-6--letting-each-level-see) · [Linear](https://linear.app/rentok/issue/REN-666) |
+| 7 | The on-ramp and the things that run themselves | Manage routines; see a routine's reach before switching it on; self-pausing routines; my own tasks; a move-out creates the prep task; an alert becomes work. | [build sequence](03-build-sequence.md#stage-7--the-on-ramp-and-the-things-that-run-themselves) · [Linear](https://linear.app/rentok/issue/REN-667) |
 
 ## Ship gates
 

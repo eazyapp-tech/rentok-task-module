@@ -80,8 +80,8 @@ These were wrong or stale on 4 September and are right now. Each change is marke
 Carried from the 4 August handoff's "open, non-blocking" list and from this session.
 
 - **The feature map (00)** is written only after Sanchay rules on `history/feature-map-inventory.md` section 10 (seven calls). Until then README, 02 and 04 link to a file that does not exist.
-- **Linear.** Project "Task Module redesign" under team RentOk: seven stage issues carrying the estimate, 22 sub-issues for stages 1 and 2, one issue for the D69 practice question. Created only after the docs are approved. Then 05 and the README stage table get their links.
-- **Commit and push.** Nothing is committed. When Sanchay says so: two commits on `chore/readable-for-everyone`, the pure moves first, then the content edits. The checklist-library changes are a third, separate commit on that repo.
+- **Linear: done.** Project [Task Module redesign](https://linear.app/rentok/project/task-module-redesign-4bafc030f838) under team RentOk: stage issues REN-661 to REN-667 (the estimate goes there), 22 sub-issues REN-669 to REN-690 under stages 1 and 2, and REN-668 for the D69 practice question. 05 and the README link every row. Links point at the branch until it merges; after the merge, replace `blob/chore/readable-for-everyone` with `blob/main` in the issue descriptions.
+- **Committed and pushed** (Sanchay, 5 Sep): `584493f` the pure moves, `67914e7` the content, then the Linear links; branch `chore/readable-for-everyone`, no PR opened. The checklist-library pointer is `11b8ac5` on its branch `docs/task-module-redesign-brief`. Merge to `main` is Sanchay's.
 - **Vault mirror** `RentOk/PRDs/Task Module/`: rename to match the repo inside Obsidian through the obsidian skill, so its wikilinks update; mirror 00 there. After the push.
 - **Whether F58 (alert into work) moves earlier than stage 7.** Nothing technical holds it there and it is the most demo-able feature in the set. Sanchay's call when the stages are priced.
 - **Sections change the shape of the checklist structure** (M6). Small, but the builder, the runner, the report and the validator all read that column; engineering names every reader before the migration (05 section 6, item 5).
@@ -96,7 +96,7 @@ Carried from the 4 August handoff's "open, non-blocking" list and from this sess
 1. Read this file, then the README.
 2. If the map is not yet written: read `history/feature-map-inventory.md` and its section 11 rulings, then write 00 once, under the feature-map skill, and run the bar file `~/agent-config/bars/feature-map.md`.
 3. Run the checks: `linkcheck.py` over the repo (zero missing), the stage-agreement script, the bare-label sweep on README, 00, 04, 05, and `doc-handoff-review` on 00, README, 04, 05.
-4. Only then Linear, the push, the vault.
+4. Then the vault sync, and the em-dash pass if Sanchay orders it.
 
 ## 6. Traps carried forward
 
