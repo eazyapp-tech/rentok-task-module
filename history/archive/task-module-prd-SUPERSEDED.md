@@ -21,7 +21,8 @@ tags: [rentok, prd, tasks, superseded]
 
 # PRD: Task Module Redesign
 
-> Read the [Brief](Task%20Module%20Brief.md) first — it holds the bet. This PRD holds the requirements. The [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) holds the code-level evidence behind every "today it does / does not" claim here. The risk analysis lives in the [pre-mortem](Task%20Module%20Pre-Mortem.md).
+> *Link targets on the next line edited 2026-09-05 (files moved); wording untouched.*
+> Read the [Brief](../../01-brief.md) first — it holds the bet. This PRD holds the requirements. The [Feature Gap Audit](../../reference/feature-gap-audit.md) holds the code-level evidence behind every "today it does / does not" claim here. The risk analysis lives in the [pre-mortem](task-module-pre-mortem-SUPERSEDED.md).
 >
 > Draft · Owner Sanchay · Nimit and Jatin review the two open schema questions (see Open Questions).
 

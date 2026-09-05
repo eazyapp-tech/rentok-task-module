@@ -9,12 +9,31 @@ tags: [rentok, tasks, sequencing, cut]
 
 # Build Sequence and Break Points
 
-[feature-requirements.md](feature-requirements.md) says **what** is needed and in what order it should
+[02-requirements.md](02-requirements.md) says **what** is needed and in what order it should
 survive a cut. It does not say what to build first, and the two are not the same thing — a cut order
 ranks by user pain, a build order has to respect what physically depends on what.
 
 This document does the second job. **It contains no estimates.** Nothing here says how long anything
 takes; that is engineering's, and a sequence proposed without it would be a guess dressed as a plan.
+
+## What is in here
+
+Seven stages, each a real ship point, with what ships, what a person can then do, what they still cannot, and the dependency map of what genuinely cannot ship without what. For engineering pricing the stages and for anyone asking "what arrives when". It contains no estimates by design; those live in Linear. It is not the spec: stages 1 and 2 are specified in [04-spec-stages-1-2.md](04-spec-stages-1-2.md).
+
+## Contents
+
+- [How to use it](#how-to-use-it)
+- [The dependency map](#the-dependency-map)
+- [Stage 1: Make what already exists safe](#stage-1--make-what-already-exists-safe)
+- [Stage 2: Give the work an owner, a real cadence, and something worth filling in](#stage-2--give-the-work-an-owner-a-real-cadence-and-something-worth-filling-in)
+- [Stage 3: Make it chase itself](#stage-3--make-it-chase-itself)
+- [Stage 4: The proof](#stage-4--the-proof)
+- [Stage 5: The fault loop](#stage-5--the-fault-loop)
+- [Stage 6: Letting each level see](#stage-6--letting-each-level-see)
+- [Stage 7: The on-ramp and the things that run themselves](#stage-7--the-on-ramp-and-the-things-that-run-themselves)
+- [Three sequencing calls that are genuinely arguable](#three-sequencing-calls-that-are-genuinely-arguable)
+- [What is in no stage](#what-is-in-no-stage)
+- [What this needs before a line can be drawn](#what-this-needs-before-a-line-can-be-drawn)
 
 ## How to use it
 
@@ -38,7 +57,7 @@ else can be built in any order.
 
 | This | Cannot ship without | Why |
 |---|---|---|
-| Anything recurring (F5, F18, F40, F48, F49, F50, F24c) | **P1** | A scheduler runs today but is not registered anywhere in `rentok-backend`. The trigger endpoint is open and depends on that unidentified caller. The job is to find it and authenticate it, not to build one — backend issue #6363. |
+| Anything recurring (F5, F18, F40, F48, F49, F50, F24c) | **P1** | A scheduler runs today but nothing in our own code registers it. The trigger endpoint is open and depends on that unidentified caller. The job is to find it and authenticate it, not to build one — backend issue #6363. |
 | **P0** (skip unassigned routines) | **M1** | Room cleaning deliberately creates unassigned tasks today. Skipping first stops cleaning dead. |
 | **M1** (cleaning becomes a normal task) | F10, F16 | It needs all-rooms scope and pooled assignment to exist. |
 | **M2 / F26** (permissions) | — | Pairs with M1 (D69) so the staff default lands when cleaning already has assignees. |
@@ -50,7 +69,7 @@ else can be built in any order.
 | F2 (problem → complaint) | F31 | The failed item is what raises it. |
 | F54 (show open complaints first) | F2 | — |
 | F19 (review) | F11 | Nothing to review. |
-| F21 (insights) | F18, F16, **F53** | On-time needs due dates; per-person needs fan-out; without F53 the numbers are false for anyone with no smartphone. |
+| F21 (insights) | F18, F16, **F53** | On-time needs due dates; per-person needs one-each; without F53 the numbers are false for anyone with no smartphone. |
 | F22 (exception view) | F21's data, **F53** | Same falseness, seen by the owner. |
 | F20 (one list) | F32, F57 + M3 | Filter and sort need a category on all three sources. |
 | F58 (alert → work) | F4, F8, F20 | It creates a task per item and links it. |
@@ -74,7 +93,9 @@ Nothing new for the user. The module today runs scheduled checklists and takes s
 open link with no permissions, no validation, no audit log and no expiry. This stage fixes the module
 we already shipped.
 
-**Ships:** P1 · F26 + M2 · F41 · F36 · F44 · F37 · F38 · F46 · F45
+**Ships:** P1 · M5 · F44 · F36 · F26 + M2 · F41 · F37 · F38 · F46 · F45
+
+*M5 added 2026-09-05 (it was decided with D84 on 5 Aug and never carried into this list): it renames three live question types found in 48.2% of checklists, and runs before F36 can reject unknown types.*
 
 **The user can now:** nothing they could not before. **This stage is invisible on purpose.**
 
@@ -89,7 +110,9 @@ caller nobody has identified, which means it can stop without anyone knowing.
 
 ## Stage 2 — Give the work an owner, a real cadence, and something worth filling in
 
-**Ships:** F10 · F16 · F5 · F4 · F32 · **M1 + P0** · **F29 · F30 · F9 · F13**
+**Ships:** F10 · F16 · **M1 + P0** · M6 · **F29 · F30** · F5 · F4 · F32 · **F9 · F13**
+
+*M6 added 2026-09-05 (decided with D84 on 5 Aug, never carried here): the checklist structure gains sections and branching, and runs after M5 and before F29.*
 
 **The user can now:** create a one-off task and give it to a named person. Set cleaning to Mon/Wed/Fri
 instead of daily. Scope work to a floor or a chosen set of rooms. And after M1, **every room finally
@@ -113,7 +136,7 @@ instead of stage 7.
 
 **The trade, stated plainly:** stage 2 is now the biggest stage in the sequence, so **the time to first
 user-visible value goes up.** If that matters, it splits cleanly at the seam — **2a** (F10, F16, F5, F4,
-F32, M1+P0) is owner and cadence on today's checklists; **2b** (F29, F30, F9, F13) is the library and the
+F32, M1+P0) is owner and cadence on today's checklists; **2b** (M6, F29, F30, F9, F13) is the library and the
 richer types. 2a alone is still a coherent ship.
 
 ---
@@ -245,6 +268,6 @@ should be a build rule from stage 2 rather than a line item at the end.
 1. **Engineering's cost per stage** — Nimit and Jatin. Without it this is an order, not a plan.
 2. **P0 and P1 confirmed** — P1 especially: nobody currently knows what calls the trigger endpoint, and
    every recurring stage sits on it.
-3. **D69's permission proxy confirmed** — `view_team` / `add_team` / `edit_team` is the closest existing
+3. **D69's permission proxy confirmed** — the three team-management permissions are the closest existing
    signal for "can hand out work", but it is a stand-in, not a real flag.
 4. **A decision on the three arguable calls above**, especially F9.

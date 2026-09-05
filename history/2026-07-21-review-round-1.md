@@ -2,15 +2,15 @@
 title: "Task Module — Product-Lens Review Findings (2026-07-21)"
 date: 2026-07-21
 owner: "Sanchay"
-status: "open — 7 decisions pending"
+status: "historical, all seven strategic calls decided (D19 to D63); filed 2026-09-05"
 tags: [rentok, tasks, review, risk]
 ---
 
 # Product-Lens Review — Findings
 
-> **Status: historical.** This is the round-1 review, from before D19–D63 were written. Its behaviour findings were absorbed into those decisions; **strategic call #1 is withdrawn** (D74 — staff do not share phones) and several items reference standing rules and suggest-close, both of which were later dropped (D64, D65). Read it for the reasoning, not for what is true now. The current review is [review-round-2-decisions.md](review-round-2-decisions.md).
+> **Status: historical.** This is the round-1 review, from before D19–D63 were written. Its behaviour findings were absorbed into those decisions; **strategic call #1 is withdrawn** (D74 — staff do not share phones) and several items reference standing rules and suggest-close, both of which were later dropped (D64, D65). Read it for the reasoning, not for what is true now. The current review is [the round-2 review, 3 Aug 2026](2026-08-03-review-round-2.md).
 
-Three independent reviewers critiqued [feature-requirements.md](feature-requirements.md) against the [CHANGELOG](CHANGELOG.md) and the [Brief](Task%20Module%20Brief.md): one on **flow completeness**, one **user-first**, one on **operational edge cases**. ~30 findings, deduped below.
+Three independent reviewers critiqued [02-requirements.md](../02-requirements.md) against the [CHANGELOG](../CHANGELOG.md) and the [Brief](../01-brief.md): one on **flow completeness**, one **user-first**, one on **operational edge cases**. ~30 findings, deduped below.
 
 **Nothing here is applied yet.** The 7 strategic calls need a decision; the behavior decisions need to be written into the CHANGELOG as D19+ before the spec layer is built.
 

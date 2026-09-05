@@ -12,7 +12,28 @@ tags:
 
 # Task Module — Product Vision Brief
 
-> **What this is.** The bet behind the Task module redesign, in plain language. It says why we are doing this and what has to be true. [feature-requirements.md](feature-requirements.md) enumerates the features and [spec-stage-1-2.md](spec-stage-1-2.md) says how the first two stages get built; the [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) holds the code-level evidence. This brief holds none of those — it holds the bet.
+> **What this is.** The bet behind the Task module redesign, in plain language. It says why we are doing this and what has to be true. [02-requirements.md](02-requirements.md) enumerates the features and [04-spec-stages-1-2.md](04-spec-stages-1-2.md) says how the first two stages get built; the [Feature Gap Audit](reference/feature-gap-audit.md) holds the code-level evidence. This brief holds none of those — it holds the bet.
+
+## What is in here
+
+The why. The problem (work fails three ordinary ways and nobody finds out until it is a complaint or a vacancy), who we build for, the bet (accountability without surveillance), the moat, what has to ship for the bet to hold, and what success looks like. For anyone who needs the argument, not the list. It is not a list of features: that is [00-feature-map.md](00-feature-map.md) in plain words and [02-requirements.md](02-requirements.md) in full. About twenty minutes.
+
+## Contents
+
+- [What we are building](#what-we-are-building)
+- [The problem](#the-problem)
+- [The market signal](#the-market-signal)
+- [Who we are building for: the chain of accountability](#who-we-are-building-for--the-chain-of-accountability)
+- [The root cause](#the-root-cause)
+- [The mission: tell people what to do, prove it, help them improve](#the-mission-tell-people-what-to-do-prove-it-help-them-improve)
+- [The bet: accountability without surveillance](#the-bet-accountability-without-surveillance)
+- [What has to ship for the bet to hold](#what-has-to-ship-for-the-bet-to-hold)
+- [What makes this last](#what-makes-this-last)
+- [How the tasks show up: three sources, one place](#how-the-tasks-show-up--three-sources-one-place)
+- [What we will not build this cycle](#what-we-will-not-build-this-cycle)
+- [What success looks like](#what-success-looks-like)
+- [What this makes possible next](#what-this-makes-possible-next)
+- [Changelog](#changelog)
 
 ## What we are building
 
@@ -129,7 +150,7 @@ The redesign also gives the module what every serious operations tool has and ou
 
 The library is one deliverable inside this redesign, not a project beside it.
 
-[feature-requirements.md](feature-requirements.md) lists every one of these as a numbered requirement, and [spec-stage-1-2.md](spec-stage-1-2.md) gives the first two stages their tests. This brief only claims the shape.
+[02-requirements.md](02-requirements.md) lists every one of these as a numbered requirement, and [04-spec-stages-1-2.md](04-spec-stages-1-2.md) gives the first two stages their tests. This brief only claims the shape.
 
 **Next sprint:** the property's own events making work appear without anyone looking — beyond the move-out that now creates the room-prep task — starts right after this one.
 
@@ -208,15 +229,15 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 [^owner]: The multi-property owner maps to RentOk's "Rajesh/Priya-owner" persona set; the on-site "Priya" in this brief is the *manager* persona, a distinct role. Named to keep the accountability chain clear, not to introduce new personas.
 
-[^1]: Priya (on-site manager) is a composite persona from RentOk's Persona Bible (`icp_and_personas.md`). Surveillance fear sourced verbatim: line 178 — "If Priya sees RentOk as a surveillance tool that threatens her job, she will sabotage adoption. Must be positioned as 'your assistant that makes the owner trust you more.'" Line 234 names "Threatened Manager (Priya)" as a top-3 deal-blocker.
+[^1]: Priya (on-site manager) is a composite persona from RentOk's Persona Bible. Surveillance fear sourced verbatim: line 178 — "If Priya sees RentOk as a surveillance tool that threatens her job, she will sabotage adoption. Must be positioned as 'your assistant that makes the owner trust you more.'" Line 234 names "Threatened Manager (Priya)" as a top-3 deal-blocker.
 
 [^2]: Ramu (guard) is a composite persona from the same Persona Bible. Sourced verbatim: line 192 — "If the app replaces his paper register, he may feel threatened. Position as 'modern security tools that make your job respected.'"
 
-[^complaints]: Live query against production, 4 Aug 2026. 70,513 room-linked complaints over 12 months, test properties excluded. A "repeat" is a complaint on the same room in the same category group as an earlier one. Within 7 days: 31.5% overall, 33.4% maintenance, 20.4% cleaning and housekeeping. Within 30 days it rises to 44.1%, which we treat as an upper bound because two genuinely different faults could fall in the same category. Cleaning and housekeeping together are 10.7% of all complaints. Categories come from the `first_level` field, which is free text and contains duplicate spellings; the grouping into cleaning / maintenance / other is ours.
+[^complaints]: Live query against production, 4 Aug 2026. 70,513 room-linked complaints over 12 months, test properties excluded. A "repeat" is a complaint on the same room in the same category group as an earlier one. Within 7 days: 31.5% overall, 33.4% maintenance, 20.4% cleaning and housekeeping. Within 30 days it rises to 44.1%, which we treat as an upper bound because two genuinely different faults could fall in the same category. Cleaning and housekeeping together are 10.7% of all complaints. Categories come from the complaint's top-level category, a free-text field and contains duplicate spellings; the grouping into cleaning / maintenance / other is ours.
 
 [^rules]: **Reversed 2026-08-03 (D64).** Earlier versions of this brief sold standing rules — "clean every vacant room daily until it is filled" — as a headline capability and as ship-blocking. They are deferred entirely, along with the stored room-occupancy flag they needed. Vacant-room readiness is instead covered by a finished move-out creating the prep task directly (F3, pulled into this cycle), which needs no poller and no flag.
 
-[^devices]: **Corrected 2026-08-03 (D74).** Earlier versions of this brief said staff "share a cheap Android phone, often one between several." That is not true of RentOk's customer base — staff have their own numbers. The **weak connection is real** and everything built for it stands: offline partial save, photo compression, the 3-second cold-load gate. Shared-device kiosk and quick-switch stay in the v2 backlog as a watch item, not a known gap. The same wrong claim is corrected in the Feature Gap Audit and in `review-findings.md`.
+[^devices]: **Corrected 2026-08-03 (D74).** Earlier versions of this brief said staff "share a cheap Android phone, often one between several." That is not true of RentOk's customer base — staff have their own numbers. The **weak connection is real** and everything built for it stands: offline partial save, photo compression, the 3-second cold-load gate. Shared-device kiosk and quick-switch stay in the v2 backlog as a watch item, not a known gap. The same wrong claim is corrected in the Feature Gap Audit and in the round-1 review (history/2026-07-21-review-round-1.md).
 
 [^3]: Success measure is a launch A/B on staff completion rate plus qualitative interviews at week 4, comparing properties positioned "proof protects you" against a control. The claim that trust drives completion is the bet under test — measured, not assumed.
 
@@ -224,7 +245,7 @@ That is the horizon: a property that runs its own standards, holds its own peopl
 
 ## Changelog
 
-- **2026-08-05** — **Pointed at the docs that exist.** The brief referred twice to a PRD; no PRD is being written (one covering all 43 Band A+B requirements would be rewritten the moment stage 2 meets real managers). Those pointers now go to [feature-requirements.md](feature-requirements.md) and [spec-stage-1-2.md](spec-stage-1-2.md). **No change to the bet.** D84 (the question types) and D85 (categories belong to the account) landed the same day and are deliberately *not* here — both are build shape, which belongs in the spec.
+- **2026-08-05** — **Pointed at the docs that exist.** The brief referred twice to a PRD; no PRD is being written (one covering all 43 Band A+B requirements would be rewritten the moment stage 2 meets real managers). Those pointers now go to [02-requirements.md](02-requirements.md) and [04-spec-stages-1-2.md](04-spec-stages-1-2.md). **No change to the bet.** D84 (the question types) and D85 (categories belong to the account) landed the same day and are deliberately *not* here — both are build shape, which belongs in the spec.
 - **2026-08-04 (f)** — **Handoff-review fixes.** The S2L evidence was overstated and is now restated to what the source supports: one inspection GPT is built and live, a second is in design, and the shared ChatGPT account for motor logging is proposed rather than running. "Google Forms" was invented by an earlier draft and is removed everywhere. Dropped the leftover "adds the things none of them have" claim, which contradicted the market section four lines below it. Cut the runs-on-memory argument from four places to one. Moved the ship-scope list back under "What has to ship", where it belongs. Limits made a list; bold thinned; the doc stopped calling itself one page.
 - **2026-08-04 (e)** — **Put a number on the cost chain (D83).** 31% of room-linked complaints are a repeat on the same room within seven days — a third of the queue is someone chasing work that did not happen. The chain stops being a story. **Removed the vacancy half of it:** production data shows more than half of empty rooms sit over a month and 28% never refill within a year, so most vacancy is a demand problem this module does not touch.
 - **2026-08-04 (d)** — **Rewrote the problem in the operator's words (D82).** The work fails three ways — forgotten, late, or said-done-when-it-was-not — and the expensive part is that nobody finds out until it has become a complaint or a vacancy. Named the structural reason: the person reporting on the work is the one whose memory dropped it. Added what we can honestly change (forgetting is prevented; the other two are surfaced sooner, not stopped) and removed any suggestion that the module blocks or forces work. Reframed the record as what lets an honest person prove they are honest, rather than what catches the dishonest one.

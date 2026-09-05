@@ -2,14 +2,13 @@
 title: "Task Module — Session Handoff"
 date: 2026-08-04
 owner: "Sanchay"
-status: "current — read this first in a new session"
+status: "historical, superseded 2026-09-05 by history/2026-09-05-restructure.md"
 tags: [rentok, tasks, handoff, session]
 ---
 
 # Session Handoff — 2026-08-04
 
-Read this before anything else in a new session. It says what is decided, what is open, what to do
-next, and which mistakes this project has already made twice.
+**Historical since 2026-09-05.** A new session reads [2026-09-05-restructure.md](2026-09-05-restructure.md) first. This file is kept as the record of where the work stood on 4 August 2026: what was decided, what was open then, and which mistakes this project had already made twice. Its "answered by Sanchay" items now live in [05-engineering-asks.md](../05-engineering-asks.md).
 
 ---
 
@@ -112,7 +111,7 @@ validates nothing.
    are out, and `build-sequence.md`, `engineering-handoff.md` and this file are linked. The same pass fixed
    `build-sequence.md`'s dependency map, which still claimed *"there is no scheduler in the repo."*
 2. ~~**Write the spec for stages 1 and 2 only**~~ — **done 2026-08-05**, at
-   [spec-stage-1-2.md](spec-stage-1-2.md). Grounded against `rentok-backend` file-by-file, not from these
+   [04-spec-stages-1-2.md](../04-spec-stages-1-2.md). Grounded against `rentok-backend` file-by-file, not from these
    docs. It added **M5** and **M6** (D84), found **four live defects** (§6), and left **six questions for
    engineering** All questions for product are now answered.
 3. *(pause for engineering's estimates)*

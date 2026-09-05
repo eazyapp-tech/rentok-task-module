@@ -10,11 +10,119 @@ tags: [rentok, tasks, changelog]
 
 This file is the source of truth for the Task module redesign. Every other doc — the vision brief, the PRD, the workflow specs, the pre-mortem — defers to it. **If a doc says something this file contradicts, this file is right and the doc is stale.**
 
-Two things live here: the **canonical sentences** (the exact words to use everywhere) and the **numbered decisions** (D1…Dn — stable IDs the other docs cite instead of restating).
+Two things live here: the **locked sentences** (the exact words to use everywhere) and the **numbered decisions** (D1…Dn — stable IDs the other docs cite instead of restating).
 
 ---
 
-## The canonical sentences
+## What is in here
+
+The decision log for the Task module redesign: the twelve locked sentences (the exact words every doc uses) and decisions D1 to D85, each with the alternative rejected and, where a later decision changed it, an annotation saying so. For product, and for anyone checking why something is the way it is. It is not reading material for a newcomer; start at [00-feature-map.md](00-feature-map.md). If any other doc contradicts this file, this file is right.
+
+## Contents
+
+- [Find a decision](#find-a-decision): every number in order, with its standing
+- [The locked sentences](#the-locked-sentences)
+- [Numbered decisions](#numbered-decisions): D1 to D18, then the later groups by theme
+- [What this supersedes](#what-this-supersedes)
+- [Changelog of this changelog](#changelog-of-this-changelog)
+
+---
+
+## Find a decision
+
+*Added 2026-09-05. Every decision in numeric order; the entries below are grouped by theme and keep their original order. The one-line ruling is the entry's own heading, or a one-line summary where the heading is only a label (D41 to D45) or names a band move (D67, D68, D78). Standing comes from the entries' own "supersedes" and "corrects" statements. If this table and an entry disagree, the entry is right.*
+
+| D | Ruling, in one line | Standing | Where |
+|---|---|---|---|
+| D1 | Nothing acts on its own; a person decides | current | [entry](#d1--nothing-acts-on-its-own-a-person-decides) |
+| D2 | Entity linking is context, not a write-back engine | current | [entry](#d2--entity-linking-is-context-not-a-write-back-engine) |
+| D3 | Due-linked completion is a read-time check, not an event push | superseded by D65 (the read-time check survives; the suggestion does not) | [entry](#d3--due-linked-completion-is-a-read-time-check-not-an-event-push) |
+| D4 | Task ↔ complaint: linked, independent status | current | [entry](#d4--task--complaint-linked-independent-status) |
+| D5 | Three sources, one manager list | current | [entry](#d5--three-sources-one-manager-list) |
+| D6 | Type-1 system pending tasks stay as-is this cycle | current | [entry](#d6--type-1-system-pending-tasks-stay-as-is-this-cycle) |
+| D7 | Standing rules are curated + recommended, not a free-form builder | superseded by D64 (standing rules dropped) | [entry](#d7--standing-rules-are-curated--recommended-not-a-free-form-builder) |
+| D8 | Two multi-assignee modes: pooled and fan-out | current | [entry](#d8--two-multi-assignee-modes-pooled-and-fan-out) |
+| D9 | Self-to-dos are a first-class source | current | [entry](#d9--self-to-dos-are-a-first-class-source) |
+| D10 | AI creation is a future door; this cycle builds creation as a callable action | current | [entry](#d10--ai-creation-is-a-future-door-this-cycle-builds-creation-as-a-callable-action) |
+| D11 | Runner via web-view + registry deeplink, not a native tab | current | [entry](#d11--runner-via-web-view--registry-deeplink-not-a-native-tab) |
+| D12 | Partial save is client-side this cycle | current | [entry](#d12--partial-save-is-client-side-this-cycle) |
+| D13 | Access-control migration defaults every user to today's access | corrected by D69 (staff default to see only my own) | [entry](#d13--access-control-migration-defaults-every-user-to-todays-access) |
+| D14 | Reuse move-out, do not rebuild it | current | [entry](#d14--reuse-move-out-do-not-rebuild-it) |
+| D15 | No fines, no scorecard — the bet | current | [entry](#d15--no-fines-no-scorecard--the-bet) |
+| D16 | Configurable schedules; the engine already supports it | current | [entry](#d16--configurable-schedules-the-engine-already-supports-it) |
+| D17 | Notifications are WhatsApp-first; push and email are deferred | current | [entry](#d17--notifications-are-whatsapp-first-push-and-email-are-deferred) |
+| D18 | A failed check routes to a complaint, not a separate "corrective task" | current | [entry](#d18--a-failed-check-routes-to-a-complaint-not-a-separate-corrective-task) |
+| D19 | Pooled tasks capture who did it; fan-out already identifies by token | current | [entry](#d19--pooled-tasks-capture-who-did-it-fan-out-already-identifies-by-token) |
+| D20 | Scope is picked like a complaint's location, but as a set | current | [entry](#d20--scope-is-picked-like-a-complaints-location-but-as-a-set) |
+| D21 | Rooms and operator-managed areas are real; tags are a filter escape hatch | current | [entry](#d21--rooms-and-operator-managed-areas-are-real-tags-are-a-filter-escape-hatch) |
+| D22 | The no-scorecard promise covers the manager too | corrected by D71 (the manager sees the same exception list as the owner) | [entry](#d22--the-no-scorecard-promise-covers-the-manager-too) |
+| D23 | Every period is its own obligation | current | [entry](#d23--every-period-is-its-own-obligation) |
+| D24 | One daily summary, plus immediate messages for things that can't wait | current | [entry](#d24--one-daily-summary-plus-immediate-messages-for-things-that-cant-wait) |
+| D25 | When someone leaves, their open work goes back to the manager | current | [entry](#d25--when-someone-leaves-their-open-work-goes-back-to-the-manager) |
+| D26 | Personal to-dos are in the owner's export, and are never called private | current | [entry](#d26--personal-to-dos-are-in-the-owners-export-and-are-never-called-private) |
+| D27 | A rule's assignees are chosen when it is set up | current | [entry](#d27--a-rules-assignees-are-chosen-when-it-is-set-up) |
+| D28 | Several tasks may target the same place at once | current | [entry](#d28--several-tasks-may-target-the-same-place-at-once) |
+| D29 | A repeat failure joins the open complaint instead of raising a new one | current | [entry](#d29--a-repeat-failure-joins-the-open-complaint-instead-of-raising-a-new-one) |
+| D30 | People without a smartphone can have work recorded for them | current | [entry](#d30--people-without-a-smartphone-can-have-work-recorded-for-them) |
+| D31 | One list, sorted by due date then priority | current | [entry](#d31--one-list-sorted-by-due-date-then-priority) |
+| D32 | Text a manager types herself is shown as typed | current | [entry](#d32--text-a-manager-types-herself-is-shown-as-typed) |
+| D33 | Rules that produce only ignored work pause themselves | superseded by D64 (the guard survives as F50) | [entry](#d33--rules-that-produce-only-ignored-work-pause-themselves) |
+| D34 | Handover is reassignment, not a shift feature | current | [entry](#d34--handover-is-reassignment-not-a-shift-feature) |
+| D35 | A standing rule is a recurring task with a condition | superseded by D64 (the framing survives: a rule is a repeating task) | [entry](#d35--a-standing-rule-is-a-recurring-task-with-a-condition) |
+| D36 | Persist whether a room is empty | superseded by D64 (no stored room-occupancy flag; F3 instead) | [entry](#d36--persist-whether-a-room-is-empty) |
+| D37 | Rules start when the schedule says, and show their reach first | superseded by D64 (the reach preview survives as F49) | [entry](#d37--rules-start-when-the-schedule-says-and-show-their-reach-first) |
+| D38 | A failed check raises its complaint with one tap, on by default | current | [entry](#d38--a-failed-check-raises-its-complaint-with-one-tap-on-by-default) |
+| D39 | This cycle is "finish the task engine", not "build a rules engine" | current | [entry](#d39--this-cycle-is-finish-the-task-engine-not-build-a-rules-engine) |
+| D40 | The trigger has no scheduler in the repo; verifying it is a prerequisite | current | [entry](#d40--the-trigger-has-no-scheduler-in-the-repo-verifying-it-is-a-prerequisite) |
+| D41 | Editing or deleting a rule affects future tasks only; rules can be listed, edited, paused, resumed and archived | partly superseded by D64 and D65 (the management half survives as F48) | [entry](#d41--rule-lifecycle) |
+| D42 | A deactivated manager's rules and pending reviews transfer to a successor; a task survives its linked thing being deleted or merged | current | [entry](#d42--ownership-and-dangling-references) |
+| D43 | Only a fully settled due counts as settled; partial, refunded, reversed or waived are shown as what they are | partly superseded by D65 (the display rule survives) | [entry](#d43--money-states-are-read-strictly) |
+| D44 | Each task keeps the checklist version it was created from; overdue is computed by the server, never the phone | current | [entry](#d44--data-integrity) |
+| D45 | System-raised tasks share the categories so one filter works; the per-room and per-tenant history view is built; the first submission wins a pooled race | current | [entry](#d45--list-consistency-and-races) |
+| D46 | The founder gets an exception list and a weekly digest | current | [entry](#d46--the-founder-gets-an-exception-list-and-a-weekly-digest) |
+| D47 | This is a feature extension for every user, not a pilot | current | [entry](#d47--this-is-a-feature-extension-for-every-user-not-a-pilot) |
+| D48 | New properties start with routines running; existing ones get suggestions | current | [entry](#d48--new-properties-start-with-routines-running-existing-ones-get-suggestions) |
+| D49 | Released to everyone, enabled account by account | current | [entry](#d49--released-to-everyone-enabled-account-by-account) |
+| D50 | Four condition groups ship in v1 | superseded by D64 (no condition group ships) | [entry](#d50--four-condition-groups-ship-in-v1) |
+| D51 | Test the bet by comparing properties, never people | current | [entry](#d51--test-the-bet-by-comparing-properties-never-people) |
+| D52 | Photos are camera-only, always; location is per checklist | current | [entry](#d52--photos-are-camera-only-always-location-is-per-checklist) |
+| D53 | Review is set per checklist and is off by default | current | [entry](#d53--review-is-set-per-checklist-and-is-off-by-default) |
+| D54 | Harden the runner without adding a login | current | [entry](#d54--harden-the-runner-without-adding-a-login) |
+| D55 | Staff see only their own tasks and their own record | current | [entry](#d55--staff-see-only-their-own-tasks-and-their-own-record) |
+| D56 | Creating a rule rides on the permission to create tasks | current | [entry](#d56--creating-a-rule-rides-on-the-permission-to-create-tasks) |
+| D57 | Five permission flags | current | [entry](#d57--five-permission-flags) |
+| D58 | Recommendations come from property type and enabled modules | current | [entry](#d58--recommendations-come-from-property-type-and-enabled-modules) |
+| D59 | RentOk's templates are the starting point; the operator can change them | current | [entry](#d59--rentoks-templates-are-the-starting-point-the-operator-can-change-them) |
+| D60 | Room cleaning becomes an ordinary recurring task, pooled per room | current | [entry](#d60--room-cleaning-becomes-an-ordinary-recurring-task-pooled-per-room) |
+| D61 | Move-in/move-out stays as it is; we connect at the edges | current | [entry](#d61--move-inmove-out-stays-as-it-is-we-connect-at-the-edges) |
+| D62 | A failed item does not fail the task | current | [entry](#d62--a-failed-item-does-not-fail-the-task) |
+| D63 | Required items must be answered before submitting | current | [entry](#d63--required-items-must-be-answered-before-submitting) |
+| D64 | Standing rules are deferred; nothing conditional ships in V1 | current | [entry](#d64--standing-rules-are-deferred-nothing-conditional-ships-in-v1) |
+| D65 | A task shows the linked thing's status; it never suggests the work is done | current | [entry](#d65--a-task-shows-the-linked-things-status-it-never-suggests-the-work-is-done) |
+| D66 | An alert can be turned into work, one task per item | current | [entry](#d66--an-alert-can-be-turned-into-work-one-task-per-item) |
+| D67 | The band rule: a thing Band B would lie without is Band B | current | [entry](#d67--the-band-rule-a-thing-band-b-would-lie-without-is-band-b) |
+| D68 | The entity link is not ship-blocking; F8 (link a task to a real thing) moves to Band B | current; its open question closed by D80 | [entry](#d68--the-brief-stops-calling-the-entity-link-ship-blocking-f8-moves-to-band-b) |
+| D69 | Staff default to "see only my own"; D13 is corrected | current | [entry](#d69--staff-default-to-see-only-my-own-d13-is-corrected) |
+| D70 | Per-person numbers come from fan-out, never from pooled | current | [entry](#d70--per-person-numbers-come-from-fan-out-never-from-pooled) |
+| D71 | The manager sees the same exceptions the owner sees; no head start | current | [entry](#d71--the-manager-sees-the-same-exceptions-the-owner-sees-no-head-start) |
+| D72 | A property-wide audit is one task and one form; problems are free text | current | [entry](#d72--a-property-wide-audit-is-one-task-and-one-form-problems-are-free-text) |
+| D73 | Reminder model: four moments, all batched | current | [entry](#d73--reminder-model-four-moments-all-batched) |
+| D74 | Staff do not share phones; the persona claim is wrong | current | [entry](#d74--staff-do-not-share-phones-the-persona-claim-is-wrong) |
+| D75 | Photos are deleted from the phone once uploaded | current | [entry](#d75--photos-are-deleted-from-the-phone-once-uploaded) |
+| D76 | Translation is deferred; managers write in their own script | current | [entry](#d76--translation-is-deferred-managers-write-in-their-own-script) |
+| D77 | Duplicate tasks on the same thing are allowed | current | [entry](#d77--duplicate-tasks-on-the-same-thing-are-allowed) |
+| D78 | F47 (routines pre-set for new properties) and F25a (the owner's weekly digest) move to Band C; routines are created unassigned | current | [entry](#d78--f47-and-f25a-move-to-band-c-routines-are-created-unassigned) |
+| D79 | "Couldn't do it" is free text; no holiday list | current | [entry](#d79--couldnt-do-it-is-free-text-no-holiday-list) |
+| D80 | The moat is locked sentence 8: the routines accumulate out of one person's head | current | [entry](#d80--the-moat-is-locked-sentence-8-the-routines-accumulate-out-of-one-persons-head) |
+| D81 | The module is the property's whole work, not its routines | current | [entry](#d81--the-module-is-the-propertys-whole-work-not-its-routines) |
+| D82 | The problem is late discovery, not lazy staff | current | [entry](#d82--the-problem-is-late-discovery-not-lazy-staff) |
+| D83 | The cost chain is measured; the vacancy half of it is dropped | current | [entry](#d83--the-cost-chain-is-measured-the-vacancy-half-of-it-is-dropped) |
+| D84 | The question types are committed, and F36 validates against the settled list | current; reverses the 4 Aug deferral of the question types | [entry](#d84--the-question-types-are-committed-and-f36-validates-against-the-settled-list) |
+| D85 | Custom categories belong to the account | current; reversed once on 5 Aug (property, then account) | [entry](#d85--custom-categories-belong-to-the-account) |
+
+---
+
+## The locked sentences
 
 These are the words. Use them exactly, everywhere. They are the model, settled.
 
@@ -36,7 +144,9 @@ These are the words. Use them exactly, everywhere. They are the model, settled.
 
 > **9. An alert can be turned into work — one task per item, with an owner and a record.** RentOk already notices what is wrong; turning that into work someone owns is the new part, and a person decides who.
 
-> **10. A task assigned to several people works one of two ways: done by any one (it closes for all — "pooled"), or done by each one separately (each has their own copy — "fan-out"). The creator picks. Either way, the system records who did what.**
+> **10. A task assigned to several people works one of two ways: done by any one (it closes for all — "pooled"), or done by each one separately (each has their own copy — "one-each"). The creator picks. Either way, the system records who did what.**
+>
+> *Sentence 10 said "fan-out" until 2026-09-05; Sanchay ruled "one-each", the word every product doc already used. Older decision entries (D8, D19, D70) keep "fan-out" as written; read it as one-each.*
 
 > **11. Open-ended power comes through the assistant later — build tasks and rules by talking, grounded in the real property.** This cycle only makes creation a callable action so the assistant can plug in.
 
@@ -73,6 +183,7 @@ System-raised, manager-assigned, and self-kept tasks all appear in the manager's
 The existing system-detected pending tasks (the home feed) are left as they are; Type-2 tasks are added into the same list. **Rejected:** rebuilding the full 65-entry registry now — deferred to a later phase (GitHub issue eazyapp-tech/rentok-backend#6249).
 
 ### D7 — Standing rules are curated + recommended, not a free-form builder
+*(Superseded by D64: standing rules are dropped entirely this cycle, so no rule builder ships, curated or otherwise. Annotation added 2026-09-05; the entry below is unchanged.)*
 Operators pick from a curated set of meaningful triggers RentOk recommends and ships ready to switch on, with a cadence and a stop condition. **Rejected:** an if-this-then-that condition editor — that is a developer tool, not an operator tool. Open-ended power comes through the assistant (D10), not a builder UI.
 
 ### D8 — Two multi-assignee modes: pooled and fan-out
@@ -135,6 +246,7 @@ Creating a rule *is* creating a recurring task: pick a checklist, a cadence, peo
 A rule carries a start date and time like any recurring task, defaulting to now and editable — so "start now" and "start tomorrow" need no special logic. Before switching on, the operator sees how many rooms or people currently match. **Rejected:** a bespoke first-run rule; the recurring-task model already answers it.
 
 ### D36 — Persist whether a room is empty
+*(Superseded by D64: the stored room-occupancy flag is dropped with standing rules; vacant-room readiness is F3 instead, a finished move-out creates the prep task. Annotation added 2026-09-05; the entry below is unchanged.)*
 There is no stored occupancy signal; it is derived by joining rooms → beds → tenants on every check. The headline routine (prepare empty rooms until they fill) would run on the slowest check in the system. Store and maintain the flag. **Rejected:** recomputing each sweep (too slow at scale) and dropping room rules from v1 (that is the routine with real money in it — a 7–10 day readiness window).
 
 ## Assignment, identity and people
@@ -236,6 +348,7 @@ The feature is built and released for all users, but enablement is controlled pe
 A newly created property begins with the standard routines for its type already on. A property that already has its own setup sees them as one-tap suggestions and nothing changes until accepted. **Rejected:** switching routines on everywhere — pushing running tasks into a property that already works its own way creates duplicate work and reads as a broken release to the users we already have.
 
 ### D50 — Four condition groups ship in v1
+*(Superseded by D64: no condition group ships; standing rules are deferred entirely. Annotation added 2026-09-05; the entry below is unchanged.)*
 Grounded in the registry entries that are both physical work and recurring-while-true:
 
 | Group | Condition → routine | Registry entries |
@@ -363,7 +476,7 @@ It reuses bulk assign (F33b), linking (F8) and a template (F9) applied to a set 
 
 ## Decisions from the 2026-08-03 adversarial review (D67–D79)
 
-A hostile round-2 review produced 24 findings, worked one at a time with Sanchay. The grilling log — full argument, rejected alternative, and the three places the review was wrong — is at [review-round-2-decisions.md](review-round-2-decisions.md). Two of these correct earlier locked decisions (D13, D22); two were themselves corrected by a code check before landing.
+A hostile round-2 review produced 24 findings, worked one at a time with Sanchay. The grilling log — full argument, rejected alternative, and the three places the review was wrong — is at [the round-2 review, 3 Aug 2026](history/2026-08-03-review-round-2.md). Two of these correct earlier locked decisions (D13, D22); two were themselves corrected by a code check before landing.
 
 ### D67 — The band rule: a thing Band B would lie without is Band B
 > **If a Band B feature would produce a false record without it, or would damage another part of RentOk, it belongs in Band B.**
@@ -498,12 +611,12 @@ A uniqueness rule on task creation (one schedule + one period + one target = one
 **No property-level holiday list.** F24c (skip a single occurrence) is Band B under D67, so a festival is a few taps. A holiday list is a new screen and a new setting for something that happens a handful of times a year. **The review raised it and then withdrew it.** Revisit only if a property running many routines complains.
 
 
-### D80 — The moat is canonical sentence 8: the routines accumulate out of one person's head
+### D80 — The moat is locked sentence 8: the routines accumulate out of one person's head
 **Decided 2026-08-04.** Settles the open moat question and F1's band.
 *(Scope corrected by D81 — the mechanism here is right, the surface was drawn far too small. It is not routines accumulating; it is the property's whole work, across every role.)*
 
 *(Two earlier answers — a capability moat, and "an alert becomes work" — were tried and discarded. The
-argument is in [review-round-2-decisions.md](review-round-2-decisions.md).)*
+argument is in [the round-2 review, 3 Aug 2026](history/2026-08-03-review-round-2.md).)*
 
 **A moat is not decided by looking at competitors.** It is decided by what the product does for
 the people it is built for. Stated as such:
@@ -511,7 +624,7 @@ the people it is built for. Stated as such:
 > **A property runs on a system, not on one person's memory — so it survives the manager's
 > absence and the staff churning.**
 
-That is **canonical sentence 8**, already written and never called the moat.
+That is **locked sentence 8**, already written and never called the moat.
 
 **Why it is a moat and not a slogan:**
 
@@ -863,17 +976,18 @@ goes.
 
 ## Changelog of this changelog
 
-- **2026-08-05 (b)** — Added **D85**: custom categories belong to the property, not the account. RentOk's
+- **2026-08-05 (b)** — Added **D85**: custom categories belong to the account, not the property *(until 2026-09-05 this line said the reverse: it recorded the morning's ruling, reversed the same afternoon; the entry itself was always right)*. RentOk's
   shared categories stay shared, so F22's cross-property view still has something common to group by.
   Unblocks F32.
 - **2026-08-05** — Added **D84**: the question types are committed (reversing the deferral recorded in the
   2026-08-04 handoff), the union is settled now so F36 has a fixed target, `grid` stays dropped, and two
   migrations are named — **M6** (`structure` gains sections and branching) and **M5** (rename
   `rating_5`/`rating_10`/`dropdown` in live data before F36 can reject unknown types).
-- **2026-08-04 (b)** — Added **D80–D83**: the moat (canonical sentence 8, the work accumulating out of one
+- **2026-08-04 (b)** — Added **D80–D83**: the moat (locked sentence 8, the work accumulating out of one
   person's head), the widened surface (the property's whole work, not its routines), the problem stated as
   late discovery rather than lazy staff, and the cost chain measured — the complaint half holds at 31.5%
   repeat-within-7-days, the vacancy half was tested and cut. D68 annotated.
-- **2026-08-04** — Canonical sentences **1, 2, 3 and 9 rewritten**. They still described standing rules and suggest-close, both dropped by D64 and D65, so the sentences every other doc is told to copy exactly no longer matched the product. D1 retitled for the same reason. D3, D13, D22, D26, D33, D37, D41, D42, D43 and D60 annotated in place where a later decision reduced them. Added D67–D79.
+- **2026-08-04** — Locked sentences **1, 2, 3 and 9 rewritten**. They still described standing rules and suggest-close, both dropped by D64 and D65, so the sentences every other doc is told to copy exactly no longer matched the product. D1 retitled for the same reason. D3, D13, D22, D26, D33, D37, D41, D43 and D60 annotated in place where a later decision reduced them *(D42 was listed here too, but carries no annotation and needs none: its ruling still stands; noted 2026-09-05)*. Added D67–D79.
 
-- **2026-07-21** — Created as the source of truth. Locked 12 canonical sentences and 18 decisions (D1–D18) from the design conversation. Supersedes the outward-write-back model. (Product-lens review pending: a batch of behavior decisions D19+ to be added, and D16 to be reordered after D15.)
+- **2026-09-05** — Sentence 10: "fan-out" becomes "one-each" (Sanchay). A "Find a decision" index added at the top; annotations added to D7, D36, D50; two history lines below corrected; "canonical sentences" renamed "locked sentences" (a banned word).
+- **2026-07-21** — Created as the source of truth. Locked 12 locked sentences and 18 decisions (D1–D18) from the design conversation. Supersedes the outward-write-back model. (Product-lens review pending: a batch of behavior decisions D19+ to be added, and D16 to be reordered after D15.)

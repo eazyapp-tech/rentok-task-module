@@ -8,9 +8,25 @@ tags: [rentok, tasks, grounding, engineering]
 
 # Grounding Notes — what the code actually does today
 
-Findings from the 2026-07-21 grounding sweeps of `rentok-backend`. This is the engineer-facing companion to the [Feature Gap Audit](Task%20Module%20-%20Feature%20Gap%20Audit.md) — the Audit scores capabilities, this records the specific mechanics the design depends on. File:line references are point-in-time; verify before building.
+Findings from the 2026-07-21 grounding sweeps of `rentok-backend`. This is the engineer-facing companion to the [Feature Gap Audit](feature-gap-audit.md) — the Audit scores capabilities, this records the specific mechanics the design depends on. File:line references are point-in-time; verify before building.
 
 ---
+
+## What is in here
+
+What the code does today, read directly from the backend and recorded so nobody argues from memory: no event bus, room cleaning as an ordinary schedule underneath, the fixed filter catalogue, what is cheap to poll, where linked things live, the submit path, comments. Plus section 8, the code evidence behind each requirement's "today" claim. For engineering and for anyone checking a claim. It is not a requirement: nothing here says what should be built.
+
+## Contents
+
+- [1. The single most important architectural fact: there is no event bus](#1-the-single-most-important-architectural-fact-there-is-no-event-bus)
+- [2. Room cleaning proves the thesis: "daily only" is a UI default, not a limit](#2-room-cleaning-proves-the-thesis--daily-only-is-a-ui-default-not-a-limit)
+- [3. Filters: a fixed catalog of canned segments, not a composable filter engine](#3-filters-a-fixed-catalog-of-canned-segments-not-a-composable-filter-engine)
+- [4. Trigger states: what is cheap to poll, and what is not](#4-trigger-states-what-is-cheap-to-poll-and-what-is-not)
+- [5. Destination surfaces for linked entities](#5-destination-surfaces-for-linked-entities)
+- [6. The task submit path has no hook layer, and no auth](#6-the-task-submit-path-has-no-hook-layer-and-no-auth)
+- [7. Comments and @mentions: lift the convention, build the store](#7-comments-and-mentions-lift-the-convention-build-the-store)
+- [8. Evidence per requirement (moved out of the requirements on 2026-09-05)](#8-evidence-per-requirement-moved-out-of-the-requirements-on-2026-09-05)
+- [How to use this file](#how-to-use-this-file)
 
 ## 1. The single most important architectural fact: there is no event bus
 
@@ -86,6 +102,19 @@ There is **no reusable comment component**. Complaint "comments" are `complaint_
 
 ---
 
+## 8. Evidence per requirement (moved out of the requirements on 2026-09-05)
+
+The requirements file says what the operator must have, in plain words. The code that backs each "today" claim there lives here or in the spec's own "Today" lines.
+
+| Item | What the code shows | Where |
+|---|---|---|
+| P0 | With no assignees the scheduler creates one task with no owner; per-person fan-out runs only when assignees exist and the schedule is not room cleaning | `services/taskScheduler.ts:152`, `:178` |
+| P1 | No scheduled job is registered in the repo; `POST /tasks/trigger` is the only entry point and carries no `HeaderValidator` | `routes/taskRoutes.ts` |
+| F26, M2 | Zero task-related permission columns among the 94 on the team-member permission table; zero `checkAuthInDb` calls on task routes; the migration's proxy is `view_team` / `add_team` / `edit_team` | `entities/teamMemberProperty.ts`; `controllers/taskController.ts`; `routes/taskRoutes.ts` |
+| F29, M6 | A checklist's `structure` is a flat jsonb array of `{id, type, label, required, options?}`; the type union is `text`, `number`, `yes_no`, `photo`, `select` | `entities/taskTemplate.ts` |
+| M5 | Live data writes `rating_5`, `rating_10` and `dropdown`, none of which the code's union contains; 190 of 394 templates carry at least one (5 Aug 2026) | live query, recorded in the spec's M5 section |
+| The brief's repeat-complaint figure | The complaint category used to group repeats is the free-text top-level category field | production query, 4 Aug 2026 |
+
 ## How to use this file
 
-Cite it from workflow specs' Engineering Notes and from the PRD's open questions. It records *what is true today* — when a claim here is acted on or invalidated, update it and say so, rather than letting a stale line be treated as ground truth.
+Cite it from the spec's "Today" lines and from the engineering asks; the requirements file cites it through section 8 instead of carrying code itself. It records *what is true today* — when a claim here is acted on or invalidated, update it and say so, rather than letting a stale line be treated as ground truth.

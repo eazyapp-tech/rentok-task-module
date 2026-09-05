@@ -1,7 +1,5 @@
 # Pending-tasks pack — implementation plan
 
-> **For agentic workers:** This is a product-doc pack, not a code build. Do not invoke subagent-driven-development or executing-plans as if this were an app. Follow the steps below in order. Do not commit unless Sanchay asks.
-
 **Goal:** Turn the home-screen needs-attention registry (`getPendingTasks`) into a pack a manager can read: front door, once-only RULES, a scan INDEX, Money A1–A13, People B1–B13, Compliance C1–C9, Property D1–D11, Daily Ops E1–E11, Growth F1–F5, Platform G1–G3, and a GAPS file that is the live-vs-claimed check (last checked 16 Aug 2026).
 
 **Architecture:** One job per file. Cards copy what the parent registry *claims*. Live-vs-code lives only in GAPS. The vault is a later mirror. This folder is not the checklist / task / schedule Task module in the rest of this repo.

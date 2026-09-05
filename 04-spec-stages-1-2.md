@@ -1,7 +1,8 @@
 ---
 title: "Task Module — Build Spec, Stages 1 and 2"
 date: 2026-08-05
-version: "1.0"
+version: "1.1"
+changelog: "1.1, 2026-09-05: reading table by role and the designer table added; decision labels carry their meaning inline; two wrong citations corrected (D44 at F37, D38 at F38); no requirement changed. 1.0, 2026-08-05: first version."
 owner: "Sanchay"
 status: "draft — for engineering review"
 tags: [rentok, tasks, spec, stage-1, stage-2]
@@ -11,24 +12,105 @@ tags: [rentok, tasks, spec, stage-1, stage-2]
 
 What to build, how to know it is done, and what it does to the data.
 
-**Scope is deliberately two stages.** [build-sequence.md](build-sequence.md) has seven. Stages 3–7 are not
+**Scope is deliberately two stages.** [03-build-sequence.md](03-build-sequence.md) has seven. Stages 3–7 are not
 specified here and should not be — stage 2 is the first thing a real manager touches, and what she does with
 it will rewrite anything written for stage 3 today.
 
-**This document does not estimate.** [engineering-handoff.md](engineering-handoff.md) asks for that.
+**This document does not estimate.** [05-engineering-asks.md](05-engineering-asks.md) asks for that.
+
+## What is in here
+
+The build spec for stages 1 and 2 only. Per item: what it is, what the code does today, numbered acceptance, data and API, edges. For engineering, QA and design; the by-role table below says which parts are yours. It is not a spec for stages 3 to 7, on purpose, and it does not estimate.
+
+## Contents
+
+- [How to read it](#how-to-read-it)
+- [1. What the module does today](#1-what-the-module-does-today)
+- [2. The question types (D84)](#2-the-question-types-d84)
+- [3. Stage 1: Make what already exists safe](#3-stage-1--make-what-already-exists-safe)
+- [4. Stage 2: Give the work an owner, a real cadence, and something worth filling in](#4-stage-2--give-the-work-an-owner-a-real-cadence-and-something-worth-filling-in)
+- [5. Migration order](#5-migration-order)
+- [6. Defects found while grounding](#6-defects-found-while-grounding)
+- [7. What engineering decides](#7-what-engineering-decides)
 
 ## How to read it
 
 Every requirement below has the same five parts:
 
-- **What it is** — one line, from [feature-requirements.md](feature-requirements.md).
+- **What it is** — one line, from [02-requirements.md](02-requirements.md).
 - **Today** — what the code actually does, with the file and line. Verified 5 Aug 2026 against `rentok-backend` at `master`.
 - **Acceptance** — numbered, testable. QA writes scenarios from these.
 - **Data / API** — columns, shapes, endpoints.
 - **Edges** — the cases that will otherwise be found in production.
 
-Decisions are cited as **D#** and live in [CHANGELOG.md](CHANGELOG.md). Do not restate them here; if this
-document and the CHANGELOG disagree, the CHANGELOG is right.
+Decisions are cited as **D#**, with a few words of their meaning beside the label wherever the sentence does not already carry it. The full argument behind each lives in [CHANGELOG.md](CHANGELOG.md); its "Find a decision" table at the top lists every number in order. The words beside a label are a summary; if they and the CHANGELOG disagree, the CHANGELOG is right.
+
+### How to read it, by role
+
+*Added 2026-09-05.* Stage 1 adds no new capability and is invisible on purpose, but four of its items need screens: F44's save-as-a-copy flow, F38's archived filter and restore, F41's expired-link page and its name tap, and F26's empty state for a person with no tasks. Stage 2 is the first thing a manager or a staff member sees.
+
+| You are | Read, per item | Skip |
+|---|---|---|
+| Engineering | All five parts | Nothing |
+| Design | What it is · Acceptance · Edges, then [the designer's table](#what-a-designer-draws-in-stage-2) below | Today · Data / API |
+| QA | Acceptance · Edges | Today · Data / API |
+| Product, business | What it is, then [00-feature-map.md](00-feature-map.md) for the whole picture | The rest |
+
+### What a designer draws in stage 2
+
+*Added 2026-09-05. Every row is written from that item's own What it is, Acceptance and Edges lines further down; nothing here adds behaviour. Where the spec is silent, the cell says so.*
+
+Two surfaces. **The manager's side** (scope, assignment, cadence, the one-off, category, the checklist builder, the library) is where she sets work up, on the manager web app. **The staff task page** (engineering calls it the runner) is a web page opened from a link on a cheap phone, often on 2G, where the work is done. Every row says which. Nothing in stage 2 is a new native app screen.
+
+**F10 · Scope picker** · Manager's side · [spec section](#f10--scope-a-task-to-the-property-a-floor-specific-rooms-or-areas)
+- Sees or does: The manager picks where a task applies: the whole property, one floor, a chosen set of rooms, or all rooms in one tap, with the same room picker a complaint uses.
+- States and cases: Refused at save when the scope has no rooms. A warning on the schedule when a chosen room was later deleted. The floor choice is one floor today; whether the UI says so or accepts several is open, and Sanchay rules on it before design starts.
+
+**F16 · Assignment mode** · Manager's side · [spec section](#f16--assign-to-several-people-two-ways-pooled-or-one-each)
+- Sees or does: The manager chooses how several people share a task: pooled (any one finishes it for all) or one-each (everyone gets their own copy). No default is guessed.
+- States and cases: A pooled task already done shows who did it, not a blank form. A second person submitting at the same moment is told who got there first. A warning at creation when the settings would create many tasks a day.
+
+**M1 · Room cleaning as a task** · Manager's side; migration · [spec section](#m1--room-cleaning-becomes-an-ordinary-recurring-task-pooled-per-room)
+- Sees or does: The room-cleaning shortcut button still works. Underneath it now creates an ordinary pooled task per room, so every cleaning records who cleaned.
+- States and cases: A warning at migration for a property with cleaning on and no staff. The existing collective cleaning page keeps working or is replaced in the same release.
+
+**P0 · Unassigned schedules** · Manager's side · [spec section](#p0--the-scheduler-skips-any-routine-with-nobody-assigned)
+- Sees or does: Nothing new on its own. Removing the last person from a running schedule warns before it saves.
+- States and cases: The "not running, nobody assigned" label on a schedule arrives in stage 7 with F48 (named in M1's edges), so until then the warning at save is the only signal.
+
+**M6 · Checklist shape** · Neither; migration · [spec section](#m6--structure-gains-sections-and-branching)
+- Sees or does: Nothing to draw. Sections and branching are drawn under F29 and F30.
+- States and cases: None.
+
+**F29 · Question types** · Both: builder and task page · [spec section](#f29--the-question-types-a-real-inspection-needs)
+- Sees or does: Every question type, in the builder and on the task page. The twelve are listed under these blocks, plus branching.
+- States and cases: An item hidden by an earlier answer is cleared, not submitted stale. An instruction cannot be marked required. A rating stores a number with its scale. The unit sits beside the number box. Voice notes are not in this stage.
+
+**F30 · Per-item settings** · Both: builder and task page · [spec section](#f30--per-item-settings)
+- Sees or does: Per-item settings in the builder: required, a photo required alongside any type, a reference picture beside the question, a note under the label, sections as collapsible headings.
+- States and cases: Required blocks submission on the phone and again on the server. A "not applicable" choice is the way out of a required item the person genuinely cannot do, such as a locked room.
+
+**F5 · Cadence picker** · Manager's side · [spec section](#f5--create-a-recurring-task-on-a-real-cadence)
+- Sees or does: The cadence picker: daily, weekly, monthly, chosen weekdays (Mon, Wed, Fri), a chosen date each month.
+- States and cases: The 29th, 30th and 31st in a short month fall on the month's last day, and the picker says so. Editing a cadence changes future runs only.
+
+**F4 · One-off task** · Both: manager creates, task page shows it · [spec section](#f4--create-a-one-off-task-at-any-time)
+- Sees or does: A one-off task created directly: who, due date and time, category, priority, description, and optionally a scope as in F10. It needs no checklist.
+- States and cases: In the runner, a task with no checklist shows the description and a done action; that is a real state, not a broken one. It sits in the same list as scheduled work.
+
+**F32 · Category, priority, description, end date** · Manager's side · [spec section](#f32--a-task-carries-a-category-a-priority-a-description-and-an-optional-end-date)
+- Sees or does: On a one-off and on a schedule: a category (RentOk's built-in set plus the operator's own, with suggestions as she types), a priority from a small fixed set, a description, and for recurring work an optional end date.
+- States and cases: Built-in categories cannot be renamed or removed. A property's own categories show first, then the rest of the account's.
+
+**F9 · Checklist library** · Manager's side · [spec section](#f9--a-checklist-library-to-start-from)
+- Sees or does: A library of starter checklists, filtered by property type and which modules are on. Copy one and edit it, or start blank.
+- States and cases: The original stays untouched after a copy. A copy edits freely until it has open tasks (F44).
+
+**F13 · Hindi and English starters** · Both · [spec section](#f13--starter-templates-ship-in-hindi-as-well-as-english)
+- Sees or does: Starter checklists in Hindi and in English, following the language setting the property or user already has.
+- States and cases: The app's own words (Submit, Overdue, Approve) stay English. Devanagari must render in the builder, the runner and any PDF.
+
+**The twelve question types (F29), for the builder and the task page:** text · number · number with a unit · yes or no · one choice from a list · several choices · rating, 1 to 5 or 1 to 10 · date · time · one photo · several photos · an instruction that takes no answer. **Plus branching**, which is not a type but a setting on any item: it appears only after a named earlier answer.
 
 ---
 
@@ -51,6 +133,8 @@ Grounded, not remembered. Every row was read in the code on 5 Aug 2026.
 | Audit | — | None. |
 | Expiry | — | `expired` exists in the status enum and **nothing ever sets it**. |
 
+The wider picture of what the code does today (no event bus, the filter catalogue, the submit path) is in [reference/grounding-notes.md](reference/grounding-notes.md).
+
 **Four defects found while grounding.** They are not requirements; they are bugs in shipped code, listed in
 §6 so they are not lost. One of them — templates editable across accounts — should not wait for stage 1.
 
@@ -58,13 +142,13 @@ Grounded, not remembered. Every row was read in the code on 5 Aug 2026.
 
 ## 2. The question types (D84)
 
-Settled now so F36 has a fixed target. Built in stage 2 (F29/F30); validated from stage 1.
+Settled now so F36 has a fixed target. Built in stage 2 (F29, the question types, and F30, per-item settings); validated from stage 1.
 
 **Where the numbers come from.** Re-run against live data on **5 Aug 2026** — see M5 for the full table.
 
 - **Confirmed:** 2,698 questions across 394 templates; 343 of them use `rating_5`, `rating_10` or `dropdown`. **There are no unknown type values beyond those three**, which is what makes M5's mapping complete.
 - **Corrected:** the risk was recorded as *12.7% of checklists*. That was 343/2,698 — the share of **questions**. The share of **checklists** is **190/394 = 48.2%**.
-- **Not re-run:** the counts behind the *new* types — 58 questions faking branching, 49 with a unit, 17 dates, 59 templates with 10+ questions. These come from the 4 Aug analysis in [HANDOFF.md](HANDOFF.md). They argue *why* each type is worth building; none of them changes what gets built now that the list is committed (D84).
+- **Not re-run:** the counts behind the *new* types — 58 questions faking branching, 49 with a unit, 17 dates, 59 templates with 10+ questions. These come from the 4 Aug analysis in [the 4 Aug 2026 session handoff](history/2026-08-04-session-handoff.md). They argue *why* each type is worth building; none of them changes what gets built now that the list is committed (D84).
 
 ### The union
 
@@ -88,7 +172,7 @@ renames the data — we do not carry two names for one type.
 `scale: 5`, not five options — because insights (stage 6) needs to average it, and a select's options are
 free text.
 
-**`grid` stays dropped** (D84). Its answer is a table rather than a value.
+**`grid` stays dropped** (D84, the committed type list). Its answer is a table rather than a value.
 
 ### The item shape
 
@@ -206,7 +290,7 @@ because the data writes `dropdown` for the same thing, which makes the rename co
 because the box exists and nobody finds it (the reason F29 makes it findable).
 
 **Acceptance.**
-1. Every `structure[].type` in `task_template` is one of the D84 union after the migration runs.
+1. Every `structure[].type` in `task_template` is one of the committed types (D84) after the migration runs.
 2. `rating_5` → `rating` with `scale: 5`. `rating_10` → `rating` with `scale: 10`. `dropdown` → `select`.
 3. Any value still unmapped after the pass is **reported, not silently dropped** — a list of template ids goes to the migration output.
 4. Re-running the migration changes nothing.
@@ -270,7 +354,7 @@ Template creation is equally unchecked (`:33`).
 7. A valid submission stores exactly what was sent and nothing more — no coercion, no defaults filled in.
 
 *On template create and update:*
-8. Every `type` is in the D84 union. Unknown type is a 400.
+8. Every `type` is one of the committed types (D84). Unknown type is a 400.
 9. `options` present and non-empty for `select` and `multi_select`; `scale` is 5 or 10 for `rating`; `unit` present for `number_with_unit`.
 10. Item ids are unique across the whole checklist.
 11. `show_if` passes the four branching rules in §2.
@@ -324,10 +408,10 @@ holding a token can file work as anyone. Tokens never expire.
 
 **Acceptance.**
 1. On a task with a `team_member_id`, the submitter is that person. A `team_member_id` in the body is **ignored**, not trusted.
-2. On a pooled task (no `team_member_id` — M1's cleaning case), the runner asks *who are you* and offers the schedule's assignees. The chosen one is written to the task on submit. This is why F41 depends on F16.
+2. On a pooled task (no `team_member_id` — M1's cleaning case), the runner asks *who are you* and offers the schedule's assignees. The chosen one is written to the task on submit. This is why F41 depends on F16 (pooled assignment).
 3. The name tap is a choice from a list, never free text.
 4. A token past its expiry returns **410** on both `GET` and `POST`, with a message that says the link has closed and who to ask.
-5. Expiry is set when the task is created, from the schedule's cadence: a daily task expires at the end of its day, weekly at the end of its week, monthly at the end of its month, one-off at its due date. **Server clock only** (F45).
+5. Expiry is set when the task is created, from the schedule's cadence: a daily task expires at the end of its day, weekly at the end of its week, monthly at the end of its month, one-off at its due date. **Server clock only** (F45, the server decides what is late).
 6. An expired task moves to `status = 'expired'` — the enum value that exists today and is never set.
 7. A submitted task cannot be reopened by its token.
 
@@ -343,7 +427,7 @@ assignee list when the task is pooled.
 
 ### F37 — An edit log, and a lock after submission
 
-**What it is.** Who changed what and when; a submitted record cannot be quietly altered (D44).
+**What it is.** Who changed what and when; a submitted record cannot be quietly altered. *(A citation to D44 was removed 2026-09-05: D44 rules version pinning, server-side lateness, collapsed reminders and offline one-offs, not an edit log. No decision covers the log itself; F37 stands as its own requirement.)*
 
 **Today.** Nothing. `instance.save()` overwrites.
 
@@ -367,7 +451,7 @@ assignee list when the task is pooled.
 
 ### F38 — Archive and restore instead of deleting
 
-**What it is.** Tasks, templates and rules archive; nothing hard-deletes (D38).
+**What it is.** Tasks, templates and rules archive; nothing hard-deletes. Archive is one of the five permission flags (D57). *(A citation to D38 was removed 2026-09-05: D38 is about a failed check raising its complaint, not about archiving.)*
 
 **Today.** Less exposed than it sounds, and the one real hole is specific.
 
@@ -418,7 +502,7 @@ cost** — the filter must be added everywhere at once or archived records reapp
 
 ### F45 — The server decides what is late; missed reminders arrive as one message
 
-**What it is.** Never the phone's clock (D44, D23).
+**What it is.** Never the phone's clock (D44, lateness is computed by the server on sync; D23, every period is its own obligation).
 
 **Today.** No due time exists on a task at all — only `next_run_at` on the schedule. Nothing is ever late.
 `submitted_at` is already server-side (`taskController.ts:226`), which is the half that is right.
@@ -437,13 +521,13 @@ cadence at creation.
 **Edges.**
 - Timezone. `task_schedule.next_run_at` is `timestamp without time zone` while `task_instance.submitted_at` is `timestamp with time zone` — comparing them will be wrong by 5h30m in exactly the way nobody notices until a 6am task is late at 12:30am. **Fix the mismatch before anything computes lateness.**
 - Backfilled tasks with no `due_at`: never late. Null is not zero.
-- F45's batching depends on F40's notification work, which lands in stage 3. In stage 1 the server-side decision is what ships; the batched message follows.
+- F45's batching depends on F40 (notifications: four moments, all batched), which lands in stage 3. In stage 1 the server-side decision is what ships; the batched message follows.
 
 ---
 
 ## 4. Stage 2 — Give the work an owner, a real cadence, and something worth filling in
 
-This is the first stage a manager can see. **M1 + P0 + M2 run together** (D69, D78).
+This is the first stage a manager can see. **M1 + P0 + M2 run together** (D69, the staff default must land when cleaning already has assignees; D78, routines are created unassigned, so the skip must not fire before cleaning has owners).
 
 **Order inside the stage:** F10 → F16 → M1 → P0, then M6 → F29 → F30 → F9 → F13. F4, F5 and F32 are
 independent.
@@ -569,7 +653,7 @@ gets a collective link to `manager.rentok.com/rooms/cleaning-checklist` rather t
 
 ### F29 — The question types a real inspection needs
 
-**What it is.** The D84 union, built.
+**What it is.** The committed question types (D84), built.
 
 **Acceptance.**
 1. Every type in §2 renders in the builder, renders in the runner, stores an answer, and shows in history.
@@ -583,7 +667,7 @@ gets a collective link to `manager.rentok.com/rooms/cleaning-checklist` rather t
 **Edges.**
 - **Answering, then branching away.** Item 5 shows only if item 2 is yes; the person answers 5, then changes 2 to no. Item 5's answer must be cleared, or the record contains an answer to a question that was not asked.
 - A required item inside a hidden branch. §2 rule 4 settles it — hidden means not required.
-- Voice note is listed in both F29 and F15b. **Merge them** (recorded in the handoff, still open). It is not in stage 2's committed union above; it is V1.1 product intent.
+- Voice note is listed in both F29 and F15b (voice notes as their own requirement). **Merge them** (recorded in the handoff, still open). It is not in stage 2's committed union above; it is V1.1 product intent.
 
 ---
 
@@ -607,7 +691,7 @@ a photo on it, attach a reference picture, group items into sections, add a note
 
 ### F5 — Create a recurring task on a real cadence
 
-**What it is.** Daily, weekly, monthly, chosen weekdays (Mon/Wed/Fri), and a chosen date each month (D16).
+**What it is.** Daily, weekly, monthly, chosen weekdays (Mon/Wed/Fri), and a chosen date each month (D16, configurable cadences).
 
 **Today.** `frequency` enum is `one_time`/`daily`/`weekly`/`monthly` and `updateNextRunAt`
 (`taskScheduler.ts:226`) adds 1 day / 7 days / 1 month. **Chosen weekdays and a chosen date each month do not
@@ -617,7 +701,7 @@ exist** — D16's "the engine already supports it" is true for the four it has a
 1. All six cadences are creatable and editable.
 2. Chosen weekdays fires only on those days.
 3. A chosen date each month handles the 29th, 30th and 31st in short months by a stated rule — last day of the month, not skip.
-4. Editing a cadence affects future runs only; work already created finishes and keeps its proof (D41).
+4. Editing a cadence affects future runs only; work already created finishes and keeps its proof (D41, a rule's edits affect future tasks only).
 5. `next_run_at` after any edit is correct without waiting for a run to fix it.
 
 **Data / API.** Extend `frequency` and add `frequency_config` jsonb — `{weekdays: [1,3,5]}` or
@@ -657,14 +741,14 @@ easy to underestimate.
 
 ### F32 — A task carries a category, a priority, a description, and an optional end date
 
-**What it is.** F20's filter and sort have nothing to work with otherwise.
+**What it is.** F20's one list (all three sources, filtered by category, sorted by due date then priority) has nothing to filter or sort otherwise.
 
 **Today.** None of the four exists.
 
 **Acceptance.**
 1. Category, priority and description are settable on both a one-off (F4) and a schedule (F5), and inherited by tasks the schedule creates.
 2. Categories come from the alerts' existing set, **and the operator can add her own** (M3).
-3. A new category the operator types suggests previously-used ones as she types (D21), or three managers create "Cleaning", "cleaning" and "Housekeeping" and the filter rots.
+3. A new category the operator types suggests previously-used ones as she types (the same guard D21 gives tags), or three managers create "Cleaning", "cleaning" and "Housekeeping" and the filter rots.
 4. A recurring schedule takes an optional end date and stops firing after it.
 5. Priority is a small fixed set, not free text.
 
@@ -761,7 +845,7 @@ Not requirements. Bugs in shipped code, found on 5 Aug 2026 while writing this. 
 ## 7. What engineering decides
 
 Handed over with the spec, in addition to the three asks in
-[engineering-handoff.md](engineering-handoff.md).
+[05-engineering-asks.md](05-engineering-asks.md).
 
 1. **F44 — block the edit, or version-pin each task to a template snapshot?** The spec assumes blocking as
    the cheaper fix. Version-pinning solves more and costs more.

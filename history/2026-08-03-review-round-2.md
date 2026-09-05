@@ -553,7 +553,7 @@ raises a complaint against the property, not the room. Revisit if S2L complains 
 
 ## Settled later — what the moat is (D80, D81)
 
-**Settled 2026-08-04 as [D80](CHANGELOG.md). The Brief is rewritten.**
+**Settled 2026-08-04 as [D80](../CHANGELOG.md). The Brief is rewritten.**
 
 > **The answer:** a moat is not decided by looking at competitors — it is decided by what the
 > product does for the people it is built for. The moat is **canonical sentence 8**: *a property

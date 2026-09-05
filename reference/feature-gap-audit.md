@@ -10,6 +10,36 @@ status: companion-to-brief
 
 Companion to `Task Module Brief.md`. This is the systematic feature-space audit the brief rests on: every capability a top-1% ops-task product needs, scored against what the code actually has today. Read this when questioning *why* the brief's must-ship list is what it is, or when a future "did we miss X?" question comes up.
 
+## What is in here
+
+Engineer evidence from 18 July 2026: fifteen domains of what a task module can do, each capability scored 0 to 3 against the code as it was then. It is the ground the brief stood on and is kept as evidence; the spec's "Today" lines are more recent for stages 1 and 2. Its tier column is scored against work and inspection tools, not PG software (see the note at its top). It is not a requirements doc and nothing here is a decision.
+
+## Contents
+
+- [How to read](#how-to-read)
+- [Domain 1: Task types & kinds](#domain-1--task-types--kinds)
+- [Domain 2: Triggering & scheduling](#domain-2--triggering--scheduling)
+- [Domain 3: Assignment & access control](#domain-3--assignment--access-control)
+- [Domain 4: Execution & proof](#domain-4--execution--proof)
+- [Domain 5: Review & workflow](#domain-5--review--workflow)
+- [Domain 6: Fail & action engine](#domain-6--fail--action-engine)
+- [Domain 7: Due dates, reminders, escalation](#domain-7--due-dates-reminders-escalation)
+- [Domain 8: Entity linking & context](#domain-8--entity-linking--context)
+- [Domain 9: Templates & content](#domain-9--templates--content)
+- [Domain 10: Insights & reporting](#domain-10--insights--reporting)
+- [Domain 11: Notifications & comms](#domain-11--notifications--comms)
+- [Domain 12: Integration & automation](#domain-12--integration--automation)
+- [Domain 13: Audit, compliance, evidence](#domain-13--audit-compliance-evidence)
+- [Domain 14: Mobile / PWA excellence](#domain-14--mobile--pwa-excellence)
+- [Domain 15: Admin & ops of the module itself](#domain-15--admin--ops-of-the-module-itself)
+- [Two pending-task systems in the app: disambiguation (read this before extending either)](#two-pending-task-systems-in-the-app--disambiguation-read-this-before-extending-either)
+- [Cross-cutting: RentOk-specific strengths to lean into](#cross-cutting-rentok-specific-strengths-to-lean-into)
+- [Three biggest orphans (built but never wired)](#three-biggest-orphans-built-but-never-wired)
+- [Three biggest security orphans](#three-biggest-security-orphans)
+- [Companion to](#companion-to)
+- [Changelog](#changelog)
+- [Changelog](#changelog)
+
 ## How to read
 
 > **What these tiers were scored against — read this before citing one (added 2026-08-04).** The tiers below were scored against **work and inspection tools**: MaintainX, SafetyCulture, Xenia and similar. So read `[TS]` as *"table stakes for a dedicated task product"*, **not** *"table stakes in PG software."*

@@ -1,7 +1,7 @@
 ---
 title: "Task Module — Feature Requirements"
 date: 2026-08-05
-version: "2.4"
+version: "2.5"
 owner: "Sanchay"
 status: "current"
 tags: [rentok, tasks, requirements]
@@ -9,9 +9,25 @@ tags: [rentok, tasks, requirements]
 
 # Task Module — Feature Requirements
 
-Every requirement, with **what it is** and **what the operator loses without it**. These F-numbers are the ones every other doc refers to. The [CHANGELOG](CHANGELOG.md) holds the decisions (D#) behind each one, and [spec-stage-1-2.md](spec-stage-1-2.md) describes the first two stages in full — acceptance criteria, data shapes and edge cases.
+Every requirement, with **what it is** and **what the operator loses without it**. These F-numbers are the ones every other doc refers to. The [CHANGELOG](CHANGELOG.md) holds the decisions (D#) behind each one, and [04-spec-stages-1-2.md](04-spec-stages-1-2.md) describes the first two stages in full — acceptance criteria, data shapes and edge cases.
 
-> **Who this is for.** PM and engineering. It is a **cut order** — what survives if scope shrinks — so it is written in F-numbers and bands, which need this page to decode. If you want the argument rather than the list, read the [Brief](Task%20Module%20Brief.md); if you want what gets built first, read the [spec](spec-stage-1-2.md).
+> **Who this is for.** PM and engineering. It is a **cut order** — what survives if scope shrinks — so it is written in F-numbers and bands, which need this page to decode. If you want the argument rather than the list, read the [Brief](01-brief.md); if you want what gets built first, read the [spec](04-spec-stages-1-2.md).
+
+## What is in here
+
+Every requirement, one line each with a "without it" line, numbered F1 to F59 and sorted into the order they should survive a cut: bands A (foundation), B (the promise), C (completeness), Later. Prerequisites and migrations are listed separately. For product and for anyone checking what a stage contains. It is not a build order: that is [03-build-sequence.md](03-build-sequence.md). Code paths appear as citations; a reader who does not want them reads [00-feature-map.md](00-feature-map.md) instead.
+
+## Contents
+
+- [How to read this](#how-to-read-this)
+- [Prerequisites: nothing below works without these](#prerequisites--nothing-below-works-without-these)
+- [Band A: Foundation](#band-a--foundation)
+- [Band B: The promise](#band-b--the-promise)
+- [Band C: Completeness](#band-c--completeness)
+- [Later: deferred with a named home](#later--deferred-with-a-named-home)
+- [Migrations and rollout](#migrations-and-rollout)
+- [Not building](#not-building)
+- [Version history](#version-history)
 
 ## How to read this
 
@@ -35,11 +51,11 @@ Every requirement, with **what it is** and **what the operator loses without it*
 ## Prerequisites — nothing below works without these
 
 **P0 — The scheduler must skip any routine with nobody assigned.**
-Today it does the opposite: with no assignees it creates **one task with no owner** (`taskScheduler.ts` — per-member fan-out is gated on members existing *and* `system_purpose !== 'room_cleaning'`). So a new property with starter routines fires tasks at nobody from day one (D78). **Runs with M1**, because room cleaning today deliberately creates unassigned tasks — skipping before M1 would stop cleaning dead.
+Today it does the opposite: with no assignees it creates **one task with no owner** (the room-cleaning routine relies on exactly that path today; the code is cited in the spec's P0 and M1 sections). So a new property with starter routines fires tasks at nobody from day one (D78). **Runs with M1**, because room cleaning today deliberately creates unassigned tasks — skipping before M1 would stop cleaning dead.
 *Without it:* F47 ships and a brand-new customer's first week is a list of failures against a property with no staff, and every unassigned routine writes false "not done" records.
 
 **P1 — A reliable, authenticated scheduler that fires recurring work.**
-A scheduler fires today — the product works — but it is registered nowhere in `rentok-backend`; `POST /tasks/trigger` is the only entry point and it has no `HeaderValidator`, so it is open and depends on an unidentified external caller ([D40](CHANGELOG.md), backend issue #6363). **The job is to find that caller and authenticate the endpoint, not to build a scheduler.**
+A scheduler fires today — the product works — but nothing in our own code registers it; the one endpoint that fires it is open to anyone who knows the address, and it depends on an unidentified external caller ([D40](CHANGELOG.md), backend issue #6363). **The job is to find that caller and authenticate the endpoint, not to build a scheduler.**
 *Without it:* recurring work silently never appears, and nobody finds out until a manager asks why the cleaning list is empty. Every recurring requirement below sits on this.
 
 *(A second prerequisite — storing whether a room is empty — was dropped along with standing rules. See D64.)*
@@ -51,7 +67,7 @@ A scheduler fires today — the product works — but it is registered nowhere i
 Nothing here is a feature the operator asks for. All of it is what makes the record worth having.
 
 **F26 — Access control across the module. Managers keep today's access; staff default to seeing only their own.**
-Five permissions: see tasks · see only my own · create and assign (includes editing) · review · archive (D55, D56, D57). **Anyone without `view_team` / `add_team` / `edit_team` defaults to "see only my own"; everyone else keeps today's access (D69, correcting D13).** Ships in M2, paired with M1.
+Five permissions: see tasks · see only my own · create and assign (includes editing) · review · archive (D55, D56, D57). **Anyone who cannot manage the team (the three team-management permissions) defaults to "see only my own"; everyone else keeps today's access (D69, correcting D13).** Ships in M2, paired with M1.
 *Without it:* today the module checks no permissions at all — any user can see and act on any task in any property. And because "today's access" means *everything*, a straight keep-what-you-have migration would ship a permission model with every flag open, leaving D55's no-leaderboard promise false in production from the first morning.
 
 **F41 — The runner proves who is submitting; links expire.**
@@ -69,11 +85,11 @@ Always, with no per-checklist setting (D52).
 *Without it:* editing a live checklist invalidates work already in progress — a person's answers are rejected or judged against questions they never saw, and their effort is lost. (Version-pinning every task would also solve this; blocking the edit is the cheaper fix. Engineering to confirm which.)
 
 **F37 — An edit log on every task, and a lock after submission.**
-Who changed what and when; a submitted record cannot be quietly altered (D44).
+Who changed what and when; a submitted record cannot be quietly altered. *(A D44 citation was removed 2026-09-05: no decision covers the edit log; this requirement stands on its own.)*
 *Without it:* proof can be edited after the fact, which means it proves nothing — and the person it was supposed to protect has no defense.
 
 **F38 — Archive and restore instead of deleting.**
-Tasks, templates and rules (D38).
+Tasks, templates and rules; archive is one of the five permission flags (D57). *(A D38 citation was removed 2026-09-05; D38 is about complaints.)*
 *Without it:* an accidental delete destroys work records permanently, and there is no way back.
 
 **F45 — The server decides what is late, and several missed reminders arrive as one message.**
@@ -174,8 +190,8 @@ Only their own — not other people's tasks or completion (D55).
 **F29 — The question types a real inspection needs.**
 Rating, pass/fail/not-applicable, multi-select, several photos, voice note, date and time, a measurement with a unit, and a non-input instruction block.
 *Without it:* an inspection cannot record "not applicable", a quality score, or a meter reading — so the checklists that matter most cannot be written.
-**The full list is committed and settled (D84)** — see [spec-stage-1-2.md](spec-stage-1-2.md) §2 for the exact set and the shape of an item.
-*Note for the build, corrected 2026-08-05:* pass/fail/not-applicable is a three-option **select** — configuration, not new code. **A rating is not.** An earlier version of this note called a 1–5 rating "a five-option select"; it is its own type carrying a scale, because F21's insights has to average it and a select's options are free text. Genuinely new: rating, several photos on one item, the instruction block, a measurement with a unit, date and time, multi-select, **branching**, and **sections** — the last two change the shape of the `structure` column (**M6**).
+**The full list is committed and settled (D84)** — see [04-spec-stages-1-2.md](04-spec-stages-1-2.md) §2 for the exact set and the shape of an item.
+*Note for the build, corrected 2026-08-05:* pass/fail/not-applicable is a three-option **select** — configuration, not new code. **A rating is not.** An earlier version of this note called a 1–5 rating "a five-option select"; it is its own type carrying a scale, because F21's insights has to average it and a select's options are free text. Genuinely new: rating, several photos on one item, the instruction block, a measurement with a unit, date and time, multi-select, **branching**, and **sections** — the last two change the shape in which a checklist is stored (**M6**).
 
 **F30 — Per-item settings.**
 Mark an item required (and a required item must be answered before submitting — D63), require a photo on it, attach a reference picture, group items into sections, add a note.
@@ -209,7 +225,7 @@ Set per checklist, off by default (D53).
 *Without it:* nobody checks anything, so submission and completion mean the same thing. Turned on everywhere instead, a manager faces 200 approvals a day and bulk-approves without looking, which is worse.
 
 **F21 — The first insight cut: completion, on-time rate, problems by room, week-over-week.**
-Shows the state of the *work*, and each person their own number — never a ranking of people (D51, D22). **Per-person numbers come from fan-out and single-assignee work only, never from pooled (D70)** — a pooled task's name is a self-tap, so counting it would build a ranking out of self-declarations, and misses on a pooled task have no name at all.
+Shows the state of the *work*, and each person their own number — never a ranking of people (D51, D22). **Per-person numbers come from one-each and single-assignee work only, never from pooled (D70)** — a pooled task's name is a self-tap, so counting it would build a ranking out of self-declarations, and misses on a pooled task have no name at all.
 *Without it:* the manager can see today's list, but not what keeps failing, where it keeps failing, or whether things are getting better.
 
 **F22 — The exception view: what needs attention, and the manager sees her own.**
@@ -319,15 +335,15 @@ Includes personal tasks (D26).
 Existing schedules carry over untouched; the shortcut button stays and creates a normal task underneath (D60).
 *Why it matters:* today no room has a recorded owner — everyone gets one shared link. This is what gives the most common task in the building a doer.
 
-**M2 — The access-control migration: managers keep today's access, staff default to seeing only their own.** (D69, correcting D13.) The line is `view_team`/`add_team`/`edit_team` — anyone without them starts at "see only my own." **Runs with M1**, because room cleaning today gives every staff member one shared link, so tightening before M1 would leave a cleaner with nothing.
+**M2 — The access-control migration: managers keep today's access, staff default to seeing only their own.** (D69, correcting D13.) The line is the three team-management permissions: anyone without them starts at "see only my own." **Runs with M1**, because room cleaning today gives every staff member one shared link, so tightening before M1 would leave a cleaner with nothing.
 
 **M3 — System-raised tasks are mapped onto the shared categories.** (D45, F57) Categories live at the account, not the property (D85).
 
-**M5 — Rename the question types that live data uses but the code does not know.** `rating_5` → `rating` (scale 5), `rating_10` → `rating` (scale 10), `dropdown` → `select`. **Runs before F36**, which rejects unknown types.
+**M5 — Rename the question types that live data uses but the code does not know.** The two rating types become one rating type carrying its scale (5 or 10), and the dropdown type takes the name the code already uses for the same thing. Exact names are in the spec's M5 section. **Runs before F36**, which rejects unknown types.
 *Why it matters:* verified 5 Aug 2026 — **190 of 394 checklists (48.2%) contain at least one of these**. Validate first and nearly half the live checklists break on the first morning. The same check confirmed there are no other unknown types, so this rename is complete.
 
-**M6 — `structure` gains sections and branching.** The column is a flat array today and cannot express either (D84). **Runs after M5, before F29.**
-*Why it matters:* the builder, the runner, the report and F36 all read that column, so this is a migration rather than a new field — and anything outside the backend reading it has to be found first.
+**M6 — The checklist structure gains sections and branching.** A checklist is stored today as one flat list of items and cannot express either (D84). **Runs after M5, before F29.**
+*Why it matters:* the builder, the runner, the report and F36 all read that stored shape, so this is a migration rather than a new field — and anything outside the backend reading it has to be found first.
 
 **M4 — Released to everyone, enabled account by account.**
 Ships to all users — there is no pilot (D47) — but enablement is controlled per account so it can be rolled forward over days and stopped instantly (D49).
@@ -345,40 +361,6 @@ Ships to all users — there is no pilot (D47) — but enablement is controlled 
 - A free-form if-this-then-that rule builder (D7).
 - Attendance and shift clocking · a native Task tab (D11) · rebuilding move-in/move-out (D14, D61) · the guard's visitor register.
 
-## What changed in version 2.1
+## Version history
 
-Stress-tested after v2.0 and cut. **Standing rules are deferred entirely** (D64) — F6, rule management, preview and guards all go, along with the stored room-occupancy prerequisite. **A task no longer suggests that work is done; it shows the live state of the thing it is linked to** (D65) — that removes a hand-written rule for every kind of linked thing, each of which could be wrong. **An alert can now be turned into work, one task per item** (D66, F58) — the small bridge that lets a detected problem become work with an owner. Operator-managed areas moved to V1.1; complaint matching became "show the open ones and let the person choose"; checklist editing is blocked while tasks are open rather than version-pinned.
-
-*(The v2.1 line "vacant-room readiness has no home in V1" is superseded by v2.2 — F3 is pulled in.)*
-
-## What changed in version 2.4
-
-**The question types are committed (D84)** — the full set is settled rather than deferred, which gives **F36** a fixed list to validate against and needs no second pass later. This adds two migrations: **M5** (rename `rating_5`/`rating_10`/`dropdown`, which live data uses and the code does not know) and **M6** (`structure` gains sections and branching, which a flat array cannot hold). **F29's build note is corrected** — an earlier version called a 1–5 rating "a five-option select"; it is its own type carrying a scale, because F21 has to average it. **Custom categories belong to the account, not the property (D85)**, which settles M3's open sub-question and unblocks **F32**. **P1's description is corrected**: a scheduler does fire today, it is simply registered nowhere — the job is to find and authenticate it, not to build one. Verified against live data 5 Aug 2026: **190 of 394 checklists (48.2%) carry a type the code does not know**, not the 12.7% recorded earlier, which was the share of questions rather than checklists.
-
-## What changed in version 2.3
-
-The story widened to the property's whole work, not its routines (D81) — which added **F59** (a visit log: one task that records arriving and leaving), tightened **F8** to say history shows the submitted answers and not only that a task happened, and put high-frequency logs and licence-expiry tracking explicitly in *Not building*. The problem is now stated as late discovery rather than lazy staff (D82), and the cost chain behind it is measured rather than asserted (D83). **F51 moved C → B** — a resignation currently leaves open work going overdue against someone who has left, which makes F21 and F22 report failures about a person who no longer works there.
-
-## What changed in version 2.2
-
-An adversarial round-2 review, worked finding by finding (D67–D79; log at [review-round-2-decisions.md](review-round-2-decisions.md)).
-
-**The bands gained a rule** (D67): if a Band B feature would produce a false record without it, or would break another part of RentOk, it is Band B. That moved **five items up from C** — F53, F15a, F24c, F33a, F54 — each of which was letting a Band B feature lie. **F8 also moved up** (D68), which is what D45 had already decided, and the Brief stopped calling the entity link ship-blocking. **F47 and F25a moved down to C** (D78).
-
-**Two v2.1 calls were amended.** F48/F49/F50 are **kept**, reframed as managing ordinary repeating tasks — under D35 a rule *is* a repeating task, so F5 needs them regardless. And **F3 is pulled into this cycle**, so vacant-room readiness does have a home: a finished move-out creates the prep task, using a seam that already exists.
-
-**Two locked decisions were corrected.** D13 would have shipped every permission open to everybody, making D55 false in production on day one — staff now default to "see only my own" (D69). D22 promised the manager a first look that nothing implemented — she now sees the same exception list about her property that the owner sees (D71).
-
-**Also:**
-- Per-person numbers come from fan-out only, never from pooled self-taps (D70)
-- Notifications gained a reminder before the deadline, and a send time set per property (D73)
-- Photos are deleted from the phone after they upload (D75)
-- Translation is deferred and the manager writes in her own script, but starter templates ship bilingual (D76)
-- Duplicate tasks are explicitly allowed (D77)
-- New properties get their routines created unassigned, and the scheduler must skip routines with nobody on them (D78, P0)
-
-**Three review findings were wrong and were corrected by Sanchay or by a code check:** the monthly building audit is one form, not 200 tasks (D72) · staff do not share phones, which invalidates a persona claim carried in three docs (D74) · and "unassigned means nothing runs" was not true of the scheduler, so D78 needs a real code change rather than none.
-
-## What changed in version 2.0
-
-Reconciled against all 63 decisions. **F23 (shift handover) is removed** — it is reassignment (D34). Compound requirements were split so each can be cut independently (F15a/b, F24a/b/c, F25a/b, F33a/b). **Eighteen requirements were added** that the decisions created but the list never captured — including both prerequisites, runner identity, camera-only, template versioning, areas, starter routines, rule management, and the people-lifecycle items. Every requirement now carries what the operator loses without it, and the tags were replaced with a cut order ranked by user-miss rather than by build cost.
+Moved to [history/02-requirements-version-history.md](history/02-requirements-version-history.md) on 2026-09-05. The current version number is in this file's frontmatter.
